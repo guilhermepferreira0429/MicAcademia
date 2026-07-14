@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const quizAssignedEmail = defineEmail({
   id: 'quizAssigned',
-  subject: 'You have a quiz to complete',
+  subject: 'Tens um questionário para concluir',
   schema: z.object({
     orgName: z.string().min(1),
     courseName: z.string().min(1),
@@ -16,12 +16,12 @@ export const quizAssignedEmail = defineEmail({
   }),
   render: (fields) => {
     const content = `
-      <p>Hi there,</p>
-      <p>A quiz — <strong>${fields.exerciseTitle}</strong> — has been assigned to you in <strong>${fields.courseName}</strong> at <strong>${fields.orgName}</strong>.</p>
+      <p>Olá,</p>
+      <p>Foi-te atribuído um questionário — <strong>${fields.exerciseTitle}</strong> — em <strong>${fields.courseName}</strong> na <strong>${fields.orgName}</strong>.</p>
       <div>
-        <a class="button" href="${fields.quizUrl}">Take the quiz</a>
+        <a class="button" href="${fields.quizUrl}">Fazer o questionário</a>
       </div>
-      <p>Cheers,</p>
+      <p>Cumprimentos,</p>
       <p>${fields.orgName}</p>
     `;
 

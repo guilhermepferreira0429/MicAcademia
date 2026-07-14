@@ -5,7 +5,7 @@ import { getDefaultTemplate } from '../templates';
 
 export const studentLimitApproachingEmail = defineEmail({
   id: 'studentLimitApproaching',
-  subject: "You're approaching your Free plan student limit",
+  subject: 'Estás a aproximar-te do limite de alunos do plano Free',
   schema: z.object({
     orgName: z.string().min(1),
     studentCount: z.number(),
@@ -14,10 +14,10 @@ export const studentLimitApproachingEmail = defineEmail({
   }),
   render: (fields) => {
     const content = `
-      <p>Hi there,</p>
-      <p><strong>${fields.orgName}</strong> now has ${fields.studentCount} of the ${fields.studentLimit} students included on the Free plan — about halfway to the limit. Once you reach it, new students can't enrol, accept invites, or be added until you upgrade.</p>
+      <p>Olá,</p>
+      <p><strong>${fields.orgName}</strong> tem agora ${fields.studentCount} dos ${fields.studentLimit} alunos incluídos no plano Free — cerca de metade do limite. Assim que o atingires, não será possível inscrever novos alunos, aceitar convites ou adicioná-los até fazeres o upgrade.</p>
       <div>
-        <a class="button" href="${fields.upgradeUrl}">Upgrade your plan</a>
+        <a class="button" href="${fields.upgradeUrl}">Fazer upgrade do plano</a>
       </div>
     `;
 

@@ -148,13 +148,13 @@ export const getDefaultTemplate = (content: string, branding?: EmailBranding): s
       color:#94a3b8;
       padding:24px 30px;
       border-top:1px solid #f0f0f0;">
-      ClassroomIO ${new Date().getFullYear()}. All rights reserved.
+      ClassroomIO ${new Date().getFullYear()}. Todos os direitos reservados.
       <br />
-      <a href="https://classroomio.com" style="color:#94a3b8;text-decoration:none;">Website</a>
+      <a href="https://classroomio.com" style="color:#94a3b8;text-decoration:none;">Site</a>
       &nbsp;&middot;&nbsp;
-      <a href="https://classroomio.com/tos" style="color:#94a3b8;text-decoration:none;">Terms</a>
+      <a href="https://classroomio.com/tos" style="color:#94a3b8;text-decoration:none;">Termos</a>
       &nbsp;&middot;&nbsp;
-      <a href="https://classroomio.com/privacy" style="color:#94a3b8;text-decoration:none;">Privacy</a>
+      <a href="https://classroomio.com/privacy" style="color:#94a3b8;text-decoration:none;">Privacidade</a>
     </div>
   </div>
 </body>

@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const submissionReceivedEmail = defineEmail({
   id: 'submissionReceived',
-  subject: 'New exercise submission',
+  subject: 'Nova submissão de exercício',
   schema: z.object({
     orgName: z.string().min(1),
     studentName: z.string().min(1),
@@ -17,11 +17,11 @@ export const submissionReceivedEmail = defineEmail({
   }),
   render: (fields) => {
     const content = `
-      <p>Hello,</p>
-      <p>A student <strong>${fields.studentName}</strong> just submitted an exercise <a href="${fields.exerciseLink}">${fields.exerciseTitle}</a>.</p>
-      <p>You can get started grading by clicking "Open Submissions".</p>
+      <p>Olá,</p>
+      <p>O aluno <strong>${fields.studentName}</strong> acabou de submeter um exercício <a href="${fields.exerciseLink}">${fields.exerciseTitle}</a>.</p>
+      <p>Podes começar a avaliar carregando em "Abrir submissões".</p>
       <div>
-        <a class="button" href="${fields.submissionLink}">Open Submissions</a>
+        <a class="button" href="${fields.submissionLink}">Abrir submissões</a>
       </div>
     `;
 

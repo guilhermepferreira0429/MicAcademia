@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const studentCourseCompletionEmail = defineEmail({
   id: 'studentCourseCompletion',
-  subject: 'Congratulations — you completed the course requirements',
+  subject: 'Parabéns — concluíste os requisitos do curso',
   schema: z.object({
     orgName: z.string().min(1),
     courseName: z.string().min(1),
@@ -22,12 +22,12 @@ export const studentCourseCompletionEmail = defineEmail({
         : '';
 
     const content = `
-      <p>Hi ${fields.studentName},</p>
-      <p>Congratulations! You have met the completion requirements for <strong>${fields.courseName}</strong>.</p>
+      <p>Olá ${fields.studentName},</p>
+      <p>Parabéns! Cumpriste os requisitos de conclusão de <strong>${fields.courseName}</strong>.</p>
       ${customBlock}
-      <p><a href="${fields.certificateUrl}" style="display:inline-block;padding:10px 16px;background:#111827;color:#fff;text-decoration:none;border-radius:6px;">View your certificate</a></p>
-      <p>If the button does not work, copy and paste this link into your browser:<br/><span style="word-break:break-all;">${fields.certificateUrl}</span></p>
-      <p>Cheers,<br/>${fields.orgName}</p>
+      <p><a href="${fields.certificateUrl}" style="display:inline-block;padding:10px 16px;background:#111827;color:#fff;text-decoration:none;border-radius:6px;">Ver o teu certificado</a></p>
+      <p>Se o botão não funcionar, copia e cola este link no teu navegador:<br/><span style="word-break:break-all;">${fields.certificateUrl}</span></p>
+      <p>Cumprimentos,<br/>${fields.orgName}</p>
     `;
 
     return getDefaultTemplate(content, fields.branding);

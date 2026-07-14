@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const submissionGradedEmail = defineEmail({
   id: 'submissionGraded',
-  subject: 'Your exercise submission has been updated',
+  subject: 'A tua submissão de exercício foi atualizada',
   schema: z.object({
     orgName: z.string().min(1),
     studentName: z.string().min(1),
@@ -20,32 +20,32 @@ export const submissionGradedEmail = defineEmail({
   }),
   render: (fields) => {
     let content = `
-      <p>Hello ${fields.studentName},</p>
-      <p>The status of your submitted exercise on <strong>${fields.exerciseTitle}</strong> has been updated to <strong>${fields.statusText}</strong>.</p>
+      <p>Olá ${fields.studentName},</p>
+      <p>O estado do exercício que submeteste sobre <strong>${fields.exerciseTitle}</strong> foi atualizado para <strong>${fields.statusText}</strong>.</p>
     `;
 
     if (fields.score) {
       content += `
-        <p>Your score was <strong>${fields.score}</strong>.</p>
+        <p>A tua pontuação foi <strong>${fields.score}</strong>.</p>
         <div>
-          <a class="button" href="${fields.exerciseLink}">View your result</a>
+          <a class="button" href="${fields.exerciseLink}">Ver o teu resultado</a>
         </div>
       `;
     } else {
       content += `
         <div>
-          <a class="button" href="${fields.exerciseLink}">Open exercise</a>
+          <a class="button" href="${fields.exerciseLink}">Abrir exercício</a>
         </div>
       `;
     }
 
     if (fields.lessonTitle) {
       content += `
-        <p>This exercise is for <strong>${fields.lessonTitle}</strong> in a course you are taking titled <strong>${fields.courseName}</strong>.</p>
+        <p>Este exercício é referente a <strong>${fields.lessonTitle}</strong> num curso que estás a frequentar intitulado <strong>${fields.courseName}</strong>.</p>
       `;
     } else {
       content += `
-        <p>This exercise is in a course you are taking titled <strong>${fields.courseName}</strong>.</p>
+        <p>Este exercício faz parte de um curso que estás a frequentar intitulado <strong>${fields.courseName}</strong>.</p>
       `;
     }
 

@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const cohortGoalReminderEmail = defineEmail({
   id: 'cohortGoalReminder',
-  subject: 'Reminder: a cohort goal is due soon',
+  subject: 'Lembrete: um objetivo do grupo está a chegar ao prazo',
   schema: z.object({
     orgName: z.string().min(1),
     cohortName: z.string().min(1),
@@ -20,20 +20,20 @@ export const cohortGoalReminderEmail = defineEmail({
   render: (fields) => {
     const dueLine =
       fields.daysUntilDue <= 0
-        ? `<p>This goal is now <strong>overdue</strong>.</p>`
+        ? `<p>Este objetivo está agora <strong>em atraso</strong>.</p>`
         : fields.daysUntilDue === 1
-          ? `<p>This goal is due <strong>tomorrow</strong>.</p>`
-          : `<p>This goal is due in <strong>${fields.daysUntilDue} days</strong>.</p>`;
+          ? `<p>Este objetivo termina <strong>amanhã</strong>.</p>`
+          : `<p>Este objetivo termina dentro de <strong>${fields.daysUntilDue} dias</strong>.</p>`;
 
-    const progress = `${fields.completedCount} of ${fields.requiredCount} courses completed`;
+    const progress = `${fields.completedCount} de ${fields.requiredCount} cursos concluídos`;
 
     const content = `
-      <p>Hi there,</p>
-      <p>This is a reminder that the goal <strong>${fields.goalTitle}</strong> in your program <strong>${fields.cohortName}</strong> at ${fields.orgName} needs your attention.</p>
+      <p>Olá,</p>
+      <p>Este é um lembrete de que o objetivo <strong>${fields.goalTitle}</strong> no teu grupo <strong>${fields.cohortName}</strong> em ${fields.orgName} precisa da tua atenção.</p>
       ${dueLine}
-      <p>Your progress so far: <strong>${progress}</strong>.</p>
-      <p><a href="${fields.loginUrl}">Open the LMS</a> to keep going.</p>
-      <p>Cheers,</p>
+      <p>O teu progresso até agora: <strong>${progress}</strong>.</p>
+      <p><a href="${fields.loginUrl}">Abre o LMS</a> para continuares.</p>
+      <p>Até já,</p>
       <p>${fields.orgName}</p>
     `;
 

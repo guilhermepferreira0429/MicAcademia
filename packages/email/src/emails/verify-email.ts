@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const verifyEmailEmail = defineEmail({
   id: 'verifyEmail',
-  subject: 'Action Required: Confirm your email',
+  subject: 'Ação necessária: confirma o teu email',
   schema: z.object({
     link: z.url(),
     newEmail: z.email().optional(),
@@ -16,28 +16,28 @@ export const verifyEmailEmail = defineEmail({
   }),
   render: (fields) => {
     const isEmailChange = !!fields.newEmail;
-    const userName = fields.userName || 'there';
+    const userName = fields.userName || 'olá';
     const hasOrgBranding = Boolean(fields.branding?.orgName);
     const welcomeLine = hasOrgBranding
-      ? `Welcome to ${fields.orgName}! In order to get your account ready for usage, we need to verify your email.`
-      : 'Welcome! In order to get your account ready for usage, we need to verify your email.';
+      ? `Bem-vindo a ${fields.orgName}! Para deixar a tua conta pronta a usar, precisamos de verificar o teu email.`
+      : 'Bem-vindo! Para deixar a tua conta pronta a usar, precisamos de verificar o teu email.';
 
     const content = isEmailChange
       ? `
-    <p><strong>Hey ${userName} 👋</strong></p>
-    <p>You have requested to change your email address to <strong>${fields.newEmail}</strong>.</p>
-    <p>To approve this change, please click the button below:</p>
+    <p><strong>Olá ${userName} 👋</strong></p>
+    <p>Solicitaste a alteração do teu endereço de email para <strong>${fields.newEmail}</strong>.</p>
+    <p>Para aprovar esta alteração, clica no botão abaixo:</p>
     <div>
-      <a class="button" href="${fields.link}">Approve Email Change</a>
+      <a class="button" href="${fields.link}">Aprovar alteração de email</a>
     </div>
-    <p>If you did not request this change, please ignore this email.</p>
+    <p>Se não solicitaste esta alteração, ignora este email.</p>
   `
       : `
-    <p><strong>Hey ${userName} 👋</strong></p>
+    <p><strong>Olá ${userName} 👋</strong></p>
     <p>${welcomeLine}</p>
-    <p>We do this to make sure we don't get fake user emails in our signup. To get the best out of our product, we'll need you to verify your email by clicking the <strong>Verify</strong> button below.</p>
+    <p>Fazemos isto para garantir que não recebemos emails de utilizadores falsos no nosso registo. Para tirares o máximo partido do nosso produto, vamos precisar que verifiques o teu email clicando no botão <strong>Verificar</strong> abaixo.</p>
     <div>
-      <a class="button" href="${fields.link}">Verify</a>
+      <a class="button" href="${fields.link}">Verificar</a>
     </div>
   `;
 

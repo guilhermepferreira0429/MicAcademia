@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const teacherStudentBuyRequestEmail = defineEmail({
   id: 'teacherStudentBuyRequest',
-  subject: 'Request to Join Course!',
+  subject: 'Pedido para entrar no curso!',
   schema: z.object({
     courseName: z.string().min(1),
     studentEmail: z.string().email(),
@@ -15,11 +15,11 @@ export const teacherStudentBuyRequestEmail = defineEmail({
   }),
   render: (fields) => {
     const content = `
-      <p>Hi amazing tutor,</p>
-      <p>A new student has requested to join a course you are teaching: "${fields.courseName}"</p>
-      <p style="font-weight: bold;">Student details</p>
+      <p>Olá, estimado tutor,</p>
+      <p>Um novo aluno pediu para entrar num curso que estás a lecionar: "${fields.courseName}"</p>
+      <p style="font-weight: bold;">Dados do aluno</p>
       <p>
-        Name: ${fields.studentFullname}<br />
+        Nome: ${fields.studentFullname}<br />
         Email: ${fields.studentEmail}
       </p>
     `;

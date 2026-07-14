@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const sessionReminderEmail = defineEmail({
   id: 'sessionReminder',
-  subject: 'Reminder: your live session is coming up',
+  subject: 'Lembrete: a tua sessão em direto está a aproximar-se',
   schema: z.object({
     orgName: z.string().min(1),
     courseName: z.string().min(1),
@@ -18,13 +18,13 @@ export const sessionReminderEmail = defineEmail({
   }),
   render: (fields) => {
     const content = `
-      <p>Hi there,</p>
-      <p>Your live session <strong>${fields.sessionTitle}</strong> in <strong>${fields.courseName}</strong> starts <strong>${fields.whenLabel}</strong>.</p>
-      <p><strong>When:</strong> ${fields.sessionTimeLabel}</p>
+      <p>Olá,</p>
+      <p>A tua sessão em direto <strong>${fields.sessionTitle}</strong> em <strong>${fields.courseName}</strong> começa <strong>${fields.whenLabel}</strong>.</p>
+      <p><strong>Quando:</strong> ${fields.sessionTimeLabel}</p>
       <div>
-        <a class="button" href="${fields.joinUrl}">Join the session</a>
+        <a class="button" href="${fields.joinUrl}">Entrar na sessão</a>
       </div>
-      <p>See you there,</p>
+      <p>Até já,</p>
       <p>${fields.orgName}</p>
     `;
 
@@ -34,7 +34,7 @@ export const sessionReminderEmail = defineEmail({
 
 export const sessionUpdatedEmail = defineEmail({
   id: 'sessionUpdated',
-  subject: 'Updated: your live session details changed',
+  subject: 'Atualização: os detalhes da tua sessão em direto mudaram',
   schema: z.object({
     orgName: z.string().min(1),
     courseName: z.string().min(1),
@@ -45,14 +45,14 @@ export const sessionUpdatedEmail = defineEmail({
   }),
   render: (fields) => {
     const content = `
-      <p>Hi there,</p>
-      <p>The live session <strong>${fields.sessionTitle}</strong> in <strong>${fields.courseName}</strong> has been updated.</p>
-      <p><strong>New time:</strong> ${fields.sessionTimeLabel}</p>
-      <p>The attached calendar invite will update the event already on your calendar.</p>
+      <p>Olá,</p>
+      <p>A sessão em direto <strong>${fields.sessionTitle}</strong> em <strong>${fields.courseName}</strong> foi atualizada.</p>
+      <p><strong>Novo horário:</strong> ${fields.sessionTimeLabel}</p>
+      <p>O convite de calendário em anexo vai atualizar o evento que já está no teu calendário.</p>
       <div>
-        <a class="button" href="${fields.joinUrl}">Join the session</a>
+        <a class="button" href="${fields.joinUrl}">Entrar na sessão</a>
       </div>
-      <p>Cheers,</p>
+      <p>Cumprimentos,</p>
       <p>${fields.orgName}</p>
     `;
 

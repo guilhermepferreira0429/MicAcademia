@@ -5,25 +5,25 @@ import { getDefaultTemplate } from '../templates';
 
 export const welcomeEmail = defineEmail({
   id: 'welcome',
-  subject: 'Welcome to ClassroomIO!',
+  subject: 'Bem-vindo ao ClassroomIO!',
   schema: z.object({
     name: z.string().min(1)
   }),
   render: (fields) => {
     const content = `
-    <p>Dear ${fields.name},</p>
-    <p>My name is Best, the founder of ClassroomIO. I saw you signed up, any questions so far?</p>
+    <p>Olá ${fields.name},</p>
+    <p>O meu nome é Best, sou o fundador do ClassroomIO. Vi que te registaste, tens alguma dúvida até agora?</p>
     <p>
-     Would you like to get a walkthrough of the platform in a 30 minutes product demo? It's free and we won't try to sell you anything, just want to learn from your use case and show you all the cool features and flows we thought about.
+     Gostavas de ver uma apresentação da plataforma numa demonstração do produto de 30 minutos? É gratuita e não vamos tentar vender-te nada, apenas queremos conhecer o teu caso de utilização e mostrar-te todas as funcionalidades e fluxos fixes que preparámos.
     </p>
     <p>
-      Interested? just book a 30-minute demo slot in our calendar!
+      Interessado? Basta reservar um horário de 30 minutos para a demonstração no nosso calendário!
     </p>
     <div>
-      <a class="button" href="https://classroomio.com/demo">Book demo</a>
+      <a class="button" href="https://classroomio.com/demo">Reservar demonstração</a>
     </div>
     <p>
-      PS: I reply personally to every email. We don't have an outsourced support team at the other end of the globe.. ;-)
+      PS: respondo pessoalmente a todos os emails. Não temos uma equipa de apoio subcontratada do outro lado do mundo.. ;-)
     </p>
   `;
 

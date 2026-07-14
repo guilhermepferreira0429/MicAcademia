@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const studentProvePaymentEmail = defineEmail({
   id: 'studentProvePayment',
-  subject: 'One more step left',
+  subject: 'Falta apenas um passo',
   schema: z.object({
     courseName: z.string().min(1),
     teacherEmail: z.email(),
@@ -16,10 +16,10 @@ export const studentProvePaymentEmail = defineEmail({
   }),
   render: (fields) => {
     const content = `
-      <p>Hi ${fields.studentFullname},</p>
-      <p>You are one step closer to joining: <strong>${fields.courseName}</strong></p>
-      <p>Please send your proof of payment to: <strong>${fields.teacherEmail}</strong>, in order to join the course.</p>
-      <p>Talk to you soon and see you in class.</p>
+      <p>Olá ${fields.studentFullname},</p>
+      <p>Estás a um passo de te juntares a: <strong>${fields.courseName}</strong></p>
+      <p>Envia o teu comprovativo de pagamento para: <strong>${fields.teacherEmail}</strong>, para poderes juntar-te ao curso.</p>
+      <p>Falamos em breve e vemo-nos nas aulas.</p>
       <p>${fields.orgName}</p>
     `;
 

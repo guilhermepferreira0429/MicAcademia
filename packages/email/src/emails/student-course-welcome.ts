@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const studentCourseWelcomeEmail = defineEmail({
   id: 'studentCourseWelcome',
-  subject: (fields) => `You have access to ${fields.courseName} course`,
+  subject: (fields) => `Tens acesso ao curso ${fields.courseName}`,
   schema: z.object({
     orgName: z.string().min(1),
     courseName: z.string().min(1),
@@ -20,16 +20,16 @@ export const studentCourseWelcomeEmail = defineEmail({
     const intro = hasCustomMessage
       ? fields.customMessage
       : `
-      <p>Hi there,</p>
-      <p>You now have access to <strong>${fields.courseName}</strong> in <strong>${fields.orgName}</strong>.</p>
-      <p>If you run into any issues, reach out to your instructor(s).</p>
-      <p>Cheers,</p>
+      <p>Olá,</p>
+      <p>Passaste a ter acesso a <strong>${fields.courseName}</strong> em <strong>${fields.orgName}</strong>.</p>
+      <p>Se tiveres algum problema, contacta o teu ou a tua formador(a).</p>
+      <p>Cumprimentos,</p>
       <p>${fields.orgName}</p>
     `;
 
     const content = `
       ${intro}
-      <p><a href="${fields.loginUrl}">Sign in to the LMS</a> to open the course and start learning.</p>
+      <p><a href="${fields.loginUrl}">Inicia sessão no LMS</a> para abrir o curso e começar a aprender.</p>
     `;
 
     return getDefaultTemplate(content, fields.branding);

@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const studentCohortWelcomeEmail = defineEmail({
   id: 'studentCohortWelcome',
-  subject: 'You have access to a cohort — sign in to get started',
+  subject: 'Tens acesso a uma turma — inicia sessão para começar',
   schema: z.object({
     orgName: z.string().min(1),
     cohortName: z.string().min(1),
@@ -15,11 +15,11 @@ export const studentCohortWelcomeEmail = defineEmail({
   }),
   render: (fields) => {
     const content = `
-      <p>Hi there,</p>
-      <p>You now have access to <strong>${fields.cohortName}</strong> in <strong>${fields.orgName}</strong>.</p>
-      <p><a href="${fields.loginUrl}">Sign in to the LMS</a> to open the cohort and start learning.</p>
-      <p>If you run into any issues, reach out to your instructor(s).</p>
-      <p>Cheers,</p>
+      <p>Olá,</p>
+      <p>Passaste a ter acesso a <strong>${fields.cohortName}</strong> em <strong>${fields.orgName}</strong>.</p>
+      <p><a href="${fields.loginUrl}">Inicia sessão no LMS</a> para abrir a turma e começar a aprender.</p>
+      <p>Se tiveres algum problema, contacta o(s) teu(s) formador(es).</p>
+      <p>Cumprimentos,</p>
       <p>${fields.orgName}</p>
     `;
 

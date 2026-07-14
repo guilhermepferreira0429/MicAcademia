@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const studentCourseInviteEmail = defineEmail({
   id: 'studentCourseInvite',
-  subject: 'You are invited to join a course',
+  subject: 'Foste convidado a juntar-te a um curso',
   schema: z.object({
     orgName: z.string().min(1),
     courseName: z.string().min(1),
@@ -16,11 +16,11 @@ export const studentCourseInviteEmail = defineEmail({
   }),
   render: (fields) => {
     const content = `
-      <p>Hi there,</p>
-      <p>You have been invited to join <strong>${fields.courseName}</strong> on ${fields.orgName}.</p>
-      <p>This invitation expires at <strong>${fields.expiresAt}</strong>.</p>
+      <p>Olá,</p>
+      <p>Foste convidado a juntar-te a <strong>${fields.courseName}</strong> em ${fields.orgName}.</p>
+      <p>Este convite expira em <strong>${fields.expiresAt}</strong>.</p>
       <div>
-        <a class="button" href="${fields.inviteLink}">Join Course</a>
+        <a class="button" href="${fields.inviteLink}">Juntar-me ao curso</a>
       </div>
     `;
 

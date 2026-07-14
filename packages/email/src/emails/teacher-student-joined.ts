@@ -6,7 +6,7 @@ import { ZEmailBranding } from '../core/branding';
 
 export const teacherStudentJoinedEmail = defineEmail({
   id: 'teacherStudentJoined',
-  subject: "You've got a new student 🎉!",
+  subject: 'Tens um novo aluno 🎉!',
   schema: z.object({
     courseName: z.string().min(1),
     studentName: z.string().min(1),
@@ -15,10 +15,10 @@ export const teacherStudentJoinedEmail = defineEmail({
   }),
   render: (fields) => {
     const content = `
-      <p>Hi amazing tutor,</p>
-      <p>Congratulations 🎉, a new student: <strong>${fields.studentName} (${fields.studentEmail})</strong> has joined a course you are teaching: ${fields.courseName}</p>
-      <p>We hope they have a great experience learning from the best (YOU).</p>
-      <p>If you run into any issues, please don't fail to reach out to us, we'd love to make your teaching experience as easy as possible.</p>
+      <p>Olá, formador incrível,</p>
+      <p>Parabéns 🎉, um novo aluno: <strong>${fields.studentName} (${fields.studentEmail})</strong> inscreveu-se num curso que estás a lecionar: ${fields.courseName}</p>
+      <p>Esperamos que tenha uma ótima experiência a aprender com o melhor (TU).</p>
+      <p>Se te deparares com algum problema, não hesites em contactar-nos. Adoraríamos tornar a tua experiência de ensino o mais simples possível.</p>
     `;
 
     return getDefaultTemplate(content, fields.branding);
