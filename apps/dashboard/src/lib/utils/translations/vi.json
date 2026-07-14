@@ -1,4 +1,36 @@
 {
+  "easypay": {
+    "title": "Complete your payment",
+    "subtitle": "Enrol in this course for {amount}",
+    "processing": "Processing…",
+    "pay_button": "Pay {amount}",
+    "phone_label": "MB WAY phone number",
+    "phone_required": "Enter your MB WAY phone number",
+    "login_required": "You need to sign in to enrol and pay for this course.",
+    "retry": "Try again",
+    "method": {
+      "multibanco": "Multibanco",
+      "mbway": "MB WAY"
+    },
+    "multibanco": {
+      "entity": "Entity",
+      "reference": "Reference",
+      "amount": "Amount",
+      "waiting": "We're waiting for your Multibanco payment. This page updates automatically once it's confirmed."
+    },
+    "mbway": {
+      "sent": "We've sent a payment request to {phone}. Confirm it in your MB WAY app.",
+      "waiting": "Waiting for confirmation. This page updates automatically."
+    },
+    "success": {
+      "title": "Payment confirmed!",
+      "message": "You're enrolled. Taking you to the course…"
+    },
+    "error": {
+      "title": "Payment could not be completed",
+      "message": "Something went wrong with your payment. Please try again."
+    }
+  },
   "common": {
     "refresh": "Làm mới",
     "unsaved_changes": {

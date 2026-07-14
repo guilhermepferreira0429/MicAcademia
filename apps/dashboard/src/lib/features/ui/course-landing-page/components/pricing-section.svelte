@@ -7,7 +7,7 @@
   import { goto } from '$app/navigation';
   import { SafeHtmlContent } from '@cio/ui/custom/safe-html-content';
   import HTMLRender from '$features/ui/html-render.svelte';
-  import PaymentModal from './payment-modal.svelte';
+  import EasypayPaymentModal from './easypay-payment-modal.svelte';
   import type { Course } from '$features/course/utils/types';
   import { capturePosthogEvent } from '$lib/utils/services/posthog';
   import { t } from '$lib/utils/functions/translations';
@@ -70,10 +70,11 @@
   });
 </script>
 
-<PaymentModal
+<EasypayPaymentModal
   bind:open={openModal}
-  paymentLink={get(courseData, 'metadata.paymentLink', '')}
   courseId={courseData.id}
+  amount={calculatedCost}
+  currency={courseData.currency}
 />
 
 <!-- Pricing Details -->

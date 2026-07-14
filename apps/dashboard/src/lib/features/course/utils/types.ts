@@ -112,6 +112,15 @@ export type CreatePaymentRequestResponse = InferResponseType<CreatePaymentReques
 export type CreatePaymentRequestSuccess = Extract<CreatePaymentRequestResponse, { success: true }>;
 export type PaymentRequestData = CreatePaymentRequestSuccess['data'];
 
+// EasyPay (Multibanco / MB WAY) checkout + verify types
+export type CreateEasypayCheckoutRequest = (typeof classroomio.course)[':courseId']['easypay']['checkout']['$post'];
+export type CreateEasypayCheckoutResponse = InferResponseType<CreateEasypayCheckoutRequest>;
+export type EasypayCheckoutData = Extract<CreateEasypayCheckoutResponse, { success: true }>['data'];
+
+export type VerifyEasypayRequest = (typeof classroomio.course)[':courseId']['easypay']['verify']['$get'];
+export type VerifyEasypayResponse = InferResponseType<VerifyEasypayRequest>;
+export type VerifyEasypayData = Extract<VerifyEasypayResponse, { success: true }>['data'];
+
 // Get lesson completion types
 export type GetLessonCompletionRequest =
   (typeof classroomio.course)[':courseId']['lesson'][':lessonId']['completion']['$get'];

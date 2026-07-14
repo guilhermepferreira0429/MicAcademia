@@ -37,6 +37,16 @@ export const ZMediaJobReapPayload = z.object({
 });
 export type TMediaJobReapPayload = z.infer<typeof ZMediaJobReapPayload>;
 
+/**
+ * Re-check pending/failed EasyPay course payments against EasyPay's live status
+ * — a safety net for lost payment webhooks. `windowHours` bounds how far back
+ * to scan (default 7 days).
+ */
+export const ZEasypayReconcilePayload = z.object({
+  windowHours: z.number().int().positive().default(168)
+});
+export type TEasypayReconcilePayload = z.infer<typeof ZEasypayReconcilePayload>;
+
 const ZBucketKey = z.object({ bucket: z.string().min(1), key: z.string().min(1) });
 const ZBucketPrefix = z.object({ bucket: z.string().min(1), prefix: z.string().min(1) });
 

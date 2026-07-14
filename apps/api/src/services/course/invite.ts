@@ -723,6 +723,87 @@ export async function enrollInCourse(
 }
 
 /**
+ * Grants course access after a confirmed payment (EasyPay). Mirrors the grant
+ * tail of enrollInCourse but skips the cost guard — payment is already
+ * confirmed. Idempotent: if the student is already a member it just ensures
+ * compliance records and returns, so it is safe to call from both the payment
+ * webhook and the reconciliation job.
+ */
+export async function grantCourseAccessForPayment(input: {
+  courseId: string;
+  profileId: string;
+  email: string;
+}): Promise<{ alreadyJoined: boolean }> {
+  const { courseId, profileId } = input;
+
+  const courseWithRelations = await getCourseWithRelations(courseId);
+  if (!courseWithRelations) {
+    throw new AppError('Course not found', ErrorCodes.COURSE_NOT_FOUND, 404);
+  }
+
+  const { groupId, title } = courseWithRelations;
+  const org = courseWithRelations.org;
+  if (!groupId || !org) {
+    throw new AppError('Course not found', ErrorCodes.COURSE_NOT_FOUND, 404);
+  }
+
+  const normalizedEmail = input.email.toLowerCase().trim();
+
+  const existingMemberId = await getGroupMemberIdByGroupAndProfile(groupId, profileId);
+  if (existingMemberId) {
+    await ensureComplianceEnrollmentRecordsForProfiles([courseId], [profileId]);
+
+    return { alreadyJoined: true };
+  }
+
+  const orgMemberId = await getOrganizationMemberIdByOrgAndProfile(org.id, profileId);
+  if (!orgMemberId) {
+    await assertStudentCapacityOrThrow(org.id, 1);
+
+    await createOrganizationMember({
+      organizationId: org.id,
+      roleId: ROLE.STUDENT,
+      profileId,
+      email: normalizedEmail,
+      verified: true
+    });
+  }
+
+  await addGroupMember({
+    groupId,
+    roleId: ROLE.STUDENT,
+    profileId,
+    email: normalizedEmail
+  });
+
+  await ensureComplianceEnrollmentRecordsForProfiles([courseId], [profileId]);
+
+  const courseMetadata = (courseWithRelations.metadata as { welcomeEmailMessage?: string | null } | null) ?? null;
+
+  await sendStudentJoinEmails({
+    courseId,
+    courseName: title,
+    orgName: org.name,
+    organizationId: org.id,
+    org: { siteName: org.siteName, customDomain: org.customDomain, isCustomDomainVerified: org.isCustomDomainVerified },
+    branding: buildEmailBranding({ name: org.name, avatarUrl: org.avatarUrl, theme: org.theme }),
+    studentId: profileId,
+    studentEmail: normalizedEmail,
+    welcomeEmailMessage: courseMetadata?.welcomeEmailMessage
+  });
+
+  trackServerEvent({
+    eventType: SERVER_EVENTS.ENROLLMENT_COMPLETED,
+    orgId: org.id,
+    userId: profileId,
+    courseId,
+    props: { path: 'easypay-payment' }
+  });
+
+  return { alreadyJoined: false };
+}
+
+/**
  * Lists secure invites for a course, enriched with activity stats.
  */
 export async function listStudentInvites(courseId: string) {

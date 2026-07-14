@@ -3335,6 +3335,71 @@ export const aiCreditPurchase = pgTable(
   ]
 );
 
+// ─── Course Payments (EasyPay: Multibanco + MB WAY) ──────────────────────────
+// A pending-payment enrollment record. Access is NOT granted while a payment is
+// pending — the groupmember row (which *is* course access) is only created when
+// EasyPay confirms payment. So `status='pending'` naturally blocks access via
+// every existing groupmember-existence check, with no changes to access gating.
+export const coursePayment = pgTable(
+  'course_payment',
+  {
+    id: uuid()
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    courseId: uuid('course_id').notNull(),
+    orgId: uuid('org_id').notNull(),
+    /** Nullable: a payer may not have a profile yet (paid via email pre-account). */
+    profileId: uuid('profile_id'),
+    email: varchar().notNull(),
+    fullname: varchar(),
+    provider: text().notNull().default('easypay'),
+    /** EasyPay payment id — set after the checkout call; unique for webhook idempotency. */
+    providerPaymentId: text('provider_payment_id'),
+    /** Our own key `MICA-ORD-<courseShort>-<ts>` — lets webhooks/reconcile match by key when the id doesn't. */
+    paymentKey: text('payment_key'),
+    /** 'multibanco' | 'mbway'. */
+    method: text().notNull(),
+    /** 'pending' | 'paid' | 'failed' | 'expired'. */
+    status: text().notNull().default('pending'),
+    amountCents: integer('amount_cents').notNull(),
+    currency: text().notNull().default('EUR'),
+    /** Multibanco reference details shown to the payer. */
+    mbEntity: text('mb_entity'),
+    mbReference: text('mb_reference'),
+    /** MB WAY phone (national number + indicative), stored for reference/retries. */
+    phone: varchar(),
+    phoneIndicative: varchar('phone_indicative'),
+    expiresAt: timestamp('expires_at', { withTimezone: true, mode: 'string' }),
+    paidAt: timestamp('paid_at', { withTimezone: true, mode: 'string' }),
+    failureReason: text('failure_reason'),
+    /** Raw EasyPay response / webhook payload for audit. */
+    payload: jsonb(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull()
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.courseId],
+      foreignColumns: [course.id],
+      name: 'course_payment_course_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.orgId],
+      foreignColumns: [organization.id],
+      name: 'course_payment_org_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.profileId],
+      foreignColumns: [profile.id],
+      name: 'course_payment_profile_id_fkey'
+    }),
+    unique('course_payment_provider_payment_id_key').on(table.providerPaymentId),
+    index('idx_course_payment_course_profile').on(table.courseId, table.profileId),
+    index('idx_course_payment_status_created').on(table.status, table.createdAt)
+  ]
+);
+
 // ─── AI Tutor Fair-Use ───────────────────────────────────────────────────────
 
 export const aiTutorMessageCount = pgTable(

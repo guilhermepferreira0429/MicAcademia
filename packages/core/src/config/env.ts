@@ -102,7 +102,20 @@ const envSchema = z.object({
   /** Max org landing page image upload size in megabytes (default 0.5). */
   UPLOAD_MAX_LANDING_IMAGE_MB: z.string().optional(),
   /** Max media thumbnail upload size in megabytes (default 5). */
-  UPLOAD_MAX_THUMBNAIL_MB: z.string().optional()
+  UPLOAD_MAX_THUMBNAIL_MB: z.string().optional(),
+  // ─── EasyPay (Portuguese payments: Multibanco + MB WAY) ────────────────────
+  /** Active course-payment provider. Currently only 'easypay'. */
+  PAYMENT_PROVIDER: z.string().optional(),
+  /** EasyPay environment: 'sandbox' (api.test.easypay.pt) or 'production' (api.prod.easypay.pt). Defaults to sandbox. */
+  EASYPAY_ENVIRONMENT: z.string().optional(),
+  /** EasyPay AccountId header. */
+  EASYPAY_ACCOUNT_ID: z.string().optional(),
+  /** EasyPay ApiKey header. */
+  EASYPAY_API_KEY: z.string().optional(),
+  /** Publicly reachable URL EasyPay POSTs payment notifications to. Must not be localhost/private (EasyPay rejects the checkout otherwise). */
+  EASYPAY_WEBHOOK_URL: z.string().optional(),
+  /** Shared secret appended as ?token= to the webhook URL and checked on inbound notifications (EasyPay does not HMAC-sign). */
+  EASYPAY_WEBHOOK_SECRET: z.string().optional()
 });
 
 export const env = envSchema.parse(process.env);

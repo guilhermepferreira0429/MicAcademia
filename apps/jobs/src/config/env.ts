@@ -31,7 +31,12 @@ const envSchema = z.object({
   AGENT_COURSE_GENERATION_WORKER_CONCURRENCY: z.string().optional(),
 
   /** Optional OpenAI key — when unset, transcribe-audio jobs no-op and OpenAI-backed agent runs fail config checks. */
-  OPENAI_API_KEY: z.string().optional()
+  OPENAI_API_KEY: z.string().optional(),
+
+  /** Base URL of the Hono API (e.g. http://localhost:3002) — used to trigger internal jobs like EasyPay reconcile. */
+  PUBLIC_SERVER_URL: z.string().optional(),
+  /** Shared server-to-server key; must match the API's PRIVATE_SERVER_KEY to call internal endpoints. */
+  PRIVATE_SERVER_KEY: z.string().optional()
 });
 
 export const env = envSchema.parse(process.env);

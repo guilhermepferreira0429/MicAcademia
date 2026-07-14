@@ -19,6 +19,7 @@ import { agentRouter } from '@api/routes/agent';
 import { auth } from '@cio/db/auth';
 import { communityRouter } from '@api/routes/community';
 import { courseRouter } from '@api/routes/course';
+import { webhooksRouter } from '@api/routes/webhooks';
 import { dashAnalyticsRouter } from '@api/routes/dash';
 import { domainRouter } from '@api/routes/domain/domain';
 import { internalRouter } from '@api/routes/internal';
@@ -234,6 +235,7 @@ export const app = new Hono()
   .route('/onboarding', onboardingRouter)
   .route('/account', accountRouter)
   .route('/course', courseRouter)
+  .route('/webhooks', webhooksRouter)
   .route('/domain', domainRouter)
   .route('/hls', hlsRouter)
   .route('/transcripts', transcriptsRouter)

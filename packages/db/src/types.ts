@@ -97,6 +97,9 @@ export type TNewExerciseSection = typeof schema.exerciseSection.$inferInsert;
 export type TGroupmember = typeof schema.groupmember.$inferSelect;
 export type TNewGroupmember = typeof schema.groupmember.$inferInsert;
 
+export type TCoursePayment = typeof schema.coursePayment.$inferSelect;
+export type TNewCoursePayment = typeof schema.coursePayment.$inferInsert;
+
 export type TCourseInvite = typeof schema.courseInvite.$inferSelect;
 export type TNewCourseInvite = typeof schema.courseInvite.$inferInsert;
 

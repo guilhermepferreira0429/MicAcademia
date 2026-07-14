@@ -59,6 +59,7 @@ import { newsfeedRouter } from '@api/routes/course/newsfeed';
 import { orgAdminMiddleware } from '@api/middlewares/org-admin';
 import { orgMemberMiddleware } from '@api/middlewares/org-member';
 import { paymentRequestRouter } from '@api/routes/course/payment-request';
+import { easypayRouter } from '@api/routes/course/easypay';
 import { presignRouter } from '@api/routes/course/presign';
 import { assertMcpAutomationUsageAllowed, recordMcpAutomationUsage } from '@api/services/organization/automation-usage';
 import { sectionRouter } from '@api/routes/course/section';
@@ -612,6 +613,7 @@ export const courseRouter = new Hono()
   )
   .route('/katex', katexRouter)
   .route('/:courseId/payment-request', paymentRequestRouter)
+  .route('/:courseId/easypay', easypayRouter)
   .route('/:courseId/content', contentRouter)
   .route('/:courseId/compliance', complianceRouter)
   .route('/:courseId/section', sectionRouter)

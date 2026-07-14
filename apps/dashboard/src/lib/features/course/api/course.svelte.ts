@@ -5,6 +5,8 @@ import type {
   CourseAnalytics,
   CreateCourseRequest,
   CreatePaymentRequestRequest,
+  CreateEasypayCheckoutRequest,
+  VerifyEasypayRequest,
   DeleteCourseRequest,
   EnrollCourseRequest,
   GetCourseAnalyticsRequest,
@@ -766,6 +768,37 @@ export class CourseApi extends BaseApiWithErrors {
           snackbar.error('Failed to send payment request');
         }
       }
+    });
+  }
+
+  /**
+   * Starts an EasyPay payment (Multibanco reference or MB WAY push) for a paid
+   * course. Returns the checkout data (reference / status) on success.
+   */
+  async createEasypayCheckout(
+    courseId: string,
+    body: { method: 'multibanco' | 'mbway'; phone?: string; fullname?: string; email?: string }
+  ) {
+    return this.execute<CreateEasypayCheckoutRequest>({
+      requestFn: () =>
+        classroomio.course[':courseId'].easypay.checkout.$post({
+          param: { courseId },
+          json: body
+        }),
+      logContext: 'creating EasyPay checkout',
+      onError: (result) => {
+        if (typeof result === 'object' && result !== null && 'error' in result) {
+          snackbar.error((result as { error: string }).error);
+        }
+      }
+    });
+  }
+
+  /** Polls the live EasyPay status for the user's payment on a course. */
+  async verifyEasypayPayment(courseId: string) {
+    return this.execute<VerifyEasypayRequest>({
+      requestFn: () => classroomio.course[':courseId'].easypay.verify.$get({ param: { courseId } }),
+      logContext: 'verifying EasyPay payment'
     });
   }
 }

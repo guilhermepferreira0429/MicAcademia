@@ -11,11 +11,13 @@ import {
   ZAnalyticsDailyRollupPayload,
   ZAssetStorageCleanupPayload,
   ZDeadLetterCleanupPayload,
+  ZEasypayReconcilePayload,
   ZMediaJobReapPayload,
   ZRetentionCompactPayload,
   createRedisConnection
 } from '@cio/jobs';
 
+import { env } from '../config/env';
 import { errorMessage } from '../utils/cancel';
 import { log } from '../utils/logger';
 
@@ -75,6 +77,38 @@ const worker = new Worker(
       return result;
     }
 
+    if (job.name === JOB_NAMES.maintenance.easypayReconcile) {
+      // The grant logic lives in the API (apps/api can't be imported here), so
+      // this job triggers the API's internal reconcile endpoint over HTTP.
+      const data = ZEasypayReconcilePayload.parse(job.data ?? {});
+      const apiUrl = env.PUBLIC_SERVER_URL?.replace(/\/$/, '');
+      const key = env.PRIVATE_SERVER_KEY;
+
+      if (!apiUrl || !key) {
+        log.warn('easypay-reconcile-skip', { reason: 'PUBLIC_SERVER_URL or PRIVATE_SERVER_KEY not set' });
+        return { skipped: true };
+      }
+
+      try {
+        const response = await fetch(`${apiUrl}/internal/payments/easypay/reconcile?windowHours=${data.windowHours}`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' }
+        });
+        const body = (await response.json().catch(() => ({}))) as { data?: unknown };
+
+        if (!response.ok) {
+          log.error('easypay-reconcile-http-error', { status: response.status });
+          return { ok: false, status: response.status };
+        }
+
+        log.info('easypay-reconcile-done', (body?.data as Record<string, unknown>) ?? {});
+        return body?.data ?? {};
+      } catch (err) {
+        log.error('easypay-reconcile-failed', { error: errorMessage(err) });
+        return { ok: false };
+      }
+    }
+
     throw new Error(`Unknown maintenance job: ${job.name}`);
   },
   { connection, concurrency: 1 }
@@ -86,6 +120,7 @@ const worker = new Worker(
  * boot. Without this, stuck `media_job` rows would never get cleaned up.
  */
 const MEDIA_JOB_REAP_INTERVAL_MS = 5 * 60 * 1_000;
+const EASYPAY_RECONCILE_INTERVAL_MS = 5 * 60 * 1_000;
 // BullMQ requires a dedicated connection per Worker; give the Queue its own
 // so the scheduler upsert doesn't piggyback on the worker's blocking client.
 const schedulerConnection = createRedisConnection();
@@ -111,6 +146,16 @@ async function registerSchedulers(): Promise<void> {
     log.info('analytics-rollup-scheduler-registered', {
       name: JOB_NAMES.maintenance.analyticsDailyRollup,
       everyMs: 86_400_000
+    });
+
+    await maintenanceQueue.upsertJobScheduler(
+      'easypay-reconcile-scheduler',
+      { every: EASYPAY_RECONCILE_INTERVAL_MS },
+      { name: JOB_NAMES.maintenance.easypayReconcile, data: {} }
+    );
+    log.info('easypay-reconcile-scheduler-registered', {
+      name: JOB_NAMES.maintenance.easypayReconcile,
+      everyMs: EASYPAY_RECONCILE_INTERVAL_MS
     });
   } catch (err) {
     log.error('maintenance-scheduler-register-failed', { error: errorMessage(err) });
