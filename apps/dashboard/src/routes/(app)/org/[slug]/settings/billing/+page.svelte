@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-  <title>Billing - ClassroomIO</title>
+  <title>Billing - MicAcademia</title>
 </svelte:head>
 
 <Page.Header>

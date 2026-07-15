@@ -23,7 +23,7 @@
 </script>
 
 <svelte:head>
-  <title>Custom domain - ClassroomIO</title>
+  <title>Custom domain - MicAcademia</title>
 </svelte:head>
 
 <DomainsPage />

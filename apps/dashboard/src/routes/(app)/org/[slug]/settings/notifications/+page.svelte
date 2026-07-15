@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-  <title>{t.get('settings.notifications.page_title')} - ClassroomIO</title>
+  <title>{t.get('settings.notifications.page_title')} - MicAcademia</title>
 </svelte:head>
 
 <Page.Header>

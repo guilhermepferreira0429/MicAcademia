@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-  <title>AI Credits - ClassroomIO</title>
+  <title>AI Credits - MicAcademia</title>
 </svelte:head>
 
 <Page.Header>

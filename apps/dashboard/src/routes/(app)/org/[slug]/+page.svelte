@@ -182,7 +182,7 @@
 </script>
 
 <svelte:head>
-  <title>Home - ClassroomIO</title>
+  <title>Home - MicAcademia</title>
 </svelte:head>
 
 {#if creatingState === 'creating'}

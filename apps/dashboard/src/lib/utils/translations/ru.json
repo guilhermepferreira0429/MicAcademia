@@ -2401,7 +2401,7 @@
     },
     "creator": {
       "heading": "Какой курс вы хотите создать?",
-      "placeholder": "Попросите ClassroomIO создать для вас курс...",
+      "placeholder": "Попросите MicAcademia создать для вас курс...",
       "type": {
         "self_paced": "Самостоятельный темп",
         "live_class": "Живой урок"
@@ -2759,7 +2759,7 @@
     "discussion": "Обсуждение",
     "people": "Люди",
     "goto_lms": "Перейти в СДО",
-    "goto_home": "Перейти на главную страницу ClassroomIO",
+    "goto_home": "Перейти на главную страницу MicAcademia",
     "login": "Войти",
     "signup": "Зарегистрироваться",
     "redirecting": "Перенаправление",
@@ -2861,10 +2861,11 @@
     "cohorts": "Когорты",
     "upgrade_now": "Обновите сейчас",
     "upgrade_students": "{studentCount} из {studentLimit} студентов",
-    "upgrade_left": "{count} осталось"
+    "upgrade_left": "{count} осталось",
+    "instructors": "Instructors"
   },
   "media_manager": {
-    "page_title": "Медиа-менеджер — ClassroomIO",
+    "page_title": "Медиа-менеджер — MicAcademia",
     "heading": "Медиа-менеджер",
     "empty": "Активы не найдены",
     "usage": {
@@ -3016,7 +3017,7 @@
       "provider": "Мы используем Polar, чтобы управлять вашими платежами.",
       "open_billing": "Открыть биллинг",
       "error": "Произошла ошибка при открытии счета.",
-      "page_subtitle": "Your plan, billing portal, and how you pay for ClassroomIO.",
+      "page_subtitle": "Your plan, billing portal, and how you pay for MicAcademia.",
       "ai_credits": "AI credits",
       "ai_tokens_used": "AI credits использовано в этом месяце",
       "ai_bonus_credits": "доступны bonus AI credits"
@@ -3024,7 +3025,7 @@
     "integrations": {
       "heading": "Телеграмма",
       "sub_heading": "Подключите свою учетную запись к Telegram, чтобы получать уведомления о любых изменениях в приложении.",
-      "step_authenticate": "Шаг 1. Подтвердите свою учетную запись с помощью бота ClassroomIO.",
+      "step_authenticate": "Шаг 1. Подтвердите свою учетную запись с помощью бота MicAcademia.",
       "open_bot_button": "Открыть бот",
       "step_chatId": "Шаг 2. Введите идентификатор чата, предоставленный вам ботом.",
       "connect_button": "Подключиться",
@@ -3344,7 +3345,7 @@
       "gallery": {
         "heading": "Популярные темы",
         "description": "Создан с использованием основных функций, которые можно легко настроить — кодирование не требуется.",
-        "by_classroomio": "от ClassroomIO",
+        "by_classroomio": "от MicAcademia",
         "add": "Добавить",
         "upgrade": "Обновление",
         "apply_theme": "Применить тему",
@@ -3424,7 +3425,7 @@
         "accepted": "Принято:",
         "validation_error": "Размер файла превышает максимальный предел:"
       },
-      "page_subtitle": "Your name, email, and how you appear wherever you work in ClassroomIO."
+      "page_subtitle": "Your name, email, and how you appear wherever you work in MicAcademia."
     },
     "tabs": {
       "profile_tab": "Профиль",
@@ -3859,7 +3860,7 @@
     "snackbar_error": "ошибка при отправке кода"
   },
   "public_courses": {
-    "page_title": "Курсы - ClassroomIO",
+    "page_title": "Курсы - MicAcademia",
     "heading": "Курсы",
     "subtitle": "Просмотреть все опубликованные курсы",
     "clear_filters": "Очистить фильтры",
@@ -3936,7 +3937,7 @@
   },
   "invite": {
     "organization": {
-      "page_title": "Присоединяйтесь к {orgName} в ClassroomIO.",
+      "page_title": "Присоединяйтесь к {orgName} в MicAcademia.",
       "invitation_student": "Вас пригласили в {orgName} в качестве ученика.",
       "invitation_teacher": "Вас пригласили в {orgName} в качестве преподавателя.",
       "invitation_admin": "Вас пригласили в {orgName} в качестве администратора.",
@@ -3955,7 +3956,7 @@
       }
     },
     "link": {
-      "page_title": "Присоединяйтесь к {orgName} в ClassroomIO.",
+      "page_title": "Присоединяйтесь к {orgName} в MicAcademia.",
       "invitation_student": "Вас пригласили присоединиться к {orgName} в качестве студента.",
       "invitation_teacher": "Вас пригласили присоединиться к {orgName} в качестве преподавателя.",
       "invitation_admin": "Вас пригласили присоединиться к {orgName} в качестве администратора.",
@@ -3976,20 +3977,20 @@
         "title": "Настройка клиента",
         "description": "Используйте один ключ на уровне организации для каждой интеграции. Если ключ заменен или отозван, клиент перестает работать до тех пор, пока не будет настроен новый секрет.",
         "claude_code_description": "Регистрирует `@classroomio/mcp` в Claude Code, используя сгенерированный ключ на уровне организации.",
-        "codex_description": "Добавляет сервер ClassroomIO MCP в Кодекс с тем же ключом на уровне организации.",
+        "codex_description": "Добавляет сервер MicAcademia MCP в Кодекс с тем же ключом на уровне организации.",
         "cursor_description": "Вставьте это в `~/.cursor/mcp.json` или в конфигурацию MCP вашей рабочей области.",
         "opencode_description": "Добавьте это в `opencode.json` в корне проекта или в `~/.config/opencode/opencode.json`."
       },
       "keys": {
         "title": "Ключи MCP",
-        "description": "Эти ключи аутентифицируют текущую организацию, когда клиент MCP вызывает ClassroomIO через @classroomio/mcp.",
+        "description": "Эти ключи аутентифицируют текущую организацию, когда клиент MCP вызывает MicAcademia через @classroomio/mcp.",
         "generate": "Создать ключ MCP",
         "secret_once": "Этот секрет раскрывается один раз. Скопируйте его в свой клиент MCP сейчас.",
         "modal": {
           "title": "Create MCP key",
           "description": "Choose a name for this MCP key before it is generated.",
           "name_label": "Key name",
-          "name_placeholder": "ClassroomIO OpenCode",
+          "name_placeholder": "MicAcademia OpenCode",
           "cancel": "Cancel",
           "save": "Create key"
         }
@@ -4005,17 +4006,17 @@
         "rate_limits_description": "Запросы на чтение/запись/публикацию разрешены в минуту.",
         "used_label": "Использовано:"
       },
-      "page_subtitle": "Connect AI tools to ClassroomIO with org-scoped keys you can rotate anytime."
+      "page_subtitle": "Connect AI tools to MicAcademia with org-scoped keys you can rotate anytime."
     },
     "api": {
-      "subtitle": "Manage API keys to integrate with the ClassroomIO public API.",
+      "subtitle": "Manage API keys to integrate with the MicAcademia public API.",
       "keys": {
         "title": "API keys",
-        "description": "These keys authenticate the current organization when calling the ClassroomIO public API.",
+        "description": "These keys authenticate the current organization when calling the MicAcademia public API.",
         "generate": "Generate API key",
         "secret_once": "This secret is shown once. Copy it and store it securely.",
         "empty_title": "No API keys yet",
-        "empty_description": "Create the first org-scoped API key to use the ClassroomIO public API.",
+        "empty_description": "Create the first org-scoped API key to use the MicAcademia public API.",
         "modal": {
           "title": "Create API key",
           "description": "Choose a name for this API key before it is generated.",
@@ -4069,7 +4070,7 @@
       "disabled_description": "Только администраторы организации могут создавать, менять или отзывать ключи автоматизации. Учителя могут ознакомиться с инструкциями по настройке здесь."
     },
     "zapier": {
-      "page_subtitle": "Automate ClassroomIO with thousands of apps through Zapier. Coming soon."
+      "page_subtitle": "Automate MicAcademia with thousands of apps through Zapier. Coming soon."
     }
   },
   "ai_assistant": {
@@ -4925,6 +4926,82 @@
         "save": "Сохранить",
         "cancel": "Отмена"
       }
+    }
+  },
+  "instructor": {
+    "title": "Instructors",
+    "subtitle": "Manage your DGERT trainers, their certifications and course assignments.",
+    "add": "Add instructor",
+    "edit": "Edit",
+    "delete": "Delete",
+    "table": {
+      "name": "Name",
+      "specialization": "Specialization",
+      "ccp": "CCP",
+      "contract": "Contract",
+      "ip_cession": "IP cession",
+      "courses": "Courses",
+      "actions": "Actions",
+      "no_courses": "No courses"
+    },
+    "status": {
+      "none": "None",
+      "pending": "Pending",
+      "signed": "Signed"
+    },
+    "ccp": {
+      "valid": "Valid",
+      "expired": "Expired or missing"
+    },
+    "empty": {
+      "title": "No instructors yet",
+      "description": "Add your first DGERT trainer to start tracking certifications and course assignments."
+    },
+    "form": {
+      "add_title": "Add instructor",
+      "edit_title": "Edit instructor",
+      "description": "Manage the trainer's details, certification status and assigned courses.",
+      "section_details": "Details",
+      "section_compliance": "Certification & documents",
+      "section_courses": "Assigned courses",
+      "fullname": "Full name",
+      "fullname_placeholder": "e.g. Maria Santos",
+      "email": "Email",
+      "email_placeholder": "trainer@example.com",
+      "specialization": "Specialization",
+      "specialization_placeholder": "e.g. Web Development",
+      "ccp_number": "CCP number",
+      "ccp_number_placeholder": "e.g. CCP-123456",
+      "ccp_valid_until": "CCP valid until",
+      "contract_status": "Contract status",
+      "ip_cession_status": "IP cession status",
+      "notes": "Notes",
+      "notes_placeholder": "Internal notes about this trainer",
+      "courses_description": "Assign or remove the courses this trainer delivers.",
+      "assign_course": "Assign a course",
+      "assign_course_placeholder": "Select a course to assign",
+      "unassign_course": "Remove course",
+      "no_courses": "No courses assigned yet.",
+      "cancel": "Cancel",
+      "create": "Create instructor",
+      "save": "Save changes"
+    },
+    "delete_modal": {
+      "title": "Delete instructor",
+      "description": "Are you sure you want to delete {name}? This action cannot be undone."
+    },
+    "snackbar": {
+      "created": "Instructor created",
+      "updated": "Instructor updated",
+      "deleted": "Instructor deleted",
+      "list_failed": "Failed to load instructors",
+      "create_failed": "Failed to create instructor",
+      "update_failed": "Failed to update instructor",
+      "delete_failed": "Failed to delete instructor",
+      "course_assigned": "Course assigned",
+      "course_unassigned": "Course removed",
+      "course_assign_failed": "Failed to assign course",
+      "course_unassign_failed": "Failed to remove course"
     }
   }
 }

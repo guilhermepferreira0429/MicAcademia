@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-  <title>Landing Page Settings - ClassroomIO</title>
+  <title>Landing Page Settings - MicAcademia</title>
 </svelte:head>
 
 <Page.Header isSticky>
