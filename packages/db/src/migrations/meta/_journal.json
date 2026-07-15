@@ -50,6 +50,13 @@
       "when": 1784076381577,
       "tag": "0006_illegal_doctor_faustus",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1784115405142,
+      "tag": "0007_kind_lila_cheney",
+      "breakpoints": true
     }
   ]
 }

@@ -735,6 +735,10 @@ export const course = pgTable(
     // You can use { mode: "bigint" } if numbers are exceeding js number limitations
     cost: bigint({ mode: 'number' }).default(sql`'0'`),
     currency: varchar().default('USD').notNull(),
+    /** Per-course revenue-share split. `shares` sum to 100; null defaults to Nautis/Microlopes 50/50. */
+    revenueShare: jsonb('revenue_share').$type<{
+      shares: Array<{ label: string; percent: number; instructorId?: string }>;
+    } | null>(),
     bannerImage: text('banner_image'),
     isPublished: boolean('is_published').default(false),
     certificate: jsonb().default({}).$type<{

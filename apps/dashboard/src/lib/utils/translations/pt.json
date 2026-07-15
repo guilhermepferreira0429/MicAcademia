@@ -4554,7 +4554,8 @@
     "upgrade_now": "Atualiza agora",
     "upgrade_students": "{studentCount} de {studentLimit} alunos",
     "upgrade_left": "{count} restantes",
-    "instructors": "Formadores"
+    "instructors": "Formadores",
+    "revenue_share": "Partilha de receita"
   },
   "invite": {
     "organization": {
@@ -5002,6 +5003,39 @@
       "course_unassigned": "Curso removido",
       "course_assign_failed": "Falha ao atribuir o curso",
       "course_unassign_failed": "Falha ao remover o curso"
+    }
+  },
+  "revenue_share": {
+    "title": "Partilha de receita",
+    "subtitle": "Vê como a receita de cada curso é dividida pelas partes num período.",
+    "editor": {
+      "legend": "Partilha de receita",
+      "description": "Divide a receita deste curso pelas partes. As percentagens têm de somar 100%.",
+      "label": "Beneficiário",
+      "label_placeholder": "ex.: Nautis",
+      "percent": "Percentagem",
+      "add": "Adicionar beneficiário",
+      "remove": "Remover",
+      "total": "Total",
+      "sum_warning": "As percentagens têm de somar 100%."
+    },
+    "filters": {
+      "from": "De",
+      "to": "Até",
+      "apply": "Aplicar"
+    },
+    "party": "Parte",
+    "amount": "Montante",
+    "course": "Curso",
+    "revenue": "Receita",
+    "percent": "Percentagem",
+    "total": "Total",
+    "export_csv": "Exportar CSV",
+    "parties_heading": "Direitos por parte",
+    "courses_heading": "Detalhe por curso",
+    "empty": "Sem receita para o período selecionado.",
+    "snackbar": {
+      "load_failed": "Falha ao carregar o relatório de partilha de receita"
     }
   }
 }

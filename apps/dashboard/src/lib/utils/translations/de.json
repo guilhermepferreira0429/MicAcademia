@@ -2862,7 +2862,8 @@
     "upgrade_now": "Jetzt upgraden",
     "upgrade_students": "{studentCount} von {studentLimit} Studenten",
     "upgrade_left": "{count} übrig",
-    "instructors": "Instructors"
+    "instructors": "Instructors",
+    "revenue_share": "Revenue share"
   },
   "media_manager": {
     "page_title": "Medienmanager - MicAcademia",
@@ -5002,6 +5003,39 @@
       "course_unassigned": "Course removed",
       "course_assign_failed": "Failed to assign course",
       "course_unassign_failed": "Failed to remove course"
+    }
+  },
+  "revenue_share": {
+    "title": "Revenue share",
+    "subtitle": "See how each course's revenue is split across parties for a period.",
+    "editor": {
+      "legend": "Revenue share",
+      "description": "Split this course's revenue among parties. Percentages must add up to 100%.",
+      "label": "Beneficiary",
+      "label_placeholder": "e.g. Nautis",
+      "percent": "Percent",
+      "add": "Add beneficiary",
+      "remove": "Remove",
+      "total": "Total",
+      "sum_warning": "Shares must add up to 100%."
+    },
+    "filters": {
+      "from": "From",
+      "to": "To",
+      "apply": "Apply"
+    },
+    "party": "Party",
+    "amount": "Amount",
+    "course": "Course",
+    "revenue": "Revenue",
+    "percent": "Percent",
+    "total": "Total",
+    "export_csv": "Export CSV",
+    "parties_heading": "Entitlements by party",
+    "courses_heading": "Breakdown by course",
+    "empty": "No revenue for the selected period.",
+    "snackbar": {
+      "load_failed": "Failed to load revenue-share report"
     }
   }
 }

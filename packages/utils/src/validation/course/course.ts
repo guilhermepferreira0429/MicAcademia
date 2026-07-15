@@ -423,6 +423,26 @@ export const ZCertificationSettings = z.object({
 });
 export type TCertificationSettings = z.infer<typeof ZCertificationSettings>;
 
+/** One beneficiary of a course's revenue (a house party or a collaborator). */
+export const ZRevenueShareEntry = z.object({
+  label: z.string().min(1).max(80),
+  percent: z.number().min(0).max(100),
+  /** Optional link to an instructor/collaborator record. */
+  instructorId: z.string().uuid().optional()
+});
+export type TRevenueShareEntry = z.infer<typeof ZRevenueShareEntry>;
+
+/** Per-course revenue split. Shares must sum to 100 (empty = use the default house split). */
+export const ZCourseRevenueShare = z
+  .object({
+    shares: z.array(ZRevenueShareEntry).max(20)
+  })
+  .refine(
+    (value) => value.shares.length === 0 || Math.round(value.shares.reduce((sum, s) => sum + s.percent, 0)) === 100,
+    { message: 'Revenue shares must sum to 100%', path: ['shares'] }
+  );
+export type TCourseRevenueShare = z.infer<typeof ZCourseRevenueShare>;
+
 export const ZCourseUpdateBase = z.object({
   title: z.string().min(1).optional(),
   description: z.string().min(1).optional(),
@@ -435,6 +455,7 @@ export const ZCourseUpdateBase = z.object({
   metadata: ZCourseMetadata.optional(),
   cost: z.number().int().min(0).optional(),
   currency: z.enum(['NGN', 'USD']).optional(),
+  revenueShare: ZCourseRevenueShare.nullable().optional(),
   certificate: ZCertificationSettings.optional(),
   tagIds: z.array(z.uuid()).max(100).optional(),
   compliance: ZComplianceSettings.optional(),

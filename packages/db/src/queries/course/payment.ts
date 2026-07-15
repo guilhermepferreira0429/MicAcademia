@@ -1,9 +1,42 @@
 import * as schema from '@db/schema';
 
 import { TCoursePayment, TNewCoursePayment } from '@db/types';
-import { and, desc, eq, gt, inArray, isNotNull } from 'drizzle-orm';
+import { and, desc, eq, gt, gte, inArray, isNotNull, lte, sql } from 'drizzle-orm';
 
 import { db } from '@db/drizzle';
+
+/** Revenue (paid EasyPay amounts) grouped by course for an org, with each course's split config. */
+export interface CourseRevenueRow {
+  courseId: string;
+  title: string;
+  revenueShare: { shares: Array<{ label: string; percent: number; instructorId?: string }> } | null;
+  totalCents: number;
+}
+
+export async function getRevenueByCourse(orgId: string, fromIso?: string, toIso?: string): Promise<CourseRevenueRow[]> {
+  try {
+    const conditions = [eq(schema.coursePayment.orgId, orgId), eq(schema.coursePayment.status, 'paid')];
+    if (fromIso) conditions.push(gte(schema.coursePayment.paidAt, fromIso));
+    if (toIso) conditions.push(lte(schema.coursePayment.paidAt, toIso));
+
+    const rows = await db
+      .select({
+        courseId: schema.coursePayment.courseId,
+        title: schema.course.title,
+        revenueShare: schema.course.revenueShare,
+        totalCents: sql<number>`coalesce(sum(${schema.coursePayment.amountCents}), 0)`
+      })
+      .from(schema.coursePayment)
+      .innerJoin(schema.course, eq(schema.course.id, schema.coursePayment.courseId))
+      .where(and(...conditions))
+      .groupBy(schema.coursePayment.courseId, schema.course.title, schema.course.revenueShare);
+
+    return rows.map((row) => ({ ...row, totalCents: Number(row.totalCents) }));
+  } catch (error) {
+    console.error('getRevenueByCourse error:', error);
+    throw new Error('Failed to compute revenue by course');
+  }
+}
 
 /**
  * Creates a pending course payment record. Access is NOT granted here — the

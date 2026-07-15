@@ -9,6 +9,7 @@ import {
   GoalIcon,
   HomeIcon,
   LandingPageIcon,
+  MoneyIcon,
   PeopleIcon,
   SettingsIcon,
   SetupIcon,
@@ -179,6 +180,14 @@ export const baseNavConfig: NavItemConfig[] = [
     icon: CertificateIcon,
     requiresAdmin: true,
     matchPattern: '^/org/[^/]+/instructors(/.*)?$'
+  },
+  {
+    group: 'people',
+    titleKey: 'org_navigation.revenue_share',
+    path: '/revenue-share',
+    icon: MoneyIcon,
+    requiresAdmin: true,
+    matchPattern: '^/org/[^/]+/revenue-share(/.*)?$'
   },
   {
     group: 'automation',

@@ -11,6 +11,7 @@
   import XIcon from '@lucide/svelte/icons/x';
 
   import ReorderMaterialTabs from '$features/course/components/reorder-material-tabs.svelte';
+  import RevenueShareSettings from '$features/course/components/revenue-share/revenue-share-settings.svelte';
   import { CourseTagPicker } from '$features/course/components';
   import { IconButton } from '@cio/ui/custom/icon-button';
   import { TextareaField } from '@cio/ui/custom/textarea-field';
@@ -174,7 +175,8 @@
         slug: courseApi.course.slug ?? undefined,
         compliance:
           $settings.type === 'COMPLIANCE' ? (courseApi.course.compliance ?? DEFAULT_COMPLIANCE_SETTINGS) : undefined,
-        callout: $settings.type === 'PUBLIC' ? sanitizeCalloutForSave($settings.callout) : null
+        callout: $settings.type === 'PUBLIC' ? sanitizeCalloutForSave($settings.callout) : null,
+        revenueShare: courseApi.course.revenueShare ?? undefined
       };
 
       const normalizedSelectedTagIds = normalizeTagIds(selectedTagIds);
@@ -782,6 +784,10 @@
       </Field.Field>
     </Field.Set>
   {/if}
+
+  <Field.Separator />
+
+  <RevenueShareSettings onchange={() => (hasUnsavedChanges = true)} />
 
   <Field.Separator />
 
