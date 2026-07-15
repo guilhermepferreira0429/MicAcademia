@@ -26,13 +26,16 @@ export async function assembleCertificateRender(
 
   const issuedAtIso = body.issuedAt ?? new Date().toISOString();
   const issuedAtDate = new Date(issuedAtIso);
-  const date = Number.isNaN(issuedAtDate.getTime())
-    ? new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: '2-digit' })
-    : issuedAtDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: '2-digit' });
+  const date = Number.isNaN(issuedAtDate.getTime()) ? formatPtDate(new Date()) : formatPtDate(issuedAtDate);
 
   const certificateId = body.studentId
     ? formatCertificateId(design.idFormat, body.studentId, issuedAtDate)
     : formatCertificateId(design.idFormat, fallbackSequence(issuedAtDate), issuedAtDate);
+
+  // SIGO (IEFP) legal fields — NIF from the recipient's profile, course-level
+  // config from the certificate design. Harmless for non-SIGO templates.
+  const recipientProfile = body.studentId ? await getProfileById(body.studentId) : null;
+  const sigo = courseRow.certificate?.sigo;
 
   return {
     design,
@@ -43,9 +46,28 @@ export async function assembleCertificateRender(
       orgName: organization?.name ?? '',
       orgLogoUrl: organization?.avatarUrl ?? undefined,
       date,
-      certificateId
+      certificateId,
+      nif: recipientProfile?.nif ?? undefined,
+      trainingEntity: sigo?.trainingEntity?.trim() || 'Microlopes',
+      trainingAction: sigo?.trainingAction?.trim() || undefined,
+      ufcdCode: sigo?.ufcdCode?.trim() || undefined,
+      totalHours: sigo?.totalHours ?? undefined,
+      startDate: formatPtDateMaybe(sigo?.startDate),
+      endDate: formatPtDateMaybe(sigo?.endDate)
     }
   };
+}
+
+function formatPtDate(value: Date): string {
+  return value.toLocaleDateString('pt-PT', { year: 'numeric', month: 'long', day: '2-digit' });
+}
+
+function formatPtDateMaybe(value: string | undefined | null): string | undefined {
+  if (!value) return undefined;
+
+  const parsed = new Date(value);
+
+  return Number.isNaN(parsed.getTime()) ? undefined : formatPtDate(parsed);
 }
 
 function formatCertificateId(format: string | undefined, seq: string, issuedAt: Date): string {

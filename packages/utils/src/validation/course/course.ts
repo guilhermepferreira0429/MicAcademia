@@ -65,8 +65,19 @@ export const ZCertificateSignatory = z.object({
 });
 export type TCertificateSignatory = z.infer<typeof ZCertificateSignatory>;
 
-export const ZCertificateTemplateId = z.enum(['classique', 'brutalist', 'noir', 'poster', 'minimal']);
+export const ZCertificateTemplateId = z.enum(['classique', 'brutalist', 'noir', 'poster', 'minimal', 'sigo']);
 export type TCertificateTemplateId = z.infer<typeof ZCertificateTemplateId>;
+
+/** SIGO (Portuguese IEFP) course-level certification config. */
+export const ZCertificateSigoConfig = z.object({
+  trainingEntity: z.string().max(120).optional(),
+  trainingAction: z.string().max(200).optional(),
+  ufcdCode: z.string().max(40).optional(),
+  totalHours: z.number().int().positive().max(10000).optional(),
+  startDate: z.string().max(40).optional(),
+  endDate: z.string().max(40).optional()
+});
+export type TCertificateSigoConfig = z.infer<typeof ZCertificateSigoConfig>;
 
 export const ZCertificateDesign = z.object({
   templateId: ZCertificateTemplateId,
@@ -406,7 +417,9 @@ export const ZCertificationSettings = z.object({
   threshold: z.number().int().min(0).max(100).optional(),
   requiredExerciseId: z.union([z.string().uuid(), z.null()]).optional(),
   exerciseMinScorePercent: z.number().int().min(0).max(100).nullable().optional(),
-  emailMessage: z.string().max(5000).nullable().optional()
+  emailMessage: z.string().max(5000).nullable().optional(),
+  /** SIGO (Portuguese IEFP) legal fields for the training certificate. */
+  sigo: ZCertificateSigoConfig.optional()
 });
 export type TCertificationSettings = z.infer<typeof ZCertificationSettings>;
 

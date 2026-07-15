@@ -2387,7 +2387,17 @@
       "blocker_final_misconfigured": "Bài tập chứng nhận \"{exerciseTitle}\" không có cấu hình điểm nào; nhờ người hướng dẫn khắc phục.",
       "email_message_label": "Tin nhắn email",
       "email_message_placeholder": "ví dụ: Chúng tôi tự hào về sự tiến bộ của bạn - hãy tiếp tục học hỏi!",
-      "final_exercise_multiple_attempts_note": "Học sinh sẽ được phép thử không giới hạn bài tập đã chọn."
+      "final_exercise_multiple_attempts_note": "Học sinh sẽ được phép thử không giới hạn bài tập đã chọn.",
+      "sigo": {
+        "heading": "SIGO / IEFP certificate fields",
+        "helper": "Legal fields printed on the SIGO training certificate. Select the \"SIGO (IEFP)\" template in the certificate editor to use them.",
+        "entity": "Training entity",
+        "action": "Training action",
+        "ufcd": "UFCD code",
+        "hours": "Total hours",
+        "start_date": "Start date",
+        "end_date": "End date"
+      }
     },
     "creator": {
       "heading": "Bạn muốn tạo khóa học nào?",
@@ -2756,7 +2766,8 @@
     "loading_state": "Đang đưa bạn đến trang tiếp theo, vui lòng đợi.",
     "org_loading_state": "Đưa bạn đến tổ chức của bạn...",
     "add_organization": "+ Thêm tổ chức",
-    "goto_dashboard": "Trang tổng quan"
+    "goto_dashboard": "Trang tổng quan",
+    "source_code": "Source code"
   },
   "add_org": {
     "create_org": "Tạo tổ chức",
@@ -3402,7 +3413,9 @@
         "confirm": "Xác nhận",
         "cancel": "Hủy bỏ",
         "email_change_verification_note": "Một email xác minh đã được gửi đến địa chỉ email hiện tại của bạn. Email mới sẽ không có hiệu lực cho đến khi bạn chấp nhận email xác minh.",
-        "email_change_verification_sent": "Một email xác minh đã được gửi đến địa chỉ email mới của bạn. Vui lòng kiểm tra hộp thư đến của bạn để xác minh địa chỉ email mới của bạn."
+        "email_change_verification_sent": "Một email xác minh đã được gửi đến địa chỉ email mới của bạn. Vui lòng kiểm tra hộp thư đến của bạn để xác minh địa chỉ email mới của bạn.",
+        "nif": "Tax number (NIF)",
+        "nif_help": "Portuguese 9-digit tax number. Used on training certificates and invoices."
       },
       "profile_picture": {
         "heading": "Ảnh hồ sơ",

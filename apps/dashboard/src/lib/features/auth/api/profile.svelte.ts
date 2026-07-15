@@ -63,6 +63,10 @@ export class ProfileApi extends BaseApiWithErrors {
 
     profileUpdates.locale = locale;
 
+    if (fields.nif !== undefined) {
+      profileUpdates.nif = fields.nif;
+    }
+
     if (avatarUrl) {
       profileUpdates.avatarUrl = avatarUrl;
     }

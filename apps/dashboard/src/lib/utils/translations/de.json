@@ -2387,7 +2387,17 @@
       "blocker_final_misconfigured": "Für die Zertifizierungsübung „{exerciseTitle}“ sind keine Punkte konfiguriert; Bitten Sie Ihren Lehrer, das Problem zu beheben.",
       "email_message_label": "E-Mail-Nachricht",
       "email_message_placeholder": "z.B. Wir sind stolz auf Ihre Fortschritte – lernen Sie weiter!",
-      "final_exercise_multiple_attempts_note": "Den Schülern sind unbegrenzte Versuche für die ausgewählte Übung gestattet."
+      "final_exercise_multiple_attempts_note": "Den Schülern sind unbegrenzte Versuche für die ausgewählte Übung gestattet.",
+      "sigo": {
+        "heading": "SIGO / IEFP certificate fields",
+        "helper": "Legal fields printed on the SIGO training certificate. Select the \"SIGO (IEFP)\" template in the certificate editor to use them.",
+        "entity": "Training entity",
+        "action": "Training action",
+        "ufcd": "UFCD code",
+        "hours": "Total hours",
+        "start_date": "Start date",
+        "end_date": "End date"
+      }
     },
     "creator": {
       "heading": "Welchen Kurs möchten Sie erstellen?",
@@ -2756,7 +2766,8 @@
     "loading_state": "Bitte warten Sie, um zur nächsten Seite zu gelangen.",
     "org_loading_state": "Wir bringen Sie zu Ihrer Organisation...",
     "add_organization": "+ Organisation hinzufügen",
-    "goto_dashboard": "Armaturenbrett"
+    "goto_dashboard": "Armaturenbrett",
+    "source_code": "Source code"
   },
   "add_org": {
     "create_org": "Organisation erstellen",
@@ -3402,7 +3413,9 @@
         "confirm": "Bestätigen",
         "cancel": "Abbrechen",
         "email_change_verification_note": "Eine Bestätigungs-E-Mail wurde an Ihre aktuelle E-Mail-Adresse gesendet. Die neue E-Mail wird erst wirksam, wenn Sie die Bestätigungs-E-Mail akzeptieren.",
-        "email_change_verification_sent": "Eine Bestätigungs-E-Mail wurde an Ihre neue E-Mail-Adresse gesendet. Bitte überprüfen Sie Ihren Posteingang, um Ihre neue E-Mail-Adresse zu bestätigen."
+        "email_change_verification_sent": "Eine Bestätigungs-E-Mail wurde an Ihre neue E-Mail-Adresse gesendet. Bitte überprüfen Sie Ihren Posteingang, um Ihre neue E-Mail-Adresse zu bestätigen.",
+        "nif": "Tax number (NIF)",
+        "nif_help": "Portuguese 9-digit tax number. Used on training certificates and invoices."
       },
       "profile_picture": {
         "heading": "Profilbild",

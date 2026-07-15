@@ -6,6 +6,7 @@ import { renderClassique } from './templates/classique';
 import { renderMinimal } from './templates/minimal';
 import { renderNoir } from './templates/noir';
 import { renderPoster } from './templates/poster';
+import { renderSigo } from './templates/sigo';
 import { BASE_STYLES, FONTS_LINK_HREF, type TemplateRenderer } from './templates/shared';
 
 const RENDERERS: Record<CertificateTemplateId, TemplateRenderer> = {
@@ -13,7 +14,8 @@ const RENDERERS: Record<CertificateTemplateId, TemplateRenderer> = {
   brutalist: renderBrutalist,
   noir: renderNoir,
   poster: renderPoster,
-  minimal: renderMinimal
+  minimal: renderMinimal,
+  sigo: renderSigo
 };
 
 export function resolveTemplateId(value: string | undefined | null): CertificateTemplateId {

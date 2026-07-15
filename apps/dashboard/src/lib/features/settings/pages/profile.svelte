@@ -24,6 +24,7 @@
       {
         fullname: $profile.fullname,
         username: $profile.username,
+        nif: $profile.nif ?? '',
         locale,
         avatar
       },
@@ -101,6 +102,20 @@
         <Input bind:value={$profile.username} oninput={() => (hasUnsavedChanges = true)} />
         {#if profileApi.errors.username}
           <Field.Error>{$t(profileApi.errors.username)}</Field.Error>
+        {/if}
+      </Field.Field>
+      <Field.Field>
+        <Field.Label>{$t('settings.profile.personal_information.nif')}</Field.Label>
+        <Input
+          bind:value={$profile.nif}
+          placeholder="123456789"
+          inputmode="numeric"
+          maxlength={9}
+          oninput={() => (hasUnsavedChanges = true)}
+        />
+        <Field.Description>{$t('settings.profile.personal_information.nif_help')}</Field.Description>
+        {#if profileApi.errors.nif}
+          <Field.Error>{profileApi.errors.nif}</Field.Error>
         {/if}
       </Field.Field>
       <Field.Field>

@@ -2387,7 +2387,17 @@
       "blocker_final_misconfigured": "Для сертификационного упражнения «{exerciseTitle}» не настроены баллы; попросите инструктора это исправить.",
       "email_message_label": "Сообщение электронной почты",
       "email_message_placeholder": "например Мы гордимся вашим прогрессом — продолжайте учиться!",
-      "final_exercise_multiple_attempts_note": "Студентам будет разрешено неограниченное количество попыток выполнения выбранного упражнения."
+      "final_exercise_multiple_attempts_note": "Студентам будет разрешено неограниченное количество попыток выполнения выбранного упражнения.",
+      "sigo": {
+        "heading": "SIGO / IEFP certificate fields",
+        "helper": "Legal fields printed on the SIGO training certificate. Select the \"SIGO (IEFP)\" template in the certificate editor to use them.",
+        "entity": "Training entity",
+        "action": "Training action",
+        "ufcd": "UFCD code",
+        "hours": "Total hours",
+        "start_date": "Start date",
+        "end_date": "End date"
+      }
     },
     "creator": {
       "heading": "Какой курс вы хотите создать?",
@@ -2756,7 +2766,8 @@
     "loading_state": "Переходим на следующую страницу, пожалуйста, подождите.",
     "org_loading_state": "Отвезу вас в вашу организацию...",
     "add_organization": "+ Добавить организацию",
-    "goto_dashboard": "Панель управления"
+    "goto_dashboard": "Панель управления",
+    "source_code": "Source code"
   },
   "add_org": {
     "create_org": "Создать организацию",
@@ -3402,7 +3413,9 @@
         "confirm": "Подтвердить",
         "cancel": "Отмена",
         "email_change_verification_note": "На ваш текущий адрес электронной почты было отправлено письмо с подтверждением. Новый адрес электронной почты не вступит в силу, пока вы не примете письмо с подтверждением.",
-        "email_change_verification_sent": "На ваш новый адрес электронной почты было отправлено письмо с подтверждением. Пожалуйста, проверьте свой почтовый ящик, чтобы подтвердить новый адрес электронной почты."
+        "email_change_verification_sent": "На ваш новый адрес электронной почты было отправлено письмо с подтверждением. Пожалуйста, проверьте свой почтовый ящик, чтобы подтвердить новый адрес электронной почты.",
+        "nif": "Tax number (NIF)",
+        "nif_help": "Portuguese 9-digit tax number. Used on training certificates and invoices."
       },
       "profile_picture": {
         "heading": "Изображение профиля",

@@ -31,6 +31,11 @@ export const CERTIFICATE_TEMPLATES: CertificateTemplateMeta[] = [
     id: 'minimal',
     label: 'Minimal',
     description: 'Refined Swiss layout with thin rules and pure typography.'
+  },
+  {
+    id: 'sigo',
+    label: 'SIGO (IEFP)',
+    description: 'Formal Portuguese training certificate with the legal fields required for SIGO submission.'
   }
 ];
 

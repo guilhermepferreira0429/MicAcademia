@@ -2387,7 +2387,17 @@
       "blocker_final_misconfigured": "प्रमाणन अभ्यास \"{exerciseTitle}\" में कोई बिंदु कॉन्फ़िगर नहीं किया गया है; अपने प्रशिक्षक से इसे ठीक करने के लिए कहें।",
       "email_message_label": "ईमेल संदेश",
       "email_message_placeholder": "जैसे हमें आपकी प्रगति पर गर्व है - सीखते रहें!",
-      "final_exercise_multiple_attempts_note": "छात्रों को चयनित अभ्यास पर असीमित प्रयासों की अनुमति दी जाएगी।"
+      "final_exercise_multiple_attempts_note": "छात्रों को चयनित अभ्यास पर असीमित प्रयासों की अनुमति दी जाएगी।",
+      "sigo": {
+        "heading": "SIGO / IEFP certificate fields",
+        "helper": "Legal fields printed on the SIGO training certificate. Select the \"SIGO (IEFP)\" template in the certificate editor to use them.",
+        "entity": "Training entity",
+        "action": "Training action",
+        "ufcd": "UFCD code",
+        "hours": "Total hours",
+        "start_date": "Start date",
+        "end_date": "End date"
+      }
     },
     "creator": {
       "heading": "आप कौन सा कोर्स बनाना चाहते हैं?",
@@ -2756,7 +2766,8 @@
     "loading_state": "आपको अगले पृष्ठ पर ले जा रहा हूँ, कृपया प्रतीक्षा करें।",
     "org_loading_state": "आपको आपके संगठन में ले जा रहा हूँ...",
     "add_organization": "+ संगठन जोड़ें",
-    "goto_dashboard": "डैशबोर्ड"
+    "goto_dashboard": "डैशबोर्ड",
+    "source_code": "Source code"
   },
   "add_org": {
     "create_org": "संगठन बनाएं",
@@ -3402,7 +3413,9 @@
         "confirm": "पुष्टि करें",
         "cancel": "रद्द करें",
         "email_change_verification_note": "आपके वर्तमान ईमेल पते पर एक सत्यापन ईमेल भेज दिया गया है। जब तक आप सत्यापन ईमेल स्वीकार नहीं करते तब तक नया ईमेल प्रभावी नहीं होगा।",
-        "email_change_verification_sent": "आपके नए ईमेल पते पर एक सत्यापन ईमेल भेज दिया गया है। कृपया अपना नया ईमेल पता सत्यापित करने के लिए अपना इनबॉक्स जांचें।"
+        "email_change_verification_sent": "आपके नए ईमेल पते पर एक सत्यापन ईमेल भेज दिया गया है। कृपया अपना नया ईमेल पता सत्यापित करने के लिए अपना इनबॉक्स जांचें।",
+        "nif": "Tax number (NIF)",
+        "nif_help": "Portuguese 9-digit tax number. Used on training certificates and invoices."
       },
       "profile_picture": {
         "heading": "प्रोफ़ाइल चित्र",

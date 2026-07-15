@@ -1631,7 +1631,17 @@
       "blocker_final_misconfigured": "O exercício de certificação \"{exerciseTitle}\" não tem pontos configurados; pede ao teu instrutor para o corrigir.",
       "email_message_label": "Mensagem de email",
       "email_message_placeholder": "por exemplo, Estamos orgulhosos do teu progresso – continua a aprender!",
-      "final_exercise_multiple_attempts_note": "Os alunos poderão fazer tentativas ilimitadas no exercício selecionado."
+      "final_exercise_multiple_attempts_note": "Os alunos poderão fazer tentativas ilimitadas no exercício selecionado.",
+      "sigo": {
+        "heading": "Campos do certificado SIGO / IEFP",
+        "helper": "Campos legais impressos no certificado de formação SIGO. Seleciona o template \"SIGO (IEFP)\" no editor de certificados para os usar.",
+        "entity": "Entidade formadora",
+        "action": "Ação de formação",
+        "ufcd": "Código UFCD",
+        "hours": "Carga horária (horas)",
+        "start_date": "Data de início",
+        "end_date": "Data de fim"
+      }
     },
     "navItems": {
       "nav_news_feed": "Feed de notícias",
@@ -2340,7 +2350,9 @@
         "confirm": "Confirmar",
         "cancel": "Cancelar",
         "email_change_verification_note": "Foi enviado um email de verificação para o teu endereço de email atual. O novo email não terá efeito até que aceites o email de verificação.",
-        "email_change_verification_sent": "Foi enviado um email de verificação para o teu novo endereço de email. Verifica a tua caixa de entrada para confirmar o teu novo endereço de email."
+        "email_change_verification_sent": "Foi enviado um email de verificação para o teu novo endereço de email. Verifica a tua caixa de entrada para confirmar o teu novo endereço de email.",
+        "nif": "Número de contribuinte (NIF)",
+        "nif_help": "NIF português de 9 dígitos. Usado nos certificados de formação e nas faturas."
       },
       "profile_picture": {
         "heading": "Foto do perfil",
@@ -4709,7 +4721,8 @@
     "loading_state": "A levar-te para a próxima página, aguarda.",
     "org_loading_state": "A levar-te para a tua organização...",
     "add_organization": "+ Adicionar organização",
-    "goto_dashboard": "Painel"
+    "goto_dashboard": "Painel",
+    "source_code": "Código-fonte"
   },
   "pricing": {
     "modal": {

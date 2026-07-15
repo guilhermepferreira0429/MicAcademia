@@ -2387,7 +2387,17 @@
       "blocker_final_misconfigured": "El ejercicio de certificación \"{exerciseTitle}\" no tiene puntos configurados; Pídele a tu instructor que lo arregle.",
       "email_message_label": "Mensaje de correo electrónico",
       "email_message_placeholder": "por ej. Estamos orgullosos de tu progreso: ¡sigue aprendiendo!",
-      "final_exercise_multiple_attempts_note": "A los estudiantes se les permitirán intentos ilimitados en el ejercicio seleccionado."
+      "final_exercise_multiple_attempts_note": "A los estudiantes se les permitirán intentos ilimitados en el ejercicio seleccionado.",
+      "sigo": {
+        "heading": "SIGO / IEFP certificate fields",
+        "helper": "Legal fields printed on the SIGO training certificate. Select the \"SIGO (IEFP)\" template in the certificate editor to use them.",
+        "entity": "Training entity",
+        "action": "Training action",
+        "ufcd": "UFCD code",
+        "hours": "Total hours",
+        "start_date": "Start date",
+        "end_date": "End date"
+      }
     },
     "creator": {
       "heading": "¿Qué curso quieres crear?",
@@ -2756,7 +2766,8 @@
     "loading_state": "Lo llevamos a la página siguiente, espere.",
     "org_loading_state": "Llevándote a tu organización...",
     "add_organization": "+ Agregar organización",
-    "goto_dashboard": "Panel"
+    "goto_dashboard": "Panel",
+    "source_code": "Source code"
   },
   "add_org": {
     "create_org": "Crear organización",
@@ -3402,7 +3413,9 @@
         "confirm": "Confirmar",
         "cancel": "Cancelar",
         "email_change_verification_note": "Se ha enviado un correo electrónico de verificación a su dirección de correo electrónico actual. El nuevo correo electrónico no entrará en vigor hasta que acepte el correo electrónico de verificación.",
-        "email_change_verification_sent": "Se ha enviado un correo electrónico de verificación a su nueva dirección de correo electrónico. Por favor revise su bandeja de entrada para verificar su nueva dirección de correo electrónico."
+        "email_change_verification_sent": "Se ha enviado un correo electrónico de verificación a su nueva dirección de correo electrónico. Por favor revise su bandeja de entrada para verificar su nueva dirección de correo electrónico.",
+        "nif": "Tax number (NIF)",
+        "nif_help": "Portuguese 9-digit tax number. Used on training certificates and invoices."
       },
       "profile_picture": {
         "heading": "Foto de perfil",

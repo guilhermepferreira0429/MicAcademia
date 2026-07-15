@@ -16,6 +16,12 @@ export const ZUpdateProfile = z.object({
   username: z.string().min(3).optional(),
   locale: z.enum(['en', 'hi', 'fr', 'pt', 'de', 'vi', 'ru', 'es', 'pl', 'da']).optional(),
   avatarUrl: z.url().optional(),
+  /** Portuguese tax number (9 digits). Empty string clears it. */
+  nif: z
+    .string()
+    .trim()
+    .refine((value) => value === '' || /^\d{9}$/.test(value), { message: 'NIF must have 9 digits' })
+    .optional(),
   emailNotifications: z.object(ZEmailNotificationToggleFields).optional()
 });
 

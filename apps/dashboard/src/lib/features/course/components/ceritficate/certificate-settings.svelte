@@ -70,6 +70,14 @@
   function onEmailMessageInput(e: Event) {
     updateCertificate({ emailMessage: (e.currentTarget as HTMLTextAreaElement).value || null });
   }
+
+  function updateSigo(patch: Partial<NonNullable<NonNullable<typeof courseApi.course>['certificate']>['sigo']>) {
+    updateCertificate({ sigo: { ...(courseApi.course?.certificate?.sigo ?? {}), ...patch } });
+  }
+
+  function sigoText(e: Event): string | undefined {
+    return (e.currentTarget as HTMLInputElement).value.trim() || undefined;
+  }
 </script>
 
 <Field.Group class="w-full max-w-md! px-2">
@@ -183,5 +191,82 @@
         <Field.Error>{errors['certificate.emailMessage']}</Field.Error>
       {/if}
     </Field.Field>
+  </Field.Set>
+
+  <Field.Separator />
+
+  <Field.Set>
+    <Field.Legend>{$t('course.certification.sigo.heading')}</Field.Legend>
+    <Field.Description>{$t('course.certification.sigo.helper')}</Field.Description>
+
+    <Field.Group>
+      <Field.Field>
+        <Field.Label>{$t('course.certification.sigo.entity')}</Field.Label>
+        <Input
+          class="w-full"
+          placeholder="Microlopes"
+          value={courseApi.course?.certificate?.sigo?.trainingEntity ?? ''}
+          oninput={(e) => updateSigo({ trainingEntity: sigoText(e) })}
+          disabled={$isFreePlan}
+        />
+      </Field.Field>
+
+      <Field.Field>
+        <Field.Label>{$t('course.certification.sigo.action')}</Field.Label>
+        <Input
+          class="w-full"
+          value={courseApi.course?.certificate?.sigo?.trainingAction ?? ''}
+          oninput={(e) => updateSigo({ trainingAction: sigoText(e) })}
+          disabled={$isFreePlan}
+        />
+      </Field.Field>
+
+      <Field.Field>
+        <Field.Label>{$t('course.certification.sigo.ufcd')}</Field.Label>
+        <Input
+          class="w-full"
+          value={courseApi.course?.certificate?.sigo?.ufcdCode ?? ''}
+          oninput={(e) => updateSigo({ ufcdCode: sigoText(e) })}
+          disabled={$isFreePlan}
+        />
+      </Field.Field>
+
+      <Field.Field>
+        <Field.Label>{$t('course.certification.sigo.hours')}</Field.Label>
+        <Input
+          type="number"
+          min={0}
+          class="w-full"
+          value={courseApi.course?.certificate?.sigo?.totalHours ?? ''}
+          oninput={(e) => {
+            const n = Number((e.currentTarget as HTMLInputElement).value);
+            updateSigo({ totalHours: Number.isFinite(n) && n > 0 ? Math.trunc(n) : undefined });
+          }}
+          disabled={$isFreePlan}
+        />
+      </Field.Field>
+
+      <Field.Field>
+        <Field.Label>{$t('course.certification.sigo.start_date')}</Field.Label>
+        <Input
+          type="date"
+          class="w-full"
+          value={courseApi.course?.certificate?.sigo?.startDate ?? ''}
+          onchange={(e) => updateSigo({ startDate: sigoText(e) })}
+          disabled={$isFreePlan}
+        />
+      </Field.Field>
+
+      <Field.Field>
+        <Field.Label>{$t('course.certification.sigo.end_date')}</Field.Label>
+        <Input
+          type="date"
+          class="w-full"
+          value={courseApi.course?.certificate?.sigo?.endDate ?? ''}
+          onchange={(e) => updateSigo({ endDate: sigoText(e) })}
+          disabled={$isFreePlan}
+        />
+      </Field.Field>
+    </Field.Group>
   </Field.Set>
 </Field.Group>

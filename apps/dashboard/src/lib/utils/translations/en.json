@@ -462,7 +462,9 @@
         "confirm": "Confirm",
         "cancel": "Cancel",
         "email_change_verification_note": "A verification email has been sent to your current email address. The new email will not be in effect until you accept the verification email.",
-        "email_change_verification_sent": "A verification email has been sent to your new email address. Please check your inbox to verify your new email address."
+        "email_change_verification_sent": "A verification email has been sent to your new email address. Please check your inbox to verify your new email address.",
+        "nif": "Tax number (NIF)",
+        "nif_help": "Portuguese 9-digit tax number. Used on training certificates and invoices."
       },
       "heading": "Profile",
       "update_profile": "Update Profile",
@@ -1663,7 +1665,8 @@
     "redirecting": "Redirecting",
     "loading_state": "Taking you to the next page, please wait.",
     "org_loading_state": "Taking you to your organization...",
-    "add_organization": "+ Add Organization"
+    "add_organization": "+ Add Organization",
+    "source_code": "Source code"
   },
   "markdown_editor": {
     "write": "Write",
@@ -2064,7 +2067,17 @@
       "blocker_final_score": "Your best score on \"{exerciseTitle}\" is {bestPercent}%; {requiredPercent}% is required.",
       "blocker_final_misconfigured": "The certification exercise \"{exerciseTitle}\" has no points configured; ask your instructor to fix it.",
       "email_message_label": "Email Message",
-      "email_message_placeholder": "e.g. We are proud of your progress — keep learning!"
+      "email_message_placeholder": "e.g. We are proud of your progress — keep learning!",
+      "sigo": {
+        "heading": "SIGO / IEFP certificate fields",
+        "helper": "Legal fields printed on the SIGO training certificate. Select the \"SIGO (IEFP)\" template in the certificate editor to use them.",
+        "entity": "Training entity",
+        "action": "Training action",
+        "ufcd": "UFCD code",
+        "hours": "Total hours",
+        "start_date": "Start date",
+        "end_date": "End date"
+      }
     },
     "completion": {
       "modal": {

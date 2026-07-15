@@ -399,6 +399,8 @@ export const profile = pgTable(
     createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow(),
     email: varchar(),
+    /** Portuguese tax number (NIF). Used on SIGO certificates and PHC invoicing. */
+    nif: varchar(),
     canAddCourse: boolean('can_add_course').default(true),
     role: varchar(),
     goal: varchar(),
@@ -741,7 +743,7 @@ export const course = pgTable(
       theme?: string;
       /** Atelier-era certificate design. Source of truth for new courses. */
       design?: {
-        templateId: 'classique' | 'brutalist' | 'noir' | 'poster' | 'minimal';
+        templateId: 'classique' | 'brutalist' | 'noir' | 'poster' | 'minimal' | 'sigo';
         accentColor: string;
         subtitle?: string;
         descriptionOverride?: string;
@@ -756,6 +758,15 @@ export const course = pgTable(
       requiredExerciseId?: string | null;
       exerciseMinScorePercent?: number | null;
       emailMessage?: string | null;
+      /** SIGO (Portuguese IEFP) legal fields for the training certificate. */
+      sigo?: {
+        trainingEntity?: string;
+        trainingAction?: string;
+        ufcdCode?: string;
+        totalHours?: number;
+        startDate?: string;
+        endDate?: string;
+      };
     }>(),
     compliance: jsonb().$type<{
       retakeIntervalMonths: number;

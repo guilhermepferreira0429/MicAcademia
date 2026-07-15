@@ -2387,7 +2387,17 @@
       "blocker_final_misconfigured": "Certificeringsøvelsen \"{exerciseTitle}\" har ingen point konfigureret; bed din instruktør om at ordne det.",
       "email_message_label": "E-mail besked",
       "email_message_placeholder": "f.eks. Vi er stolte af dine fremskridt - fortsæt med at lære!",
-      "final_exercise_multiple_attempts_note": "Elever får lov til ubegrænsede forsøg på den valgte øvelse."
+      "final_exercise_multiple_attempts_note": "Elever får lov til ubegrænsede forsøg på den valgte øvelse.",
+      "sigo": {
+        "heading": "SIGO / IEFP certificate fields",
+        "helper": "Legal fields printed on the SIGO training certificate. Select the \"SIGO (IEFP)\" template in the certificate editor to use them.",
+        "entity": "Training entity",
+        "action": "Training action",
+        "ufcd": "UFCD code",
+        "hours": "Total hours",
+        "start_date": "Start date",
+        "end_date": "End date"
+      }
     },
     "creator": {
       "heading": "Hvilket kursus vil du lave?",
@@ -2756,7 +2766,8 @@
     "loading_state": "Tag dig til næste side, vent venligst.",
     "org_loading_state": "Tager dig til din organisation...",
     "add_organization": "+ Tilføj organisation",
-    "goto_dashboard": "Dashboard"
+    "goto_dashboard": "Dashboard",
+    "source_code": "Source code"
   },
   "add_org": {
     "create_org": "Opret organisation",
@@ -3402,7 +3413,9 @@
         "confirm": "Bekræft",
         "cancel": "Annuller",
         "email_change_verification_note": "En bekræftelses-e-mail er blevet sendt til din nuværende e-mailadresse. Den nye e-mail træder ikke i kraft, før du accepterer bekræftelses-e-mailen.",
-        "email_change_verification_sent": "En bekræftelses-e-mail er blevet sendt til din nye e-mailadresse. Tjek venligst din indbakke for at bekræfte din nye e-mailadresse."
+        "email_change_verification_sent": "En bekræftelses-e-mail er blevet sendt til din nye e-mailadresse. Tjek venligst din indbakke for at bekræfte din nye e-mailadresse.",
+        "nif": "Tax number (NIF)",
+        "nif_help": "Portuguese 9-digit tax number. Used on training certificates and invoices."
       },
       "profile_picture": {
         "heading": "Profilbillede",
