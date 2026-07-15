@@ -1,5 +1,6 @@
 import {
   ApiIcon,
+  CertificateIcon,
   ChartColumnIcon,
   AttachmentIcon,
   CommunityIcon,
@@ -170,6 +171,14 @@ export const baseNavConfig: NavItemConfig[] = [
     icon: PeopleIcon,
     upgradeResource: 'students',
     matchPattern: '^/org/[^/]+/audience(/.*)?$' // Matches nested routes
+  },
+  {
+    group: 'people',
+    titleKey: 'org_navigation.instructors',
+    path: '/instructors',
+    icon: CertificateIcon,
+    requiresAdmin: true,
+    matchPattern: '^/org/[^/]+/instructors(/.*)?$'
   },
   {
     group: 'automation',

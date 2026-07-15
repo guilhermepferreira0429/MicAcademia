@@ -22,3 +22,4 @@ export * from './cohort';
 export * from './widget';
 export * from './jobs';
 export * from './payment';
+export * from './instructor';

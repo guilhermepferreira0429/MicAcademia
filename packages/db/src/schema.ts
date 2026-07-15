@@ -3411,6 +3411,79 @@ export const coursePayment = pgTable(
   ]
 );
 
+// ─── Instructors (DGERT trainer management) ──────────────────────────────────
+// A trainer/instructor record for the org. Instructors may be external (paid,
+// no platform account) so identity fields are stored directly, with an optional
+// link to a profile. Tracks the DGERT-relevant status: CCP (pedagogical
+// competence certificate), contract, and IP-cession (content ownership).
+export const instructorProfile = pgTable(
+  'instructor_profile',
+  {
+    id: uuid()
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    orgId: uuid('org_id').notNull(),
+    /** Optional link to a platform account, when the instructor also has one. */
+    profileId: uuid('profile_id'),
+    fullname: varchar().notNull(),
+    email: varchar(),
+    /** Certificado de Competências Pedagógicas number. */
+    ccpNumber: varchar('ccp_number'),
+    /** CCP validity end date; null = unknown/not provided. */
+    ccpValidUntil: timestamp('ccp_valid_until', { withTimezone: true, mode: 'string' }),
+    /** Area of specialization. */
+    specialization: varchar(),
+    /** 'none' | 'pending' | 'signed'. */
+    contractStatus: text('contract_status').notNull().default('none'),
+    /** IP-cession (cedência de direitos) status: 'none' | 'pending' | 'signed'. */
+    ipCessionStatus: text('ip_cession_status').notNull().default('none'),
+    notes: text(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull()
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.orgId],
+      foreignColumns: [organization.id],
+      name: 'instructor_profile_org_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.profileId],
+      foreignColumns: [profile.id],
+      name: 'instructor_profile_profile_id_fkey'
+    }),
+    index('idx_instructor_profile_org_id').on(table.orgId)
+  ]
+);
+
+export const instructorCourse = pgTable(
+  'instructor_course',
+  {
+    id: uuid()
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    instructorId: uuid('instructor_id').notNull(),
+    courseId: uuid('course_id').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull()
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.instructorId],
+      foreignColumns: [instructorProfile.id],
+      name: 'instructor_course_instructor_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.courseId],
+      foreignColumns: [course.id],
+      name: 'instructor_course_course_id_fkey'
+    }),
+    unique('instructor_course_unique').on(table.instructorId, table.courseId),
+    index('idx_instructor_course_course_id').on(table.courseId)
+  ]
+);
+
 // ─── AI Tutor Fair-Use ───────────────────────────────────────────────────────
 
 export const aiTutorMessageCount = pgTable(
