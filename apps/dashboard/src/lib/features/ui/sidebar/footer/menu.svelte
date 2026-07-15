@@ -6,6 +6,7 @@
   import BellPlusIcon from '@lucide/svelte/icons/bell-plus';
   import BookOpenIcon from '@lucide/svelte/icons/book-open';
   import BadgeHelpIcon from '@lucide/svelte/icons/badge-help';
+  import CodeIcon from '@lucide/svelte/icons/code';
   import LogOutIcon from '@lucide/svelte/icons/log-out';
   import MessageSquarePlusIcon from '@lucide/svelte/icons/message-square-plus';
   import * as Sidebar from '@cio/ui/base/sidebar';
@@ -19,6 +20,7 @@
   import { currentOrg } from '$lib/utils/store/org';
   import { showUserJotWidget } from '$lib/utils/services/userjot';
   import { ROLE } from '@cio/utils/constants';
+  import { SOURCE_CODE_URL } from '$lib/utils/functions/source-code';
 
   const SUPPORT_EMAIL = 'help@classroomio.com';
   const DOCS_URL = 'https://classroomio.com/docs';
@@ -141,6 +143,18 @@
                 </DropdownMenu.Item>
               </div>
             {/if}
+
+            <DropdownMenu.Item class="m-0">
+              <a
+                href={SOURCE_CODE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex w-full items-center gap-2"
+              >
+                <CodeIcon size={16} />
+                <p class="text-sm">{$t('navigation.source_code')}</p>
+              </a>
+            </DropdownMenu.Item>
 
             <DropdownMenu.Separator />
 

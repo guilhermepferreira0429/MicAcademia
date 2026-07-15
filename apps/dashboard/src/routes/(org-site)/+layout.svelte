@@ -1,6 +1,8 @@
 <script lang="ts">
   import { PageRestricted } from '$features/ui';
   import { currentOrg } from '$lib/utils/store/org';
+  import { t } from '$lib/utils/functions/translations';
+  import { SOURCE_CODE_URL } from '$lib/utils/functions/source-code';
   import { onMount } from 'svelte';
   import { afterNavigate } from '$app/navigation';
   import { analytics } from '@cio/analytics/client';
@@ -44,4 +46,9 @@
   <PageRestricted />
 {:else}
   {@render children?.()}
+  <footer class="ui:text-muted-foreground flex justify-center py-6 text-xs">
+    <a href={SOURCE_CODE_URL} target="_blank" rel="noopener noreferrer" class="hover:underline">
+      {$t('navigation.source_code')}
+    </a>
+  </footer>
 {/if}
