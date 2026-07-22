@@ -56,7 +56,10 @@ storybook-static
 
 .svelte-kit/
 
-company/
+# Anchored to the repo root: a bare `company/` matched every source directory
+# named "company" (api routes/services, db queries, validation, dashboard
+# feature), silently excluding the B2B company code from commits.
+/company/
 
 # Claude Code local artifacts
 .claude/skills
