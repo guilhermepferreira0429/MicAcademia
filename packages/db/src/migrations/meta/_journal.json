@@ -71,6 +71,13 @@
       "when": 1784734687003,
       "tag": "0009_loving_the_executioner",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1784745753280,
+      "tag": "0010_regular_falcon",
+      "breakpoints": true
     }
   ]
 }

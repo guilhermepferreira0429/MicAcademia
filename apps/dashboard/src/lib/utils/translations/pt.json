@@ -4555,7 +4555,8 @@
     "upgrade_students": "{studentCount} de {studentLimit} alunos",
     "upgrade_left": "{count} restantes",
     "instructors": "Formadores",
-    "revenue_share": "Partilha de receita"
+    "revenue_share": "Partilha de receita",
+    "sigo": "SIGO"
   },
   "invite": {
     "organization": {
@@ -5036,6 +5037,79 @@
     "empty": "Sem receita para o período selecionado.",
     "snackbar": {
       "load_failed": "Falha ao carregar o relatório de partilha de receita"
+    }
+  },
+  "sigo": {
+    "title": "Submissões SIGO",
+    "subtitle": "Acompanha cada ação de formação submetida ao SIGO, de pendente a paga.",
+    "add": "Nova submissão",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "summary": {
+      "paid_total": "Financiamento recebido"
+    },
+    "filters": {
+      "status": "Estado",
+      "all": "Todas"
+    },
+    "status": {
+      "pending": "Pendente",
+      "submitted": "Submetida",
+      "approved": "Aprovada",
+      "paid": "Paga",
+      "rejected": "Rejeitada"
+    },
+    "table": {
+      "course": "Curso",
+      "training_action": "Ação de formação",
+      "ufcd": "UFCD",
+      "hours": "Carga horária",
+      "reference": "Referência SIGO",
+      "status": "Estado",
+      "date": "Data",
+      "amount": "Montante",
+      "actions": "Ações"
+    },
+    "empty": {
+      "title": "Ainda não há submissões",
+      "description": "Cria a tua primeira submissão SIGO para começares a acompanhar o financiamento das ações de formação.",
+      "filtered": "Não há submissões com este estado."
+    },
+    "form": {
+      "add_title": "Nova submissão",
+      "edit_title": "Editar submissão",
+      "description": "Regista o ponto de situação desta submissão ao SIGO e o financiamento associado.",
+      "section_submission": "Submissão",
+      "section_progress": "Progresso e financiamento",
+      "course": "Curso",
+      "course_placeholder": "Seleciona um curso",
+      "status": "Estado",
+      "reference": "Referência SIGO",
+      "reference_placeholder": "ex.: 2025/001234",
+      "dates_description": "Se deixares uma data em branco, ela é preenchida automaticamente quando mudares o estado para essa fase.",
+      "submitted_at": "Data de submissão",
+      "approved_at": "Data de aprovação",
+      "paid_at": "Data de pagamento",
+      "amount": "Montante (€)",
+      "amount_description": "Montante do financiamento, em euros.",
+      "notes": "Notas",
+      "notes_placeholder": "Notas internas sobre esta submissão",
+      "cancel": "Cancelar",
+      "create": "Criar submissão",
+      "save": "Guardar alterações"
+    },
+    "delete_modal": {
+      "title": "Eliminar submissão",
+      "description": "Tens a certeza de que queres eliminar a submissão de {course}? Esta ação não pode ser anulada."
+    },
+    "snackbar": {
+      "created": "Submissão criada",
+      "updated": "Submissão atualizada",
+      "deleted": "Submissão eliminada",
+      "list_failed": "Não foi possível carregar as submissões SIGO",
+      "create_failed": "Não foi possível criar a submissão",
+      "update_failed": "Não foi possível atualizar a submissão",
+      "delete_failed": "Não foi possível eliminar a submissão"
     }
   },
   "live_session": {

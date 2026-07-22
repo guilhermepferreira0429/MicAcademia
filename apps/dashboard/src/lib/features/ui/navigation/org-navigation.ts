@@ -13,6 +13,7 @@ import {
   PeopleIcon,
   SettingsIcon,
   SetupIcon,
+  SubmissionIcon,
   TagIcon,
   ZapIcon
 } from '@cio/ui/custom/moving-icons';
@@ -188,6 +189,14 @@ export const baseNavConfig: NavItemConfig[] = [
     icon: MoneyIcon,
     requiresAdmin: true,
     matchPattern: '^/org/[^/]+/revenue-share(/.*)?$'
+  },
+  {
+    group: 'people',
+    titleKey: 'org_navigation.sigo',
+    path: '/sigo',
+    icon: SubmissionIcon,
+    requiresAdmin: true,
+    matchPattern: '^/org/[^/]+/sigo(/.*)?$'
   },
   {
     group: 'automation',

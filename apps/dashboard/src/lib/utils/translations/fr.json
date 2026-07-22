@@ -2863,7 +2863,8 @@
     "upgrade_students": "{studentCount} sur {studentLimit} étudiants",
     "upgrade_left": "Il reste {count}",
     "instructors": "Instructors",
-    "revenue_share": "Revenue share"
+    "revenue_share": "Revenue share",
+    "sigo": "SIGO"
   },
   "media_manager": {
     "page_title": "Gestionnaire de médias - MicAcademia",
@@ -5036,6 +5037,79 @@
     "empty": "No revenue for the selected period.",
     "snackbar": {
       "load_failed": "Failed to load revenue-share report"
+    }
+  },
+  "sigo": {
+    "title": "SIGO submissions",
+    "subtitle": "Track each training action submitted to SIGO, from pending to paid.",
+    "add": "New submission",
+    "edit": "Edit",
+    "delete": "Delete",
+    "summary": {
+      "paid_total": "Funding received"
+    },
+    "filters": {
+      "status": "Status",
+      "all": "All"
+    },
+    "status": {
+      "pending": "Pending",
+      "submitted": "Submitted",
+      "approved": "Approved",
+      "paid": "Paid",
+      "rejected": "Rejected"
+    },
+    "table": {
+      "course": "Course",
+      "training_action": "Training action",
+      "ufcd": "UFCD",
+      "hours": "Total hours",
+      "reference": "SIGO reference",
+      "status": "Status",
+      "date": "Date",
+      "amount": "Amount",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "No submissions yet",
+      "description": "Create your first SIGO submission to start tracking funding for your training actions.",
+      "filtered": "No submissions with this status."
+    },
+    "form": {
+      "add_title": "New submission",
+      "edit_title": "Edit submission",
+      "description": "Record where this SIGO submission stands and the funding attached to it.",
+      "section_submission": "Submission",
+      "section_progress": "Progress and funding",
+      "course": "Course",
+      "course_placeholder": "Select a course",
+      "status": "Status",
+      "reference": "SIGO reference",
+      "reference_placeholder": "e.g. 2025/001234",
+      "dates_description": "Leave a date empty and it is filled in automatically when you move the status to that stage.",
+      "submitted_at": "Submitted on",
+      "approved_at": "Approved on",
+      "paid_at": "Paid on",
+      "amount": "Amount (€)",
+      "amount_description": "Funding amount in euros.",
+      "notes": "Notes",
+      "notes_placeholder": "Internal notes about this submission",
+      "cancel": "Cancel",
+      "create": "Create submission",
+      "save": "Save changes"
+    },
+    "delete_modal": {
+      "title": "Delete submission",
+      "description": "Are you sure you want to delete the submission for {course}? This action cannot be undone."
+    },
+    "snackbar": {
+      "created": "Submission created",
+      "updated": "Submission updated",
+      "deleted": "Submission deleted",
+      "list_failed": "Failed to load SIGO submissions",
+      "create_failed": "Failed to create submission",
+      "update_failed": "Failed to update submission",
+      "delete_failed": "Failed to delete submission"
     }
   },
   "live_session": {

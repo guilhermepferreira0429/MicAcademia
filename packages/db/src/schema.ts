@@ -3539,6 +3539,53 @@ export const attendanceLog = pgTable(
   ]
 );
 
+// ─── SIGO submissions (IEFP funding tracker) ─────────────────────────────────
+// IEFP has no public API, so submitting a training action to SIGO and chasing
+// it through to payment is manual. This is the internal record of where each
+// course's submission stands.
+export const sigoSubmission = pgTable(
+  'sigo_submission',
+  {
+    id: uuid()
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    orgId: uuid('org_id').notNull(),
+    courseId: uuid('course_id').notNull(),
+    /** 'pending' | 'submitted' | 'approved' | 'paid' | 'rejected'. */
+    status: text().notNull().default('pending'),
+    /** The reference SIGO gives the submission, once it has one. */
+    reference: text(),
+    submittedAt: timestamp('submitted_at', { withTimezone: true, mode: 'string' }),
+    approvedAt: timestamp('approved_at', { withTimezone: true, mode: 'string' }),
+    paidAt: timestamp('paid_at', { withTimezone: true, mode: 'string' }),
+    /** Funding amount in cents, when known. */
+    amountCents: integer('amount_cents'),
+    notes: text(),
+    createdBy: uuid('created_by'),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull()
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.orgId],
+      foreignColumns: [organization.id],
+      name: 'sigo_submission_org_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.courseId],
+      foreignColumns: [course.id],
+      name: 'sigo_submission_course_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.createdBy],
+      foreignColumns: [profile.id],
+      name: 'sigo_submission_created_by_fkey'
+    }),
+    index('idx_sigo_submission_org_status').on(table.orgId, table.status)
+  ]
+);
+
 // ─── AI Tutor Fair-Use ───────────────────────────────────────────────────────
 
 export const aiTutorMessageCount = pgTable(
