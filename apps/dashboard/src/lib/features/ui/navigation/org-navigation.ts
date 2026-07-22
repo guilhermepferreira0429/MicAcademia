@@ -20,6 +20,7 @@ import {
 
 import type { AccountOrg } from '$features/app/types';
 import BotIcon from '@lucide/svelte/icons/bot';
+import BuildingIcon from '@lucide/svelte/icons/building-2';
 import type { Component } from 'svelte';
 import { isActive } from '$lib/utils/functions/app';
 import type { PlanLimitResource } from '@cio/utils/plans';
@@ -173,6 +174,15 @@ export const baseNavConfig: NavItemConfig[] = [
     icon: PeopleIcon,
     upgradeResource: 'students',
     matchPattern: '^/org/[^/]+/audience(/.*)?$' // Matches nested routes
+  },
+  {
+    group: 'people',
+    titleKey: 'org_navigation.companies',
+    path: '/companies',
+    icon: BuildingIcon,
+    requiresAdmin: true,
+    supportsDynamicSegment: true, // Supports /companies/[companyId]
+    matchPattern: '^/org/[^/]+/companies(/.*)?$'
   },
   {
     group: 'people',

@@ -1,0 +1,1 @@
+ALTER TABLE "company" ADD COLUMN "annual_training_hours" integer;

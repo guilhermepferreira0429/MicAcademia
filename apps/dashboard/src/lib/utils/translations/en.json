@@ -1369,7 +1369,8 @@
     "cohorts": "Cohorts",
     "instructors": "Instructors",
     "revenue_share": "Revenue share",
-    "sigo": "SIGO"
+    "sigo": "SIGO",
+    "companies": "Companies"
   },
   "pricing": {
     "plan_names": {
@@ -2029,7 +2030,8 @@
       "nav_landing_page": "Landing Page",
       "nav_settings": "Settings",
       "nav_ai_assistant": "Assistant",
-      "nav_ai_tutor": "AI Tutor"
+      "nav_ai_tutor": "AI Tutor",
+      "nav_dossier": "Audit dossier"
     },
     "sidebar": {
       "back_to_course": "Back to course",
@@ -5170,6 +5172,247 @@
       "marked": "Attendance recorded",
       "mark_failed": "Could not record attendance",
       "summary_failed": "Could not load the attendance record"
+    }
+  },
+  "company": {
+    "title": "Companies",
+    "subtitle": "The businesses you sell training to: their staff, their bulk enrolments and their orders.",
+    "add": "New company",
+    "edit": "Edit company",
+    "delete": "Delete company",
+    "open": "Open company",
+    "table": {
+      "name": "Company",
+      "nif": "Tax number",
+      "email": "Contact email",
+      "headcount": "Staff",
+      "people_count": "{count} people",
+      "actions": "Actions"
+    },
+    "empty": {
+      "title": "No companies yet",
+      "description": "Add the businesses you train so you can enrol their staff in bulk and invoice them once."
+    },
+    "form": {
+      "add_title": "New company",
+      "edit_title": "Edit company",
+      "description": "The details used on the invoice and to reach the company's HR contact.",
+      "section_identification": "Identification",
+      "section_contact": "Contact",
+      "name": "Company name",
+      "name_placeholder": "e.g. Nautis, Lda.",
+      "nif": "Tax number",
+      "nif_placeholder": "e.g. 501234567",
+      "nif_hint": "Portuguese tax number: exactly 9 digits.",
+      "email": "Contact email",
+      "email_placeholder": "hr@company.com",
+      "phone": "Phone",
+      "phone_placeholder": "+351 210 000 000",
+      "address": "Address",
+      "address_placeholder": "Street, postcode, town",
+      "notes": "Notes",
+      "notes_placeholder": "Anything worth remembering about this customer",
+      "cancel": "Cancel",
+      "save": "Save changes",
+      "create": "Create company",
+      "annual_training_hours": "Annual training hours",
+      "annual_training_hours_placeholder": "40",
+      "annual_training_hours_hint": "Hours of training this company owes each employee per year. Leave blank to use the 40-hour legal default."
+    },
+    "delete_modal": {
+      "title": "Delete company",
+      "description": "Delete {name}? Its staff list and orders are deleted too. This cannot be undone."
+    },
+    "tabs": {
+      "staff": "Staff",
+      "enroll": "Bulk enrolment",
+      "orders": "Orders",
+      "report": "Training report",
+      "annual": "Annual obligation"
+    },
+    "detail": {
+      "title": "Company",
+      "subtitle": "Staff, bulk enrolments, orders and training hours.",
+      "back": "Back to companies",
+      "not_found": "This company could not be found."
+    },
+    "staff": {
+      "add": "Add staff",
+      "add_title": "Add staff",
+      "add_description": "Pick someone who already exists in your organization and attach them to this company.",
+      "search": "Search people",
+      "search_placeholder": "Search by name or email",
+      "no_candidates": "No one left to add. Everyone found is already on this company's staff.",
+      "role": "Role",
+      "job_title": "Job title",
+      "job_title_placeholder": "e.g. Warehouse operator",
+      "name": "Name",
+      "email": "Email",
+      "actions": "Actions",
+      "empty": "No staff yet. Add the people this company wants to train.",
+      "remove": "Remove from company",
+      "remove_modal": {
+        "title": "Remove from company",
+        "description": "Remove {name} from this company's staff? Their course enrolments are kept."
+      }
+    },
+    "role": {
+      "employee": "Employee",
+      "manager": "Manager"
+    },
+    "order_status": {
+      "pending": "Pending",
+      "invoiced": "Invoiced",
+      "paid": "Paid"
+    },
+    "enroll": {
+      "description": "Enrol a batch of this company's staff in one course. A single order is created for the whole batch, so the company is invoiced once.",
+      "course": "Course",
+      "course_placeholder": "Select a course",
+      "unit_price": "Price per seat (EUR)",
+      "unit_price_hint": "Leave empty to use the course price.",
+      "no_staff": "Add staff to this company before enrolling anyone.",
+      "select_all": "Select all",
+      "selected_count": "{count} selected",
+      "submit": "Enrol selected staff",
+      "result_title": "Enrolment finished",
+      "result_description": "{enrolled} enrolled, {alreadyEnrolled} already enrolled, {failed} failed."
+    },
+    "orders": {
+      "course": "Course",
+      "seats": "Seats",
+      "unit_price": "Price per seat",
+      "total": "Total",
+      "status": "Status",
+      "invoice_reference": "Invoice reference",
+      "invoice_reference_placeholder": "e.g. FT 2026/128",
+      "actions": "Actions",
+      "edit": "Edit order",
+      "save": "Save order",
+      "empty": "No orders yet. They appear here after your first bulk enrolment."
+    },
+    "report": {
+      "employee": "Employee",
+      "email": "Email",
+      "job_title": "Job title",
+      "course": "Course",
+      "enrolled_at": "Enrolled on",
+      "hours": "Training hours",
+      "certificate": "Certificate",
+      "earned_on": "Earned on {date}",
+      "not_earned": "Not earned",
+      "employee_total": "Total {hours}",
+      "total_hours": "Training hours attended by the whole company: {hours}",
+      "export_csv": "Export CSV",
+      "no_courses": "Not enrolled in any course yet.",
+      "empty": "Nothing to report yet. Add staff and enrol them in a course."
+    },
+    "snackbar": {
+      "list_failed": "Could not load the companies.",
+      "created": "Company created.",
+      "create_failed": "Could not create the company.",
+      "updated": "Company updated.",
+      "update_failed": "Could not update the company.",
+      "deleted": "Company deleted.",
+      "delete_failed": "Could not delete the company.",
+      "detail_failed": "Could not load this company.",
+      "member_added": "Staff member added.",
+      "member_add_failed": "Could not add the staff member.",
+      "member_removed": "Staff member removed.",
+      "member_remove_failed": "Could not remove the staff member.",
+      "enrolled": "Bulk enrolment finished.",
+      "enroll_failed": "Could not enrol the selected staff.",
+      "order_updated": "Order updated.",
+      "order_update_failed": "Could not update the order.",
+      "report_failed": "Could not load the training report.",
+      "annual_training_failed": "Could not load the annual training report."
+    }
+  },
+  "annual_training": {
+    "title": "Annual obligation",
+    "subtitle": "Progress against the legal annual training obligation, from hours actually attended.",
+    "year": "Year",
+    "summary_headline": "{met} of {employees} employees meet the {hours}-hour obligation",
+    "summary_total_hours": "{hours} training hours delivered in {year}.",
+    "legal_note": "Portuguese law requires 40 hours of training per worker per year unless a different figure is set for this company.",
+    "employee": "Employee",
+    "job_title": "Job title",
+    "hours_done": "Hours done",
+    "hours_required": "Hours required",
+    "hours_missing": "Still missing",
+    "hours_short": "{hours} h short",
+    "progress": "Progress",
+    "percent": "Percent",
+    "status": "Status",
+    "met": "Obligation met",
+    "not_met": "Not met",
+    "export_csv": "Export CSV",
+    "empty": "No staff on this company yet, so there is nothing to count."
+  },
+  "dossier": {
+    "document_title": "Audit dossier",
+    "generated_at": "Generated on {date}",
+    "print": "Print / save as PDF",
+    "export_csv": "Export attendance sheet",
+    "not_found": "This audit dossier could not be built.",
+    "print_footer": "Audit dossier issued by {organization}.",
+    "gaps": {
+      "title": "Fix before the auditor finds it ({count})",
+      "description": "These items are still missing from the dossier. They are not printed.",
+      "entity_missing": "Training entity is not filled in.",
+      "hours_missing": "Total hours of the training action are not filled in.",
+      "period_missing": "Start and end dates of the training action are not filled in.",
+      "no_trainer": "No trainer is assigned to this training action.",
+      "trainer_no_ccp": "Trainer {subject}: no CCP number on record.",
+      "trainer_ccp_expired": "Trainer {subject}: CCP expired.",
+      "trainer_contract_unsigned": "Trainer {subject}: contract not signed.",
+      "students_without_nif": "{subject} trainees have no tax number (NIF).",
+      "no_attendance": "No sessions with attendance recorded."
+    },
+    "action": {
+      "title": "Identification of the training action",
+      "entity": "Training entity",
+      "action": "Training action",
+      "ufcd": "UFCD",
+      "total_hours": "Total hours",
+      "hours_value": "{hours} h",
+      "period": "Period",
+      "organization": "Organization"
+    },
+    "trainers": {
+      "title": "Trainers",
+      "name": "Trainer",
+      "ccp": "CCP",
+      "valid_until": "Valid until {date}",
+      "specialization": "Specialization",
+      "contract": "Contract",
+      "ip_cession": "IP cession",
+      "empty": "No trainer assigned to this training action."
+    },
+    "syllabus": {
+      "title": "Programme",
+      "empty": "No programme content yet."
+    },
+    "sessions": {
+      "title": "Sessions",
+      "session": "Session",
+      "date": "Date",
+      "duration": "Duration",
+      "empty": "No sessions recorded yet."
+    },
+    "attendance": {
+      "title": "Attendance sheet",
+      "student": "Trainee",
+      "nif": "Tax number",
+      "nif_missing": "Missing",
+      "hours": "Hours attended",
+      "percent": "Attendance",
+      "certificate": "Certificate",
+      "no_certificate": "Not issued",
+      "empty": "No trainees enrolled in this training action."
+    },
+    "snackbar": {
+      "load_failed": "Could not load the audit dossier."
     }
   }
 }

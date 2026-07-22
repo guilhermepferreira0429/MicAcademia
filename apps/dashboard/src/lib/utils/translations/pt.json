@@ -1656,7 +1656,8 @@
       "nav_landing_page": "Página inicial",
       "nav_settings": "Definições",
       "nav_ai_assistant": "Assistente",
-      "nav_ai_tutor": "Tutor de IA"
+      "nav_ai_tutor": "Tutor de IA",
+      "nav_dossier": "Dossiê de auditoria"
     },
     "completion": {
       "modal": {
@@ -4556,7 +4557,8 @@
     "upgrade_left": "{count} restantes",
     "instructors": "Formadores",
     "revenue_share": "Partilha de receita",
-    "sigo": "SIGO"
+    "sigo": "SIGO",
+    "companies": "Empresas"
   },
   "invite": {
     "organization": {
@@ -5180,6 +5182,247 @@
       "marked": "Presença registada",
       "mark_failed": "Não foi possível registar a presença",
       "summary_failed": "Não foi possível carregar o registo de presenças"
+    }
+  },
+  "company": {
+    "title": "Empresas",
+    "subtitle": "As empresas a quem vendes formação: os colaboradores, as inscrições em massa e as encomendas.",
+    "add": "Nova empresa",
+    "edit": "Editar empresa",
+    "delete": "Eliminar empresa",
+    "open": "Abrir empresa",
+    "table": {
+      "name": "Empresa",
+      "nif": "NIF",
+      "email": "Email de contacto",
+      "headcount": "Colaboradores",
+      "people_count": "{count} pessoas",
+      "actions": "Ações"
+    },
+    "empty": {
+      "title": "Ainda não tens empresas",
+      "description": "Adiciona as empresas que formas para poderes inscrever os colaboradores em massa e faturar de uma só vez."
+    },
+    "form": {
+      "add_title": "Nova empresa",
+      "edit_title": "Editar empresa",
+      "description": "Os dados usados na fatura e para contactar o responsável de RH da empresa.",
+      "section_identification": "Identificação",
+      "section_contact": "Contacto",
+      "name": "Nome da empresa",
+      "name_placeholder": "ex.: Nautis, Lda.",
+      "nif": "NIF",
+      "nif_placeholder": "ex.: 501234567",
+      "nif_hint": "Número de identificação fiscal: exatamente 9 dígitos.",
+      "email": "Email de contacto",
+      "email_placeholder": "rh@empresa.pt",
+      "phone": "Telefone",
+      "phone_placeholder": "+351 210 000 000",
+      "address": "Morada",
+      "address_placeholder": "Rua, código postal, localidade",
+      "notes": "Notas",
+      "notes_placeholder": "O que for útil recordar sobre este cliente",
+      "cancel": "Cancelar",
+      "save": "Guardar alterações",
+      "create": "Criar empresa",
+      "annual_training_hours": "Horas de formação anuais",
+      "annual_training_hours_placeholder": "40",
+      "annual_training_hours_hint": "Horas de formação que esta empresa deve a cada colaborador por ano. Deixa em branco para usar o mínimo legal de 40 horas."
+    },
+    "delete_modal": {
+      "title": "Eliminar empresa",
+      "description": "Eliminar {name}? A lista de colaboradores e as encomendas também são eliminadas. Não podes anular esta ação."
+    },
+    "tabs": {
+      "staff": "Colaboradores",
+      "enroll": "Inscrição em massa",
+      "orders": "Encomendas",
+      "report": "Relatório de formação",
+      "annual": "Obrigação anual"
+    },
+    "detail": {
+      "title": "Empresa",
+      "subtitle": "Colaboradores, inscrições em massa, encomendas e horas de formação.",
+      "back": "Voltar às empresas",
+      "not_found": "Não foi possível encontrar esta empresa."
+    },
+    "staff": {
+      "add": "Adicionar colaborador",
+      "add_title": "Adicionar colaborador",
+      "add_description": "Escolhe alguém que já existe na tua organização e associa-o a esta empresa.",
+      "search": "Procurar pessoas",
+      "search_placeholder": "Procura por nome ou email",
+      "no_candidates": "Não há mais ninguém para adicionar. Todos os resultados já são colaboradores desta empresa.",
+      "role": "Função",
+      "job_title": "Cargo",
+      "job_title_placeholder": "ex.: Operador de armazém",
+      "name": "Nome",
+      "email": "Email",
+      "actions": "Ações",
+      "empty": "Ainda não há colaboradores. Adiciona as pessoas que esta empresa quer formar.",
+      "remove": "Remover da empresa",
+      "remove_modal": {
+        "title": "Remover da empresa",
+        "description": "Remover {name} dos colaboradores desta empresa? As inscrições nos cursos mantêm-se."
+      }
+    },
+    "role": {
+      "employee": "Colaborador",
+      "manager": "Responsável"
+    },
+    "order_status": {
+      "pending": "Pendente",
+      "invoiced": "Faturada",
+      "paid": "Paga"
+    },
+    "enroll": {
+      "description": "Inscreve um grupo de colaboradores desta empresa num curso. É criada uma única encomenda para todo o grupo, para faturares a empresa de uma só vez.",
+      "course": "Curso",
+      "course_placeholder": "Seleciona um curso",
+      "unit_price": "Preço por vaga (EUR)",
+      "unit_price_hint": "Deixa em branco para usar o preço do curso.",
+      "no_staff": "Adiciona colaboradores a esta empresa antes de inscreveres alguém.",
+      "select_all": "Selecionar todos",
+      "selected_count": "{count} selecionados",
+      "submit": "Inscrever colaboradores selecionados",
+      "result_title": "Inscrição concluída",
+      "result_description": "{enrolled} inscritos, {alreadyEnrolled} já inscritos, {failed} falharam."
+    },
+    "orders": {
+      "course": "Curso",
+      "seats": "Vagas",
+      "unit_price": "Preço por vaga",
+      "total": "Total",
+      "status": "Estado",
+      "invoice_reference": "Referência da fatura",
+      "invoice_reference_placeholder": "ex.: FT 2026/128",
+      "actions": "Ações",
+      "edit": "Editar encomenda",
+      "save": "Guardar encomenda",
+      "empty": "Ainda não há encomendas. Aparecem aqui depois da primeira inscrição em massa."
+    },
+    "report": {
+      "employee": "Colaborador",
+      "email": "Email",
+      "job_title": "Cargo",
+      "course": "Curso",
+      "enrolled_at": "Inscrito em",
+      "hours": "Horas de formação",
+      "certificate": "Certificado",
+      "earned_on": "Obtido em {date}",
+      "not_earned": "Não obtido",
+      "employee_total": "Total {hours}",
+      "total_hours": "Horas de formação assistidas por toda a empresa: {hours}",
+      "export_csv": "Exportar CSV",
+      "no_courses": "Ainda não está inscrito em nenhum curso.",
+      "empty": "Ainda não há nada para reportar. Adiciona colaboradores e inscreve-os num curso."
+    },
+    "snackbar": {
+      "list_failed": "Não foi possível carregar as empresas.",
+      "created": "Empresa criada.",
+      "create_failed": "Não foi possível criar a empresa.",
+      "updated": "Empresa atualizada.",
+      "update_failed": "Não foi possível atualizar a empresa.",
+      "deleted": "Empresa eliminada.",
+      "delete_failed": "Não foi possível eliminar a empresa.",
+      "detail_failed": "Não foi possível carregar esta empresa.",
+      "member_added": "Colaborador adicionado.",
+      "member_add_failed": "Não foi possível adicionar o colaborador.",
+      "member_removed": "Colaborador removido.",
+      "member_remove_failed": "Não foi possível remover o colaborador.",
+      "enrolled": "Inscrição em massa concluída.",
+      "enroll_failed": "Não foi possível inscrever os colaboradores selecionados.",
+      "order_updated": "Encomenda atualizada.",
+      "order_update_failed": "Não foi possível atualizar a encomenda.",
+      "report_failed": "Não foi possível carregar o relatório de formação.",
+      "annual_training_failed": "Não foi possível carregar o relatório da obrigação anual."
+    }
+  },
+  "annual_training": {
+    "title": "Obrigação anual",
+    "subtitle": "Progresso face à obrigação anual de formação, a partir das horas efetivamente assistidas.",
+    "year": "Ano",
+    "summary_headline": "{met} de {employees} colaboradores cumprem a obrigação de {hours} horas",
+    "summary_total_hours": "{hours} horas de formação dadas em {year}.",
+    "legal_note": "A lei portuguesa exige 40 horas de formação por trabalhador por ano, salvo se definires outro valor para esta empresa.",
+    "employee": "Colaborador",
+    "job_title": "Função",
+    "hours_done": "Horas feitas",
+    "hours_required": "Horas exigidas",
+    "hours_missing": "Ainda em falta",
+    "hours_short": "Faltam {hours} h",
+    "progress": "Progresso",
+    "percent": "Percentagem",
+    "status": "Estado",
+    "met": "Obrigação cumprida",
+    "not_met": "Por cumprir",
+    "export_csv": "Exportar CSV",
+    "empty": "Esta empresa ainda não tem colaboradores, por isso não há nada a contabilizar."
+  },
+  "dossier": {
+    "document_title": "Dossiê de auditoria",
+    "generated_at": "Gerado a {date}",
+    "print": "Imprimir / guardar em PDF",
+    "export_csv": "Exportar folha de presenças",
+    "not_found": "Não foi possível montar este dossiê de auditoria.",
+    "print_footer": "Dossiê de auditoria emitido por {organization}.",
+    "gaps": {
+      "title": "Corrige antes de o auditor encontrar ({count})",
+      "description": "Estes elementos ainda faltam no dossiê. Não são impressos.",
+      "entity_missing": "A entidade formadora não está preenchida.",
+      "hours_missing": "A carga horária total da ação de formação não está preenchida.",
+      "period_missing": "As datas de início e de fim da ação de formação não estão preenchidas.",
+      "no_trainer": "Não há nenhum formador atribuído a esta ação de formação.",
+      "trainer_no_ccp": "Formador {subject}: sem número de CCP registado.",
+      "trainer_ccp_expired": "Formador {subject}: CCP expirado.",
+      "trainer_contract_unsigned": "Formador {subject}: contrato por assinar.",
+      "students_without_nif": "{subject} formandos sem NIF.",
+      "no_attendance": "Não há sessões com presenças registadas."
+    },
+    "action": {
+      "title": "Identificação da ação de formação",
+      "entity": "Entidade formadora",
+      "action": "Ação de formação",
+      "ufcd": "UFCD",
+      "total_hours": "Carga horária total",
+      "hours_value": "{hours} h",
+      "period": "Período",
+      "organization": "Organização"
+    },
+    "trainers": {
+      "title": "Formadores",
+      "name": "Formador",
+      "ccp": "CCP",
+      "valid_until": "Válido até {date}",
+      "specialization": "Especialização",
+      "contract": "Contrato",
+      "ip_cession": "Cessão de direitos",
+      "empty": "Não há formadores atribuídos a esta ação de formação."
+    },
+    "syllabus": {
+      "title": "Programa",
+      "empty": "Ainda não há conteúdos no programa."
+    },
+    "sessions": {
+      "title": "Sessões",
+      "session": "Sessão",
+      "date": "Data",
+      "duration": "Duração",
+      "empty": "Ainda não há sessões registadas."
+    },
+    "attendance": {
+      "title": "Folha de presenças",
+      "student": "Formando",
+      "nif": "NIF",
+      "nif_missing": "Em falta",
+      "hours": "Horas assistidas",
+      "percent": "Assiduidade",
+      "certificate": "Certificado",
+      "no_certificate": "Não emitido",
+      "empty": "Não há formandos inscritos nesta ação de formação."
+    },
+    "snackbar": {
+      "load_failed": "Não foi possível carregar o dossiê de auditoria."
     }
   }
 }

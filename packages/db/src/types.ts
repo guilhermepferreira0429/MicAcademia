@@ -112,6 +112,15 @@ export type TNewAttendanceLog = typeof schema.attendanceLog.$inferInsert;
 export type TSigoSubmission = typeof schema.sigoSubmission.$inferSelect;
 export type TNewSigoSubmission = typeof schema.sigoSubmission.$inferInsert;
 
+export type TCompany = typeof schema.company.$inferSelect;
+export type TNewCompany = typeof schema.company.$inferInsert;
+
+export type TCompanyMember = typeof schema.companyMember.$inferSelect;
+export type TNewCompanyMember = typeof schema.companyMember.$inferInsert;
+
+export type TCompanyEnrollment = typeof schema.companyEnrollment.$inferSelect;
+export type TNewCompanyEnrollment = typeof schema.companyEnrollment.$inferInsert;
+
 export type TCourseInvite = typeof schema.courseInvite.$inferSelect;
 export type TNewCourseInvite = typeof schema.courseInvite.$inferInsert;
 

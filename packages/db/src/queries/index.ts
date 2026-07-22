@@ -21,3 +21,4 @@ export * from './jobs';
 export * from './media-transcript';
 export * from './instructor';
 export * from './sigo';
+export * from './company';

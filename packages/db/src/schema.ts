@@ -3586,6 +3586,115 @@ export const sigoSubmission = pgTable(
   ]
 );
 
+// ─── B2B company accounts ────────────────────────────────────────────────────
+// Companies are the academy's business customers: they buy training for their
+// staff (the legal 40h/year obligation), get one invoice instead of one per
+// employee, and their HR contact follows who has done what.
+export const company = pgTable(
+  'company',
+  {
+    id: uuid()
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    orgId: uuid('org_id').notNull(),
+    name: varchar().notNull(),
+    /** Portuguese tax number — required to invoice the company. */
+    nif: varchar(),
+    /** Billing / main contact. */
+    email: varchar(),
+    phone: varchar(),
+    address: text(),
+    notes: text(),
+    /**
+     * Training hours each employee must complete per year. Portuguese law sets
+     * a 40h minimum; a company can agree a higher target. Null = use the legal
+     * default.
+     */
+    annualTrainingHours: integer('annual_training_hours'),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull()
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.orgId],
+      foreignColumns: [organization.id],
+      name: 'company_org_id_fkey'
+    }),
+    index('idx_company_org_id').on(table.orgId)
+  ]
+);
+
+export const companyMember = pgTable(
+  'company_member',
+  {
+    id: uuid()
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    companyId: uuid('company_id').notNull(),
+    profileId: uuid('profile_id').notNull(),
+    /** 'employee' | 'manager' — managers are the HR contacts who follow progress. */
+    role: text().notNull().default('employee'),
+    jobTitle: varchar('job_title'),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull()
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.companyId],
+      foreignColumns: [company.id],
+      name: 'company_member_company_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.profileId],
+      foreignColumns: [profile.id],
+      name: 'company_member_profile_id_fkey'
+    }),
+    unique('company_member_unique').on(table.companyId, table.profileId)
+  ]
+);
+
+// One order per (company, course) purchase: the seats bought and the single
+// amount to invoice, so the company is billed once rather than per employee.
+export const companyEnrollment = pgTable(
+  'company_enrollment',
+  {
+    id: uuid()
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    companyId: uuid('company_id').notNull(),
+    courseId: uuid('course_id').notNull(),
+    seats: integer().notNull().default(0),
+    unitPriceCents: integer('unit_price_cents').notNull().default(0),
+    totalCents: integer('total_cents').notNull().default(0),
+    /** 'pending' | 'invoiced' | 'paid'. */
+    status: text().notNull().default('pending'),
+    invoiceReference: text('invoice_reference'),
+    createdBy: uuid('created_by'),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull()
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.companyId],
+      foreignColumns: [company.id],
+      name: 'company_enrollment_company_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.courseId],
+      foreignColumns: [course.id],
+      name: 'company_enrollment_course_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.createdBy],
+      foreignColumns: [profile.id],
+      name: 'company_enrollment_created_by_fkey'
+    }),
+    index('idx_company_enrollment_company').on(table.companyId)
+  ]
+);
+
 // ─── AI Tutor Fair-Use ───────────────────────────────────────────────────────
 
 export const aiTutorMessageCount = pgTable(

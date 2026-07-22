@@ -23,6 +23,7 @@ import { webhooksRouter } from '@api/routes/webhooks';
 import { instructorRouter } from '@api/routes/instructor';
 import { revenueShareRouter } from '@api/routes/revenue';
 import { sigoRouter } from '@api/routes/sigo';
+import { companyRouter } from '@api/routes/company';
 import { dashAnalyticsRouter } from '@api/routes/dash';
 import { domainRouter } from '@api/routes/domain/domain';
 import { internalRouter } from '@api/routes/internal';
@@ -242,6 +243,7 @@ export const app = new Hono()
   .route('/instructor', instructorRouter)
   .route('/revenue-share', revenueShareRouter)
   .route('/sigo', sigoRouter)
+  .route('/company', companyRouter)
   .route('/domain', domainRouter)
   .route('/hls', hlsRouter)
   .route('/transcripts', transcriptsRouter)
