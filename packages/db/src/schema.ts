@@ -3488,6 +3488,55 @@ export const instructorCourse = pgTable(
   ]
 );
 
+// ─── Live-session attendance (LiveKit + later in-person check-in) ────────────
+// Raw presence intervals for a session (= a scheduled lesson). One row per
+// join→leave, so reconnections produce several rows that are summed. The
+// derived present/absent verdict is written to `group_attendance`, which stays
+// the flag the UI reads. `source` keeps this ready for in-person check-in (2.2).
+export const attendanceLog = pgTable(
+  'attendance_log',
+  {
+    id: uuid()
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    courseId: uuid('course_id').notNull(),
+    /** The session — a lesson with a scheduled `lessonAt`. */
+    lessonId: uuid('lesson_id').notNull(),
+    profileId: uuid('profile_id').notNull(),
+    /** 'livekit' | 'in_person'. */
+    source: text().notNull().default('livekit'),
+    /** LiveKit room this interval came from (null for in-person). */
+    roomName: text('room_name'),
+    joinedAt: timestamp('joined_at', { withTimezone: true, mode: 'string' }).notNull(),
+    /** Null while the participant is still connected. */
+    leftAt: timestamp('left_at', { withTimezone: true, mode: 'string' }),
+    /** Filled when the interval closes. */
+    durationSeconds: integer('duration_seconds'),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull()
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.courseId],
+      foreignColumns: [course.id],
+      name: 'attendance_log_course_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.lessonId],
+      foreignColumns: [lesson.id],
+      name: 'attendance_log_lesson_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.profileId],
+      foreignColumns: [profile.id],
+      name: 'attendance_log_profile_id_fkey'
+    }),
+    index('idx_attendance_log_lesson').on(table.lessonId),
+    index('idx_attendance_log_lesson_profile').on(table.lessonId, table.profileId)
+  ]
+);
+
 // ─── AI Tutor Fair-Use ───────────────────────────────────────────────────────
 
 export const aiTutorMessageCount = pgTable(

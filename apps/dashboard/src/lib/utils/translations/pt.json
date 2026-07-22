@@ -5037,5 +5037,17 @@
     "snackbar": {
       "load_failed": "Falha ao carregar o relatório de partilha de receita"
     }
+  },
+  "live_session": {
+    "join": "Entrar na aula ao vivo",
+    "leave": "Sair",
+    "connecting": "A ligar…",
+    "not_joined": "A aula ao vivo está pronta. Entra quando quiseres.",
+    "retry": "Tentar novamente",
+    "you": "Tu",
+    "toggle_mic": "Ligar/desligar microfone",
+    "toggle_camera": "Ligar/desligar câmara",
+    "error_token": "Não foi possível obter acesso a esta aula ao vivo.",
+    "error_connect": "Não foi possível ligar à aula ao vivo."
   }
 }

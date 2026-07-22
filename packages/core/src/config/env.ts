@@ -115,7 +115,14 @@ const envSchema = z.object({
   /** Publicly reachable URL EasyPay POSTs payment notifications to. Must not be localhost/private (EasyPay rejects the checkout otherwise). */
   EASYPAY_WEBHOOK_URL: z.string().optional(),
   /** Shared secret appended as ?token= to the webhook URL and checked on inbound notifications (EasyPay does not HMAC-sign). */
-  EASYPAY_WEBHOOK_SECRET: z.string().optional()
+  EASYPAY_WEBHOOK_SECRET: z.string().optional(),
+  // ─── LiveKit (self-hosted live classes) ────────────────────────────────────
+  /** LiveKit server URL the browser connects to, e.g. ws://localhost:7880. */
+  LIVEKIT_URL: z.string().optional(),
+  /** LiveKit API key (must match a key in the server's livekit.yaml). */
+  LIVEKIT_API_KEY: z.string().optional(),
+  /** LiveKit API secret used to sign join tokens. */
+  LIVEKIT_API_SECRET: z.string().optional()
 });
 
 export const env = envSchema.parse(process.env);

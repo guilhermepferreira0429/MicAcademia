@@ -141,6 +141,9 @@ importers:
       katex:
         specifier: ^0.16.10
         version: 0.16.27
+      livekit-server-sdk:
+        specifier: ^2.17.0
+        version: 2.17.0
       marked:
         specifier: ^7.0.3
         version: 7.0.5
@@ -419,6 +422,9 @@ importers:
       ky:
         specifier: ^1.10.0
         version: 1.14.1
+      livekit-client:
+        specifier: ^2.20.2
+        version: 2.20.2(@types/dom-mediacapture-record@1.0.22)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -849,7 +855,7 @@ importers:
         version: link:../../packages/tsconfig
       '@sveltejs/adapter-cloudflare':
         specifier: ^7.0.0
-        version: 7.2.8(@sveltejs/kit@2.49.2(@opentelemetry/api@1.9.1)(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1)))(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1)))(wrangler@4.21.2(@cloudflare/workers-types@4.20260511.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6))
+        version: 7.2.8(@sveltejs/kit@2.49.2(@opentelemetry/api@1.9.1)(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1)))(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1)))(wrangler@4.21.2(@cloudflare/workers-types@4.20260511.1))
       '@sveltejs/kit':
         specifier: ^2.5.27
         version: 2.49.2(@opentelemetry/api@1.9.1)(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1)))(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1))
@@ -2622,6 +2628,9 @@ packages:
     resolution: {integrity: sha512-ctxtJ/eA+t+6q2++vj5j7FYX3nRu311q1wfYH3xjlLOsczhlhxAg2FWNUXhpGvAw3BWo1xBcvOV6/YLc2r5FJw==}
     hasBin: true
 
+  '@bufbuild/protobuf@1.10.1':
+    resolution: {integrity: sha512-wJ8ReQbHxsAfXhrf9ixl0aYbZorRuOWpBNzm8pL8ftmSxQx/wnJD5Eg861NwJU/czy2VXFIebCeZnZrI9rktIQ==}
+
   '@cloudflare/kv-asset-handler@0.4.0':
     resolution: {integrity: sha512-+tv3z+SPp+gqTIcImN9o0hqE9xyfQjI1XD9pL6NuKjua9B1y7mNYv0S9cP+QEbA4ppVgGZEmKOvHX5G5Ei1CVA==}
     engines: {node: '>=18.0.0'}
@@ -2845,11 +2854,11 @@ packages:
 
   '@esbuild-kit/core-utils@3.3.2':
     resolution: {integrity: sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ==}
-    deprecated: 'Merged into tsx: https://tsx.is'
+    deprecated: 'Merged into tsx: https://tsx.hirok.io'
 
   '@esbuild-kit/esm-loader@2.6.5':
     resolution: {integrity: sha512-FxEMIkJKnodyA1OaCUoEvbYRkoZlLZ4d/eXFu9Fh8CbBBgP5EmZxrfTRyN0qpXZ4vOvqnE5YdRdcrmUUXuU+dA==}
-    deprecated: 'Merged into tsx: https://tsx.is'
+    deprecated: 'Merged into tsx: https://tsx.hirok.io'
 
   '@esbuild/aix-ppc64@0.19.12':
     resolution: {integrity: sha512-bmoCYyWdEL3wDQIVbcyzRyeKLgk2WtWLTWz1ZIAZF/EGbNOwSA6ew3PftJ1PqMiOOGu0OyFMzG53L0zqIpPeNA==}
@@ -4461,6 +4470,15 @@ packages:
 
   '@layerstack/utils@2.0.0-next.12':
     resolution: {integrity: sha512-fhGZUlSr3N+D44BYm37WKMGSEFyZBW+dwIqtGU8Cl54mR4TLQ/UwyGhdpgIHyH/x/8q1abE0fP0Dn6ZsrDE3BA==}
+
+  '@livekit/mutex@1.1.1':
+    resolution: {integrity: sha512-EsshAucklmpuUAfkABPxJNhzj9v2sG7JuzFDL4ML1oJQSV14sqrpTYnsaOudMAw9yOaW53NU3QQTlUQoRs4czw==}
+
+  '@livekit/protocol@1.46.6':
+    resolution: {integrity: sha512-upzlHP1vi/kZ/QqALZTFskQ0ifqc2f15RKucHYOsIHJsaXvEYanG75mAb7o+Yomfs4XhQ4BaRsdY+TFHXpaqrg==}
+
+  '@livekit/protocol@1.50.4':
+    resolution: {integrity: sha512-L1uggNQAqyY21smQY8AllyOYbcv9Me9TaxwuLytL1R8ck9nbYPmQLNwEDi3pOFGAMa5F8I2nUi2Jc59W5awxlA==}
 
   '@lucide/svelte@0.545.0':
     resolution: {integrity: sha512-RlAtWefx9MdpXaOMbx3Qv3/NqpeZKOIPxN2D0RBN2+op0opKly8VgYEEWZTT6Ow/zf7UwyTg6/0ExJlsVLK+8g==}
@@ -7246,6 +7264,9 @@ packages:
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
 
+  '@types/dom-mediacapture-record@1.0.22':
+    resolution: {integrity: sha512-mUMZLK3NvwRLcAAT9qmcK+9p7tpU2FHdDsntR3YI4+GY88XrgG4XiE7u1Q2LAN2/FZOz/tdMDC3GQCR4T8nFuw==}
+
   '@types/dom-mediacapture-transform@0.1.11':
     resolution: {integrity: sha512-Y2p+nGf1bF2XMttBnsVPHUWzRRZzqUoJAKmiP10b5umnO6DDrWI0BrGDJy1pOHoOULVmGSfFNkQrAlC5dcj6nQ==}
 
@@ -9438,6 +9459,10 @@ packages:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
 
+  events@3.3.0:
+    resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
+    engines: {node: '>=0.8.x'}
+
   eventsource-parser@3.0.6:
     resolution: {integrity: sha512-Vo1ab+QXPzZ4tCa8SwIHJFaSzy4R6SHf7BY79rFBDf0idraZWAkYrDjDj8uWaSm3S2TK+hJ7/t1CEmZ7jXw+pg==}
     engines: {node: '>=18.0.0'}
@@ -10558,6 +10583,9 @@ packages:
   joi@17.13.3:
     resolution: {integrity: sha512-otDA4ldcIx+ZXsKHWmp0YizCweVRZG96J10b0FevjfuncLO1oX59THoAmHkNubYJ+9gWsYsp5k8v4ib6oDv1fA==}
 
+  jose@5.10.0:
+    resolution: {integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==}
+
   jose@6.1.3:
     resolution: {integrity: sha512-0TpaTfihd4QMNwrz/ob2Bp7X04yuxJkjRGi4aKmOqwhov54i6u79oCv7T+C7lo70MKH6BesI3vscD1yb/yzKXQ==}
 
@@ -10948,6 +10976,15 @@ packages:
   linkifyjs@4.3.2:
     resolution: {integrity: sha512-NT1CJtq3hHIreOianA8aSXn6Cw0JzYOuDQbOrSPe7gqFnCpKP++MQe3ODgO3oh2GJFORkAAdqredOa60z63GbA==}
 
+  livekit-client@2.20.2:
+    resolution: {integrity: sha512-rGV0Y+HgqI4yROq/4Get7wZ62DbYI55GumrI7FHJsUNFzPCl6xSqYBVlkVaCEvyOk14PdANLK/EHgMPJbvD68w==}
+    peerDependencies:
+      '@types/dom-mediacapture-record': ^1
+
+  livekit-server-sdk@2.17.0:
+    resolution: {integrity: sha512-GWNEQrUD13UwZNrmosyTVFPgeBvSU2lFKGxdA4DaUI5F4sMb1cGeep/PPEE9vvRNELJYpxWS0ImS4gQmovKUDA==}
+    engines: {node: '>=18'}
+
   load-json-file@4.0.0:
     resolution: {integrity: sha512-Kx8hMakjX03tiGTLAIdJ+lL0htKnXjEZN6hk/tozf/WOuYGdZBJrZ+rCJRbVCugsjB3jMLn9746NsQIf5VjBMw==}
     engines: {node: '>=4'}
@@ -11005,6 +11042,10 @@ packages:
   log-symbols@6.0.0:
     resolution: {integrity: sha512-i24m8rpwhmPIS4zscNzK6MSEhk0DUWa/8iYQWxhffV8jkI4Phvs3F+quL5xvS0gdQR0FyTCMMH33Y78dDTzzIw==}
     engines: {node: '>=18'}
+
+  loglevel@1.9.2:
+    resolution: {integrity: sha512-HgMmCqIJSAKqo68l0rS2AanEWfkxaZ5wNiEFb5ggm08lDs9Xl2KxBlX3PTcaD2chBM1gXAYf491/M2Rv8Jwayg==}
+    engines: {node: '>= 0.6.0'}
 
   longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
@@ -12766,6 +12807,13 @@ packages:
   scule@1.3.0:
     resolution: {integrity: sha512-6FtHJEvt+pVMIB9IBY+IcCJ6Z5f1iQnytgyfKMhDKgmzYG+TeH/wx1y3l27rshSbLiSanrR9ffZDrEsmjlQF2g==}
 
+  sdp-transform@2.15.0:
+    resolution: {integrity: sha512-KrOH82c/W+GYQ0LHqtr3caRpM3ITglq3ljGUIb8LTki7ByacJZ9z+piSGiwZDsRyhQbYBOBJgr2k6X4BZXi3Kw==}
+    hasBin: true
+
+  sdp@3.2.2:
+    resolution: {integrity: sha512-xZocWwfyp4hkbN4hLWxMjmv2Q8aNa9MhmOZ7L9aCZPT+dZsgRr6wZRrSYE3HTdyk/2pZKPSgqI7ns7Een1xMSA==}
+
   semver@5.7.2:
     resolution: {integrity: sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==}
     hasBin: true
@@ -13747,6 +13795,9 @@ packages:
     resolution: {integrity: sha512-OZs6gsjF4vMp32qrCbiVSkrFmXtG/AZhY3t0iAMrMBiAZyV9oALtXO8hsrHbMXF9x6L3grlFuwW2oAz7cav+Gw==}
     engines: {node: '>= 0.6'}
 
+  typed-emitter@2.1.0:
+    resolution: {integrity: sha512-g/KzbYKbH5C2vPkaXGu8DJlHrGKHLsM25Zg9WuC9pMGfuvT+X25tZQWo5fK1BjBm8+UrVE9LDCvaY0CQk+fXDA==}
+
   typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
 
@@ -14230,6 +14281,10 @@ packages:
 
   webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
+
+  webrtc-adapter@9.0.6:
+    resolution: {integrity: sha512-CHbl2ZQbxx164IgWRgzJno4hWtM4tFbRam1QfI3Yxhs3w/DvqluVxVWeXs3oL5/fbGkSNLKo0Ty5MgUWceNhog==}
+    engines: {node: '>=6.0.0', npm: '>=3.10.0'}
 
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
@@ -16171,6 +16226,8 @@ snapshots:
     dependencies:
       css-tree: 3.2.1
 
+  '@bufbuild/protobuf@1.10.1': {}
+
   '@cloudflare/kv-asset-handler@0.4.0':
     dependencies:
       mime: 3.0.0
@@ -17554,6 +17611,16 @@ snapshots:
       d3-time: 3.1.0
       d3-time-format: 4.1.0
       lodash-es: 4.17.22
+
+  '@livekit/mutex@1.1.1': {}
+
+  '@livekit/protocol@1.46.6':
+    dependencies:
+      '@bufbuild/protobuf': 1.10.1
+
+  '@livekit/protocol@1.50.4':
+    dependencies:
+      '@bufbuild/protobuf': 1.10.1
 
   '@lucide/svelte@0.545.0(svelte@5.46.0)':
     dependencies:
@@ -19807,7 +19874,7 @@ snapshots:
       worktop: 0.8.0-next.18
       wrangler: 4.21.2(@cloudflare/workers-types@4.20260511.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
 
-  '@sveltejs/adapter-cloudflare@7.2.8(@sveltejs/kit@2.49.2(@opentelemetry/api@1.9.1)(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1)))(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1)))(wrangler@4.21.2(@cloudflare/workers-types@4.20260511.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6))':
+  '@sveltejs/adapter-cloudflare@7.2.8(@sveltejs/kit@2.49.2(@opentelemetry/api@1.9.1)(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1)))(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1)))(wrangler@4.21.2(@cloudflare/workers-types@4.20260511.1))':
     dependencies:
       '@cloudflare/workers-types': 4.20260511.1
       '@sveltejs/kit': 2.49.2(@opentelemetry/api@1.9.1)(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1)))(svelte@5.46.0)(vite@5.4.21(@types/node@24.10.4)(lightningcss@1.32.0)(sass@1.97.1))
@@ -21007,6 +21074,8 @@ snapshots:
   '@types/debug@4.1.12':
     dependencies:
       '@types/ms': 2.1.0
+
+  '@types/dom-mediacapture-record@1.0.22': {}
 
   '@types/dom-mediacapture-transform@0.1.11':
     dependencies:
@@ -23665,6 +23734,8 @@ snapshots:
 
   etag@1.8.1: {}
 
+  events@3.3.0: {}
+
   eventsource-parser@3.0.6: {}
 
   eventsource-parser@3.0.8: {}
@@ -25137,6 +25208,8 @@ snapshots:
       '@sideway/formula': 3.0.1
       '@sideway/pinpoint': 2.0.0
 
+  jose@5.10.0: {}
+
   jose@6.1.3: {}
 
   js-tokens@4.0.0: {}
@@ -25497,6 +25570,25 @@ snapshots:
 
   linkifyjs@4.3.2: {}
 
+  livekit-client@2.20.2(@types/dom-mediacapture-record@1.0.22):
+    dependencies:
+      '@livekit/mutex': 1.1.1
+      '@livekit/protocol': 1.46.6
+      '@types/dom-mediacapture-record': 1.0.22
+      events: 3.3.0
+      jose: 6.1.3
+      loglevel: 1.9.2
+      sdp-transform: 2.15.0
+      tslib: 2.8.1
+      typed-emitter: 2.1.0
+      webrtc-adapter: 9.0.6
+
+  livekit-server-sdk@2.17.0:
+    dependencies:
+      '@bufbuild/protobuf': 1.10.1
+      '@livekit/protocol': 1.50.4
+      jose: 5.10.0
+
   load-json-file@4.0.0:
     dependencies:
       graceful-fs: 4.2.11
@@ -25551,6 +25643,8 @@ snapshots:
     dependencies:
       chalk: 5.6.2
       is-unicode-supported: 1.3.0
+
+  loglevel@1.9.2: {}
 
   longest-streak@3.1.0: {}
 
@@ -27716,6 +27810,10 @@ snapshots:
 
   scule@1.3.0: {}
 
+  sdp-transform@2.15.0: {}
+
+  sdp@3.2.2: {}
+
   semver@5.7.2: {}
 
   semver@6.3.1: {}
@@ -28811,6 +28909,10 @@ snapshots:
       media-typer: 1.1.0
       mime-types: 3.0.2
 
+  typed-emitter@2.1.0:
+    optionalDependencies:
+      rxjs: 7.8.2
+
   typedarray@0.0.6: {}
 
   typescript-eslint@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3):
@@ -29509,6 +29611,10 @@ snapshots:
   webidl-conversions@8.0.1: {}
 
   webpack-virtual-modules@0.6.2: {}
+
+  webrtc-adapter@9.0.6:
+    dependencies:
+      sdp: 3.2.2
 
   whatwg-encoding@3.1.1:
     dependencies:

@@ -64,6 +64,7 @@
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "ky": "^1.10.0",
+    "livekit-client": "^2.20.2",
     "lodash": "^4.17.21",
     "marked": "^7.0.5",
     "mediabunny": "^1.45.2",

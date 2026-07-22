@@ -56,6 +56,7 @@
   import { getOrderedNavigableContent } from '$features/course/utils/content';
   import StudentContentLockedNotice from '$features/course/components/student-content-locked-notice.svelte';
   import LiveSessionCard from '$features/course/components/lesson/live-session-card.svelte';
+  import LiveSessionRoom from '$features/live-session/components/live-session-room.svelte';
 
   interface Props {
     courseId: string;
@@ -96,6 +97,13 @@
   const lessonSlug = $derived(lessonApi.lesson?.slug ?? '');
   const isPublicCourse = $derived(courseApi.course?.type === 'PUBLIC');
   const isLiveSessionLesson = $derived(Boolean(lessonApi.lesson?.callUrl && lessonApi.lesson?.lessonAt));
+  /**
+   * A scheduled lesson on a LIVE_CLASS course with no external call link uses
+   * the built-in (self-hosted LiveKit) classroom instead of an outside meeting.
+   */
+  const isBuiltInLiveSession = $derived(
+    Boolean(lessonApi.lesson?.lessonAt && !lessonApi.lesson?.callUrl && courseApi.course?.type === 'LIVE_CLASS')
+  );
 
   function setModeQueryParam(value: (typeof MODES)[keyof typeof MODES]) {
     const params = new SvelteURLSearchParams($page.url.searchParams);
@@ -456,6 +464,12 @@
             lessonAt={lessonApi.lesson?.lessonAt ?? ''}
             timezone={courseApi.course?.metadata?.sessionTimezone}
           />
+        </div>
+      {/if}
+
+      {#if isBuiltInLiveSession && mode === MODES.view && !($isOrgStudent && !isLessonUnlocked)}
+        <div class="mb-4">
+          <LiveSessionRoom courseId={courseApi.course?.id ?? ''} {lessonId} />
         </div>
       {/if}
 

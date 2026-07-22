@@ -5037,5 +5037,17 @@
     "snackbar": {
       "load_failed": "Failed to load revenue-share report"
     }
+  },
+  "live_session": {
+    "join": "Join the live class",
+    "leave": "Leave",
+    "connecting": "Connecting…",
+    "not_joined": "The live class is ready. Join when you are.",
+    "retry": "Try again",
+    "you": "You",
+    "toggle_mic": "Toggle microphone",
+    "toggle_camera": "Toggle camera",
+    "error_token": "Could not get access to this live class.",
+    "error_connect": "Could not connect to the live class."
   }
 }
