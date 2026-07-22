@@ -57,6 +57,8 @@
   import StudentContentLockedNotice from '$features/course/components/student-content-locked-notice.svelte';
   import LiveSessionCard from '$features/course/components/lesson/live-session-card.svelte';
   import LiveSessionRoom from '$features/live-session/components/live-session-room.svelte';
+  import SessionCheckinQr from '$features/attendance/components/session-checkin-qr.svelte';
+  import ManualAttendance from '$features/attendance/components/manual-attendance.svelte';
 
   interface Props {
     courseId: string;
@@ -104,6 +106,11 @@
   const isBuiltInLiveSession = $derived(
     Boolean(lessonApi.lesson?.lessonAt && !lessonApi.lesson?.callUrl && courseApi.course?.type === 'LIVE_CLASS')
   );
+  /**
+   * Any scheduled lesson is a session that can be attended — online, in person
+   * or both. Trainers get the QR check-in and manual marking tools on it.
+   */
+  const isSessionLesson = $derived(Boolean(lessonApi.lesson?.lessonAt));
 
   function setModeQueryParam(value: (typeof MODES)[keyof typeof MODES]) {
     const params = new SvelteURLSearchParams($page.url.searchParams);
@@ -471,6 +478,15 @@
         <div class="mb-4">
           <LiveSessionRoom courseId={courseApi.course?.id ?? ''} {lessonId} />
         </div>
+      {/if}
+
+      {#if isSessionLesson && mode === MODES.view && !$isOrgStudent}
+        <RoleBasedSecurity allowedRoles={[1, 2]}>
+          <div class="mb-4 grid gap-4 lg:grid-cols-2">
+            <SessionCheckinQr {courseId} {lessonId} />
+            <ManualAttendance {courseId} {lessonId} />
+          </div>
+        </RoleBasedSecurity>
       {/if}
 
       {#if $isOrgStudent && !isLessonUnlocked}

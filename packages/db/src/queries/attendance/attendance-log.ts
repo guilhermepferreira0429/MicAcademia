@@ -86,6 +86,44 @@ export async function closeOpenAttendanceEntriesForLesson(lessonId: string, left
   }
 }
 
+export interface CourseAttendanceRow {
+  lessonId: string;
+  lessonTitle: string;
+  lessonAt: string | null;
+  profileId: string;
+  fullname: string | null;
+  source: string;
+  joinedAt: string;
+  leftAt: string | null;
+  durationSeconds: number | null;
+}
+
+/** Every presence interval of a course (all sessions, online + in-person). */
+export async function listAttendanceForCourse(courseId: string): Promise<CourseAttendanceRow[]> {
+  try {
+    return await db
+      .select({
+        lessonId: schema.attendanceLog.lessonId,
+        lessonTitle: schema.lesson.title,
+        lessonAt: schema.lesson.lessonAt,
+        profileId: schema.attendanceLog.profileId,
+        fullname: schema.profile.fullname,
+        source: schema.attendanceLog.source,
+        joinedAt: schema.attendanceLog.joinedAt,
+        leftAt: schema.attendanceLog.leftAt,
+        durationSeconds: schema.attendanceLog.durationSeconds
+      })
+      .from(schema.attendanceLog)
+      .innerJoin(schema.lesson, eq(schema.lesson.id, schema.attendanceLog.lessonId))
+      .innerJoin(schema.profile, eq(schema.profile.id, schema.attendanceLog.profileId))
+      .where(eq(schema.attendanceLog.courseId, courseId))
+      .orderBy(schema.attendanceLog.joinedAt);
+  } catch (error) {
+    console.error('listAttendanceForCourse error:', error);
+    throw new Error('Failed to list attendance for course');
+  }
+}
+
 /** All presence intervals recorded for a lesson. */
 export async function listAttendanceForLesson(lessonId: string): Promise<TAttendanceLog[]> {
   try {

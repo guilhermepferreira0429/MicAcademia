@@ -145,9 +145,6 @@ export async function computeLessonAttendance(
   }
 
   const now = Date.now();
-  const startsAt = Math.min(...rows.map((row) => Date.parse(row.joinedAt)));
-  const endsAt = Math.max(...rows.map((row) => (row.leftAt ? Date.parse(row.leftAt) : now)));
-  const sessionSeconds = Math.max(0, Math.round((endsAt - startsAt) / 1000));
 
   const secondsByProfile = new Map<string, number>();
   for (const row of rows) {
@@ -156,6 +153,13 @@ export async function computeLessonAttendance(
       Math.max(0, Math.round(((row.leftAt ? Date.parse(row.leftAt) : now) - Date.parse(row.joinedAt)) / 1000));
     secondsByProfile.set(row.profileId, (secondsByProfile.get(row.profileId) ?? 0) + seconds);
   }
+
+  // Session length = the longest single attendance (whoever stayed throughout
+  // defines how long the class ran). Deliberately not the span between the
+  // first join and last leave: manually recorded in-person attendance is
+  // anchored to the scheduled time while live check-ins use the wall clock, and
+  // mixing the two would inflate the span and sink everyone's percentage.
+  const sessionSeconds = Math.max(0, ...secondsByProfile.values());
 
   const participants = [...secondsByProfile.entries()].map(([profileId, attendedSeconds]) => {
     const percent = sessionSeconds > 0 ? Math.round((attendedSeconds / sessionSeconds) * 100) : 0;

@@ -537,6 +537,9 @@ importers:
       '@types/node':
         specifier: ^20
         version: 20.19.27
+      '@types/qrcode':
+        specifier: ^1.5.6
+        version: 1.5.6
       all-object-keys:
         specifier: ^2.2.0
         version: 2.2.0
@@ -574,7 +577,7 @@ importers:
         specifier: ^4.0.1
         version: 4.0.2(postcss@8.5.6)(ts-node@10.9.2(@types/node@20.19.27)(typescript@5.9.3))
       qrcode:
-        specifier: ^1.5.3
+        specifier: ^1.5.4
         version: 1.5.4
       sass:
         specifier: ^1.64.2
@@ -7378,6 +7381,9 @@ packages:
 
   '@types/pug@2.0.10':
     resolution: {integrity: sha512-Sk/uYFOBAB7mb74XcpizmH0KOR2Pv3D2Hmrh1Dmy5BmK3MpdSa5kqZcg6EKBdklU0bFXX9gCfzvpnyUehrPIuA==}
+
+  '@types/qrcode@1.5.6':
+    resolution: {integrity: sha512-te7NQcV2BOvdj2b1hCAHzAoMNuj65kNBMz0KBaxM6c3VGBOhU0dURQKOtH8CFNI/dsKkwlv32p26qYQTWoB5bw==}
 
   '@types/raf@3.4.3':
     resolution: {integrity: sha512-c4YAvMedbPZ5tEyxzQdMoOhhJ4RD3rngZIdwC2/qDN3d7JpEhB6fiBRKVY1lg5B7Wk+uPBjn5f39j1/2MY1oOw==}
@@ -21204,6 +21210,10 @@ snapshots:
   '@types/prop-types@15.7.15': {}
 
   '@types/pug@2.0.10': {}
+
+  '@types/qrcode@1.5.6':
+    dependencies:
+      '@types/node': 24.10.4
 
   '@types/raf@3.4.3':
     optional: true

@@ -3504,10 +3504,12 @@ export const attendanceLog = pgTable(
     /** The session — a lesson with a scheduled `lessonAt`. */
     lessonId: uuid('lesson_id').notNull(),
     profileId: uuid('profile_id').notNull(),
-    /** 'livekit' | 'in_person'. */
+    /** 'livekit' (online) | 'qr' (in-person scan) | 'manual' (marked by a trainer). */
     source: text().notNull().default('livekit'),
     /** LiveKit room this interval came from (null for in-person). */
     roomName: text('room_name'),
+    /** Who recorded it, for manual entries — audit trail. */
+    recordedBy: uuid('recorded_by'),
     joinedAt: timestamp('joined_at', { withTimezone: true, mode: 'string' }).notNull(),
     /** Null while the participant is still connected. */
     leftAt: timestamp('left_at', { withTimezone: true, mode: 'string' }),

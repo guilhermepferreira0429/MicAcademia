@@ -1,0 +1,1 @@
+ALTER TABLE "attendance_log" ADD COLUMN "recorded_by" uuid;

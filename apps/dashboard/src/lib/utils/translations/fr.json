@@ -5049,5 +5049,63 @@
     "toggle_camera": "Toggle camera",
     "error_token": "Could not get access to this live class.",
     "error_connect": "Could not connect to the live class."
+  },
+  "attendance": {
+    "tabs": {
+      "checklist": "Checklist",
+      "record": "Consolidated record"
+    },
+    "qr": {
+      "title": "Session check-in",
+      "description": "Show this QR code to the room. Learners scan it to check in, and scan it again to check out.",
+      "start": "Show QR code",
+      "stop": "Stop check-in",
+      "scan_to_check_in": "Scan to check in",
+      "expires_at": "This code expires at {time} and refreshes automatically.",
+      "link_fallback": "Can't scan? Open this link instead."
+    },
+    "manual": {
+      "title": "Manual marking",
+      "description": "Mark learners who could not scan the QR code.",
+      "minutes": "Minutes",
+      "minutes_placeholder": "Session length",
+      "search_students": "Search learners",
+      "no_students": "No learners enrolled in this course yet.",
+      "mark_present": "Mark present",
+      "marked": "Marked"
+    },
+    "report": {
+      "description": "Attendance across every session of this course, online and in person.",
+      "student": "Learner",
+      "total_hours": "Total hours",
+      "absent": "Absent",
+      "export_csv": "Export CSV",
+      "empty": "No attendance recorded for this course yet.",
+      "source": {
+        "livekit": "Online",
+        "qr": "QR",
+        "manual": "Manual"
+      }
+    },
+    "checkin": {
+      "title": "Session check-in",
+      "description": "Recording your attendance for this session.",
+      "working": "Recording your attendance…",
+      "checked_in": "You're checked in",
+      "checked_in_hint": "Scan the code again when you leave so your hours are recorded.",
+      "checked_out": "You're checked out",
+      "duration": "Time attended: {duration}",
+      "error_generic": "We couldn't record your attendance",
+      "error_invalid": "This check-in code is not valid",
+      "error_expired": "This check-in code has expired",
+      "error_hint": "Ask your trainer to show the QR code again.",
+      "retry": "Try again"
+    },
+    "snackbar": {
+      "code_failed": "Could not create the check-in code",
+      "marked": "Attendance recorded",
+      "mark_failed": "Could not record attendance",
+      "summary_failed": "Could not load the attendance record"
+    }
   }
 }

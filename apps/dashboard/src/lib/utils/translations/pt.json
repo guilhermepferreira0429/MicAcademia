@@ -5049,5 +5049,63 @@
     "toggle_camera": "Ligar/desligar câmara",
     "error_token": "Não foi possível obter acesso a esta aula ao vivo.",
     "error_connect": "Não foi possível ligar à aula ao vivo."
+  },
+  "attendance": {
+    "tabs": {
+      "checklist": "Lista de presenças",
+      "record": "Registo consolidado"
+    },
+    "qr": {
+      "title": "Check-in da sessão",
+      "description": "Mostra este código QR à sala. Os formandos leem-no para entrar e voltam a lê-lo para sair.",
+      "start": "Mostrar código QR",
+      "stop": "Terminar check-in",
+      "scan_to_check_in": "Lê para fazer check-in",
+      "expires_at": "Este código expira às {time} e é renovado automaticamente.",
+      "link_fallback": "Não consegues ler o código? Abre antes esta ligação."
+    },
+    "manual": {
+      "title": "Marcação manual",
+      "description": "Marca os formandos que não conseguiram ler o código QR.",
+      "minutes": "Minutos",
+      "minutes_placeholder": "Duração da sessão",
+      "search_students": "Procurar formandos",
+      "no_students": "Ainda não há formandos inscritos neste curso.",
+      "mark_present": "Marcar presença",
+      "marked": "Marcado"
+    },
+    "report": {
+      "description": "Presenças em todas as sessões deste curso, online e presenciais.",
+      "student": "Formando",
+      "total_hours": "Total de horas",
+      "absent": "Faltou",
+      "export_csv": "Exportar CSV",
+      "empty": "Ainda não há presenças registadas neste curso.",
+      "source": {
+        "livekit": "Online",
+        "qr": "QR",
+        "manual": "Manual"
+      }
+    },
+    "checkin": {
+      "title": "Check-in da sessão",
+      "description": "A registar a tua presença nesta sessão.",
+      "working": "A registar a tua presença…",
+      "checked_in": "Fizeste check-in",
+      "checked_in_hint": "Lê o código outra vez quando saíres para as tuas horas ficarem registadas.",
+      "checked_out": "Fizeste check-out",
+      "duration": "Tempo de presença: {duration}",
+      "error_generic": "Não foi possível registar a tua presença",
+      "error_invalid": "Este código de check-in não é válido",
+      "error_expired": "Este código de check-in expirou",
+      "error_hint": "Pede ao teu formador para mostrar o código QR outra vez.",
+      "retry": "Tentar de novo"
+    },
+    "snackbar": {
+      "code_failed": "Não foi possível criar o código de check-in",
+      "marked": "Presença registada",
+      "mark_failed": "Não foi possível registar a presença",
+      "summary_failed": "Não foi possível carregar o registo de presenças"
+    }
   }
 }
