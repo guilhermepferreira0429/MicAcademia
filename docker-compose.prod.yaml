@@ -1,0 +1,201 @@
+# MicAcademia — production stack.
+#
+#   cp deploy/mica.env.example deploy/mica.env   # fill it in, chmod 600
+#   docker compose -f docker-compose.prod.yaml up -d --build
+#
+# Every application container reads the SAME env file, deploy/mica.env, and no
+# secret is written into this file. What is inline here is either not a secret
+# (ports, internal hostnames, bucket names) or is internal-only: Postgres and
+# Redis are never published to the host, so their credentials never leave the
+# compose network and are kept simple on purpose.
+#
+# Caution: the `${...}` syntax in a compose file is resolved by Docker from the
+# shell or from a root `.env` — NOT from `env_file`. So anything this file needs
+# to interpolate would have to live outside deploy/mica.env. Nothing does: the
+# values below are literals, and secrets reach the containers through env_file.
+name: micacademia
+
+# One env file, one path, every container. Change a secret in one place.
+x-app-env: &app-env
+  env_file:
+    - ./deploy/mica.env
+
+services:
+  # ─── Data ──────────────────────────────────────────────────────────────────
+  # No host port: only the compose network reaches it, which is why the
+  # credentials can be plain here.
+  postgres:
+    image: postgres:16-alpine
+    container_name: mica-postgres
+    environment:
+      POSTGRES_DB: micacademia
+      POSTGRES_USER: micacademia
+      POSTGRES_PASSWORD: micacademia-internal
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      # A real query, not just pg_isready: that can pass while the server is
+      # still in recovery, and the API then fails its first sign-in.
+      test:
+        ['CMD-SHELL', "pg_isready -U micacademia -d micacademia && psql -U micacademia -d micacademia -tAc 'SELECT 1'"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+      start_period: 10s
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: mica-redis
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  # ─── Application ───────────────────────────────────────────────────────────
+  api:
+    <<: *app-env
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
+    container_name: mica-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      # Internal wiring only. Secrets come from the env file.
+      NODE_ENV: production
+      PORT: 3081
+      DATABASE_URL: postgresql://micacademia:micacademia-internal@postgres:5432/micacademia
+      REDIS_URL: redis://redis:6379
+      # LIVEKIT_URL is deliberately NOT set here: the API hands that same URL to
+      # the browser in the join token, so it must be the public wss:// address
+      # from the env file, not the internal container name.
+    healthcheck:
+      # node:slim ships no curl; use Node's global fetch.
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://localhost:3081/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 40s
+    restart: unless-stopped
+
+  dashboard:
+    <<: *app-env
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dashboard
+      args:
+        PUBLIC_IS_SELFHOSTED: 'true'
+    container_name: mica-dashboard
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3082
+      PUBLIC_IS_SELFHOSTED: 'true'
+      PRIVATE_SERVER_URL: http://api:3081
+    restart: unless-stopped
+
+  # BullMQ workers: video processing, transcription, emails, maintenance.
+  jobs:
+    <<: *app-env
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.jobs
+    container_name: mica-jobs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://micacademia:micacademia-internal@postgres:5432/micacademia
+      REDIS_URL: redis://redis:6379
+    restart: unless-stopped
+
+  # ─── Live classes ──────────────────────────────────────────────────────────
+  # Its own Redis: LiveKit and Egress coordinate through it, and it must not
+  # share a flush with the application queue.
+  livekit-redis:
+    image: redis:7-alpine
+    container_name: mica-livekit-redis
+    restart: unless-stopped
+
+  livekit:
+    <<: *app-env
+    # Pin both LiveKit images to the versions you tested once the stack is up:
+    # a recorder that changes under you mid-term is not what you want.
+    image: livekit/livekit-server:latest
+    container_name: mica-livekit
+    command: --config /etc/livekit.yaml
+    depends_on:
+      - livekit-redis
+    # Media is UDP and cannot go through the reverse proxy: these ports must be
+    # open on the firewall. 7881 is the TCP fallback, 3478 the embedded TURN.
+    ports:
+      - '7881:7881'
+      - '3478:3478/udp'
+      - '50000-50200:50000-50200/udp'
+    volumes:
+      - ./deploy/livekit/livekit.yaml:/etc/livekit.yaml:ro
+    restart: unless-stopped
+
+  # Records the class and uploads the MP4 to the videos bucket. Its whole
+  # config, secret included, arrives as EGRESS_CONFIG_BODY from the env file.
+  egress:
+    <<: *app-env
+    image: livekit/egress:latest
+    container_name: mica-egress
+    depends_on:
+      - livekit
+      - livekit-redis
+    # EGRESS_CONFIG_BODY comes from the env file; declaring it here would
+    # override it with an empty string, since compose cannot read env_file.
+    # Chrome renders the room composite: it needs the larger shared memory and
+    # SYS_ADMIN, or recordings crash part-way through.
+    shm_size: '1gb'
+    cap_add:
+      - SYS_ADMIN
+    restart: unless-stopped
+
+  # ─── Edge ──────────────────────────────────────────────────────────────────
+  # Terminates TLS (automatic certificates) and routes the three public names.
+  # LiveKit needs wss://, so this is not optional in production.
+  caddy:
+    <<: *app-env
+    image: caddy:2-alpine
+    container_name: mica-caddy
+    depends_on:
+      - dashboard
+      - api
+      - livekit
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+  redis-data:
+  caddy-data:
+  caddy-config:

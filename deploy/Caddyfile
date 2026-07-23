@@ -1,0 +1,33 @@
+# MicAcademia — TLS termination and routing.
+#
+# Caddy substitutes {$VAR} from its own environment, which comes from
+# deploy/mica.env like every other container. Certificates are obtained and
+# renewed automatically, so the domains below must already point at this server.
+
+{
+	email {$MICA_ADMIN_EMAIL}
+}
+
+# The academy itself.
+{$MICA_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy dashboard:3082
+}
+
+# The API. Also where LiveKit and EasyPay deliver their webhooks, so it has to
+# be reachable from the internet.
+{$MICA_API_DOMAIN} {
+	encode zstd gzip
+	# Video uploads are large; the default body limit would reject them.
+	request_body {
+		max_size 2GB
+	}
+	reverse_proxy api:3081
+}
+
+# LiveKit signalling. Browsers connect over wss://, which Caddy upgrades
+# transparently — media itself does not pass here, it goes straight to the UDP
+# ports published by the livekit container.
+{$MICA_LIVEKIT_DOMAIN} {
+	reverse_proxy livekit:7880
+}

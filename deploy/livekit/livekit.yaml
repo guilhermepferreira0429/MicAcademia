@@ -1,0 +1,39 @@
+# LiveKit server — production.
+#
+# No secret lives here: the API key/secret pair arrives as the LIVEKIT_KEYS
+# environment variable (from deploy/mica.env), which LiveKit reads directly.
+# `webhook.api_key` below is only the key *name* — the identifier, not the
+# secret — so it is safe in the repository.
+port: 7880
+bind_addresses:
+  - ''
+
+rtc:
+  tcp_port: 7881
+  port_range_start: 50000
+  port_range_end: 50200
+  # Behind NAT the server must advertise the machine's public address, or media
+  # never connects from outside the network.
+  use_external_ip: true
+
+# Embedded TURN, for students behind a corporate firewall that blocks UDP.
+# `domain` cannot come from the env file (LiveKit does not expand variables in
+# this file), so change it here to match MICA_LIVEKIT_DOMAIN. It is a hostname,
+# not a secret. If UDP 3478 cannot be opened, set enabled: false — clients then
+# fall back to TCP 7881, which is slower but works.
+turn:
+  enabled: true
+  udp_port: 3478
+  domain: live.academia.microlopes.pt
+
+redis:
+  address: livekit-redis:6379
+
+# Attendance and recording events go to our API over the internal network.
+webhook:
+  api_key: micacademia
+  urls:
+    - http://api:3081/webhooks/livekit
+
+logging:
+  level: info

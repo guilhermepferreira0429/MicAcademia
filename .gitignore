@@ -71,3 +71,5 @@ apps/db-agent
 # Generated htpasswd files (hashes are safe to store in secrets/CI, plaintext never committed)
 .htpasswd
 *.htpasswd
+# Production secrets: the compose stack reads this; the example file is committed.
+deploy/mica.env
