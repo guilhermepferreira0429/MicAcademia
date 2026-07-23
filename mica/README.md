@@ -1,8 +1,12 @@
 # mica/ — o servidor
 
 Tudo o que a MicAcademia precisa para correr num servidor está nesta pasta.
+**Copias só esta pasta para o servidor** — não é preciso lá ter o código: as
+imagens da aplicação são publicadas pelo CI e o servidor limita-se a puxá-las.
+
 **Pré-produção e produção usam este mesmo compose**; o que as distingue é o
-`.env` — domínios e se o EasyPay aponta para sandbox ou para o real.
+`.env` — domínios, versão das imagens, e se o EasyPay aponta para sandbox ou
+para o real.
 
 ```
 mica/
@@ -51,8 +55,10 @@ liga mas ninguém se vê nem se ouve.
 
 **3. Configuração**
 
+Copiar esta pasta para o servidor (`scp -r mica/ servidor:/srv/micacademia/`),
+e lá dentro:
+
 ```bash
-cd mica
 cp .env.example .env
 chmod 600 .env
 ```
@@ -61,15 +67,27 @@ chmod 600 .env
 `openssl rand -hex 32`. Os valores não levam aspas: o ficheiro é lido pelo
 Docker, não por uma shell, e tudo o que está depois do `=` conta como valor.
 
-**4. Arrancar**
+`MICA_VERSION` escolhe a build. Em produção põe uma versão fixa (`1.0.0`) para
+que um deploy seja um ato deliberado; em pré-produção `latest` acompanha o
+`main`, que é o objetivo.
+
+**4. Acesso às imagens** — se o pacote no GHCR estiver privado, autenticar uma
+vez no servidor com um token do GitHub com permissão `read:packages`:
 
 ```bash
-docker compose up -d --build
+echo $GITHUB_TOKEN | docker login ghcr.io -u <utilizador> --password-stdin
 ```
 
-O primeiro arranque demora — o dashboard é uma build pesada. As migrações
-correm sozinhas: são idempotentes, só aplicam o que falta, e ficam protegidas
-por um lock, portanto reiniciar não estraga nada.
+**5. Arrancar**
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+Não há build no servidor — só descarga das imagens. As migrações correm
+sozinhas no arranque da API: são idempotentes, só aplicam o que falta, e ficam
+protegidas por um lock, portanto reiniciar não estraga nada.
 
 ## Operação do dia a dia
 
@@ -80,12 +98,28 @@ docker compose restart jobs        # reiniciar um worker
 docker compose up -d --scale jobs=2   # mais capacidade de processamento de vídeo
 ```
 
-**Atualizar depois de um `git pull`:**
+**Atualizar para uma versão nova:**
 
 ```bash
-cd mica
-docker compose up -d --build
+# em produção: mudar MICA_VERSION no .env para a versão a instalar
+docker compose pull
+docker compose up -d
 ```
+
+Só os contentores cuja imagem mudou são recriados. Para voltar atrás, repõe-se
+o `MICA_VERSION` anterior e repete-se — as imagens antigas continuam no registo.
+Uma ressalva: **reverter a aplicação não reverte a base de dados**, e as
+migrações já aplicadas ficam. Uma versão anterior só arranca bem se o esquema
+continuar a servi-la.
+
+## Publicar uma versão
+
+O CI (`.github/workflows/mica-images.yml`) publica no GHCR:
+
+| O que fazes | O que sai |
+| --- | --- |
+| merge para `main` | `:latest` — é o que a pré-produção segue |
+| `git tag v1.0.0 && git push --tags` | `:1.0.0`, `:1.0`, `:1` — imutável, para produção |
 
 **Cópia de segurança:**
 

@@ -1,11 +1,14 @@
 # MicAcademia — the whole platform, for the server.
 #
-#   cd mica
 #   cp .env.example .env      # fill it in, then chmod 600 .env
-#   docker compose up -d --build
+#   docker compose pull
+#   docker compose up -d
+#
+# Nothing is built here: the three application images are published by CI and
+# pulled by tag. The server only needs this folder — no source code, no build.
 #
 # Pre-production and production run this same file; what tells them apart is
-# .env (domains, EasyPay in sandbox or live), never the topology.
+# .env (domains, image tag, EasyPay in sandbox or live), never the topology.
 #
 # Every application container reads the SAME .env sitting next to this file, and
 # no secret is written into the compose. What is inline here is either not a
@@ -61,9 +64,7 @@ services:
   # ─── Application ───────────────────────────────────────────────────────────
   api:
     <<: *app-env
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.api
+    image: ${MICA_IMAGE_PREFIX}/micacademia-api:${MICA_VERSION}
     container_name: mica-api
     depends_on:
       postgres:
@@ -96,11 +97,7 @@ services:
 
   dashboard:
     <<: *app-env
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.dashboard
-      args:
-        PUBLIC_IS_SELFHOSTED: 'true'
+    image: ${MICA_IMAGE_PREFIX}/micacademia-dashboard:${MICA_VERSION}
     container_name: mica-dashboard
     depends_on:
       api:
@@ -115,9 +112,7 @@ services:
   # BullMQ workers: video processing, transcription, emails, maintenance.
   jobs:
     <<: *app-env
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.jobs
+    image: ${MICA_IMAGE_PREFIX}/micacademia-jobs:${MICA_VERSION}
     container_name: mica-jobs
     depends_on:
       postgres:
