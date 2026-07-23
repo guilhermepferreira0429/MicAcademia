@@ -1,24 +1,25 @@
-# MicAcademia — production stack.
+# MicAcademia — the whole platform, for the server.
 #
-#   cp deploy/mica.env.example deploy/mica.env   # fill it in, chmod 600
-#   docker compose -f docker-compose.prod.yaml up -d --build
+#   cd mica
+#   cp .env.example .env      # fill it in, then chmod 600 .env
+#   docker compose up -d --build
 #
-# Every application container reads the SAME env file, deploy/mica.env, and no
-# secret is written into this file. What is inline here is either not a secret
-# (ports, internal hostnames, bucket names) or is internal-only: Postgres and
-# Redis are never published to the host, so their credentials never leave the
-# compose network and are kept simple on purpose.
+# Pre-production and production run this same file; what tells them apart is
+# .env (domains, EasyPay in sandbox or live), never the topology.
 #
-# Caution: the `${...}` syntax in a compose file is resolved by Docker from the
-# shell or from a root `.env` — NOT from `env_file`. So anything this file needs
-# to interpolate would have to live outside deploy/mica.env. Nothing does: the
-# values below are literals, and secrets reach the containers through env_file.
+# Every application container reads the SAME .env sitting next to this file, and
+# no secret is written into the compose. What is inline here is either not a
+# secret (ports, internal hostnames) or internal-only: Postgres and Redis are
+# never published to the host, so their credentials never leave the compose
+# network and are kept simple on purpose.
 name: micacademia
 
 # One env file, one path, every container. Change a secret in one place.
+# Because it is named .env and sits beside this file, Docker also uses it for
+# ${...} interpolation — so there is no second copy of anything.
 x-app-env: &app-env
   env_file:
-    - ./deploy/mica.env
+    - ./.env
 
 services:
   # ─── Data ──────────────────────────────────────────────────────────────────
@@ -61,7 +62,7 @@ services:
   api:
     <<: *app-env
     build:
-      context: .
+      context: ..
       dockerfile: docker/Dockerfile.api
     container_name: mica-api
     depends_on:
@@ -96,7 +97,7 @@ services:
   dashboard:
     <<: *app-env
     build:
-      context: .
+      context: ..
       dockerfile: docker/Dockerfile.dashboard
       args:
         PUBLIC_IS_SELFHOSTED: 'true'
@@ -115,7 +116,7 @@ services:
   jobs:
     <<: *app-env
     build:
-      context: .
+      context: ..
       dockerfile: docker/Dockerfile.jobs
     container_name: mica-jobs
     depends_on:
@@ -153,7 +154,7 @@ services:
       - '3478:3478/udp'
       - '50000-50200:50000-50200/udp'
     volumes:
-      - ./deploy/livekit/livekit.yaml:/etc/livekit.yaml:ro
+      - ./livekit/livekit.yaml:/etc/livekit.yaml:ro
     restart: unless-stopped
 
   # Records the class and uploads the MP4 to the videos bucket. Its whole
@@ -165,8 +166,8 @@ services:
     depends_on:
       - livekit
       - livekit-redis
-    # EGRESS_CONFIG_BODY comes from the env file; declaring it here would
-    # override it with an empty string, since compose cannot read env_file.
+    # EGRESS_CONFIG_BODY arrives from .env like every other secret; there is no
+    # `environment:` entry for it, so nothing can override it with a blank.
     # Chrome renders the room composite: it needs the larger shared memory and
     # SYS_ADMIN, or recordings crash part-way through.
     shm_size: '1gb'
@@ -189,7 +190,7 @@ services:
       - '80:80'
       - '443:443'
     volumes:
-      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy-data:/data
       - caddy-config:/config
     restart: unless-stopped
