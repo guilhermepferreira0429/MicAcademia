@@ -29,7 +29,10 @@
     "error": {
       "title": "Payment could not be completed",
       "message": "Something went wrong with your payment. Please try again."
-    }
+    },
+    "class_label": "Choose your class",
+    "class_required": "Choose a class before paying.",
+    "seats_left": "{count} seats left"
   },
   "common": {
     "refresh": "Làm mới",
@@ -2352,7 +2355,8 @@
       "nav_settings": "Cài đặt",
       "nav_ai_assistant": "Trợ lý",
       "nav_ai_tutor": "Gia sư AI",
-      "nav_dossier": "Audit dossier"
+      "nav_dossier": "Audit dossier",
+      "nav_classes": "Classes"
     },
     "completion": {
       "modal": {
@@ -5124,7 +5128,34 @@
     "toggle_mic": "Toggle microphone",
     "toggle_camera": "Toggle camera",
     "error_token": "Could not get access to this live class.",
-    "error_connect": "Could not connect to the live class."
+    "error_connect": "Could not connect to the live class.",
+    "recordings": {
+      "title": "Class recording",
+      "description": "The class records itself and the file is published on the lesson when it ends.",
+      "start": "Record",
+      "stop": "Stop",
+      "watch": "Watch",
+      "publish": "Publish on the lesson",
+      "published": "Published",
+      "empty": "This class has not been recorded yet.",
+      "not_configured": "Recording is off: the server has no recorder or storage configured.",
+      "status": {
+        "starting": "Starting",
+        "active": "Recording",
+        "complete": "Ready",
+        "failed": "Failed",
+        "aborted": "Interrupted"
+      },
+      "snackbar": {
+        "list_failed": "Could not load the recordings.",
+        "started": "Recording started.",
+        "start_failed": "Could not start the recording.",
+        "stopped": "Recording stopped — the file is being processed.",
+        "stop_failed": "Could not stop the recording.",
+        "published": "Recording published on the lesson.",
+        "publish_failed": "Could not publish the recording."
+      }
+    }
   },
   "attendance": {
     "tabs": {
@@ -5423,6 +5454,96 @@
     },
     "snackbar": {
       "load_failed": "Could not load the audit dossier."
+    }
+  },
+  "classes": {
+    "add": "New class",
+    "edit": "Edit class",
+    "delete": "Delete class",
+    "table": {
+      "name": "Class",
+      "period": "Period",
+      "seats": "Seats",
+      "price": "Price",
+      "status": "Status",
+      "actions": "Actions",
+      "enrollment_until": "Enrolment until {date}",
+      "course_price": "Course price",
+      "full": "Full",
+      "window_closed": "Enrolment closed"
+    },
+    "status": {
+      "draft": "Draft",
+      "open": "Open",
+      "closed": "Closed",
+      "running": "Running",
+      "finished": "Finished",
+      "cancelled": "Cancelled"
+    },
+    "mode": {
+      "online": "Online",
+      "in_person": "In person",
+      "hybrid": "Hybrid"
+    },
+    "seat_status": {
+      "reserved": "Reserved",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled"
+    },
+    "students": {
+      "title": "Enrolled students",
+      "empty": "Nobody has taken a seat in this class yet.",
+      "remove": "Free seat"
+    },
+    "empty": {
+      "title": "No classes yet",
+      "description": "Create a class to sell this course with dates, a seat limit and an enrolment window."
+    },
+    "delete_modal": {
+      "title": "Delete class",
+      "description": "Delete \"{name}\"? This cannot be undone."
+    },
+    "form": {
+      "add_title": "New class",
+      "edit_title": "Edit class",
+      "description": "A class is one dated run of this course, with its own seats, price and enrolment window.",
+      "section_identification": "Identification",
+      "section_enrollment": "Enrolment and price",
+      "name": "Name",
+      "name_placeholder": "January 2026 class",
+      "starts_on": "Start date",
+      "ends_on": "End date",
+      "schedule": "Timetable",
+      "schedule_placeholder": "Mon-Thu, 7pm-10pm",
+      "mode": "Delivery",
+      "location": "Venue",
+      "location_placeholder": "Training room, Porto",
+      "seats": "Seats",
+      "seats_placeholder": "16",
+      "seats_hint": "Leave blank for unlimited seats.",
+      "price": "Price",
+      "price_hint": "Leave blank to use the course price.",
+      "enrollment_opens": "Enrolment opens",
+      "enrollment_closes": "Enrolment closes",
+      "status": "Status",
+      "status_hint": "Only open classes are shown to students.",
+      "notes": "Notes",
+      "notes_placeholder": "Internal notes about this class",
+      "cancel": "Cancel",
+      "save": "Save",
+      "create": "Create class"
+    },
+    "snackbar": {
+      "list_failed": "Could not load the classes.",
+      "created": "Class created.",
+      "create_failed": "Could not create the class.",
+      "updated": "Class updated.",
+      "update_failed": "Could not update the class.",
+      "deleted": "Class deleted.",
+      "delete_failed": "Could not delete the class.",
+      "students_failed": "Could not load the students of this class.",
+      "student_removed": "Seat freed.",
+      "student_remove_failed": "Could not free the seat."
     }
   }
 }

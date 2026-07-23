@@ -29,7 +29,10 @@
     "error": {
       "title": "Não foi possível concluir o pagamento",
       "message": "Algo correu mal com o teu pagamento. Tenta novamente."
-    }
+    },
+    "class_label": "Escolhe a tua turma",
+    "class_required": "Escolhe uma turma antes de pagar.",
+    "seats_left": "{count} vagas disponíveis"
   },
   "course": {
     "navItem": {
@@ -1657,7 +1660,8 @@
       "nav_settings": "Definições",
       "nav_ai_assistant": "Assistente",
       "nav_ai_tutor": "Tutor de IA",
-      "nav_dossier": "Dossiê de auditoria"
+      "nav_dossier": "Dossiê de auditoria",
+      "nav_classes": "Turmas"
     },
     "completion": {
       "modal": {
@@ -5124,7 +5128,34 @@
     "toggle_mic": "Ligar/desligar microfone",
     "toggle_camera": "Ligar/desligar câmara",
     "error_token": "Não foi possível obter acesso a esta aula ao vivo.",
-    "error_connect": "Não foi possível ligar à aula ao vivo."
+    "error_connect": "Não foi possível ligar à aula ao vivo.",
+    "recordings": {
+      "title": "Gravação da aula",
+      "description": "A aula grava-se sozinha e o ficheiro é publicado na lição quando termina.",
+      "start": "Gravar",
+      "stop": "Parar",
+      "watch": "Ver",
+      "publish": "Publicar na lição",
+      "published": "Publicada",
+      "empty": "Esta aula ainda não foi gravada.",
+      "not_configured": "Gravação desligada: o servidor não tem gravador nem armazenamento configurados.",
+      "status": {
+        "starting": "A iniciar",
+        "active": "A gravar",
+        "complete": "Pronta",
+        "failed": "Falhou",
+        "aborted": "Interrompida"
+      },
+      "snackbar": {
+        "list_failed": "Não foi possível carregar as gravações.",
+        "started": "Gravação iniciada.",
+        "start_failed": "Não foi possível iniciar a gravação.",
+        "stopped": "Gravação parada — o ficheiro está a ser processado.",
+        "stop_failed": "Não foi possível parar a gravação.",
+        "published": "Gravação publicada na lição.",
+        "publish_failed": "Não foi possível publicar a gravação."
+      }
+    }
   },
   "attendance": {
     "tabs": {
@@ -5423,6 +5454,96 @@
     },
     "snackbar": {
       "load_failed": "Não foi possível carregar o dossiê de auditoria."
+    }
+  },
+  "classes": {
+    "add": "Nova turma",
+    "edit": "Editar turma",
+    "delete": "Eliminar turma",
+    "table": {
+      "name": "Turma",
+      "period": "Período",
+      "seats": "Vagas",
+      "price": "Preço",
+      "status": "Estado",
+      "actions": "Ações",
+      "enrollment_until": "Inscrições até {date}",
+      "course_price": "Preço do curso",
+      "full": "Esgotada",
+      "window_closed": "Inscrições encerradas"
+    },
+    "status": {
+      "draft": "Rascunho",
+      "open": "Aberta",
+      "closed": "Fechada",
+      "running": "A decorrer",
+      "finished": "Concluída",
+      "cancelled": "Cancelada"
+    },
+    "mode": {
+      "online": "Online",
+      "in_person": "Presencial",
+      "hybrid": "Misto"
+    },
+    "seat_status": {
+      "reserved": "Reservada",
+      "confirmed": "Confirmada",
+      "cancelled": "Cancelada"
+    },
+    "students": {
+      "title": "Formandos inscritos",
+      "empty": "Ainda ninguém ocupou vaga nesta turma.",
+      "remove": "Libertar vaga"
+    },
+    "empty": {
+      "title": "Ainda não há turmas",
+      "description": "Cria uma turma para vender este curso com datas, limite de vagas e janela de inscrições."
+    },
+    "delete_modal": {
+      "title": "Eliminar turma",
+      "description": "Eliminar «{name}»? Esta ação não pode ser revertida."
+    },
+    "form": {
+      "add_title": "Nova turma",
+      "edit_title": "Editar turma",
+      "description": "Uma turma é uma edição datada deste curso, com vagas, preço e janela de inscrições próprios.",
+      "section_identification": "Identificação",
+      "section_enrollment": "Inscrições e preço",
+      "name": "Nome",
+      "name_placeholder": "Turma de janeiro de 2026",
+      "starts_on": "Data de início",
+      "ends_on": "Data de fim",
+      "schedule": "Horário",
+      "schedule_placeholder": "Seg-Qui, 19h-22h",
+      "mode": "Regime",
+      "location": "Local",
+      "location_placeholder": "Sala de formação, Porto",
+      "seats": "Vagas",
+      "seats_placeholder": "16",
+      "seats_hint": "Deixa em branco para vagas ilimitadas.",
+      "price": "Preço",
+      "price_hint": "Deixa em branco para usar o preço do curso.",
+      "enrollment_opens": "Inscrições abrem",
+      "enrollment_closes": "Inscrições fecham",
+      "status": "Estado",
+      "status_hint": "Só as turmas abertas são mostradas aos formandos.",
+      "notes": "Notas",
+      "notes_placeholder": "Notas internas sobre esta turma",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "create": "Criar turma"
+    },
+    "snackbar": {
+      "list_failed": "Não foi possível carregar as turmas.",
+      "created": "Turma criada.",
+      "create_failed": "Não foi possível criar a turma.",
+      "updated": "Turma atualizada.",
+      "update_failed": "Não foi possível atualizar a turma.",
+      "deleted": "Turma eliminada.",
+      "delete_failed": "Não foi possível eliminar a turma.",
+      "students_failed": "Não foi possível carregar os formandos desta turma.",
+      "student_removed": "Vaga libertada.",
+      "student_remove_failed": "Não foi possível libertar a vaga."
     }
   }
 }

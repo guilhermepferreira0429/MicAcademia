@@ -57,6 +57,7 @@
   import StudentContentLockedNotice from '$features/course/components/student-content-locked-notice.svelte';
   import LiveSessionCard from '$features/course/components/lesson/live-session-card.svelte';
   import LiveSessionRoom from '$features/live-session/components/live-session-room.svelte';
+  import LiveSessionRecordings from '$features/live-session/components/live-session-recordings.svelte';
   import SessionCheckinQr from '$features/attendance/components/session-checkin-qr.svelte';
   import ManualAttendance from '$features/attendance/components/manual-attendance.svelte';
 
@@ -478,6 +479,14 @@
         <div class="mb-4">
           <LiveSessionRoom courseId={courseApi.course?.id ?? ''} {lessonId} />
         </div>
+
+        {#if !$isOrgStudent}
+          <RoleBasedSecurity allowedRoles={[1, 2]}>
+            <div class="mb-4">
+              <LiveSessionRecordings courseId={courseApi.course?.id ?? ''} {lessonId} />
+            </div>
+          </RoleBasedSecurity>
+        {/if}
       {/if}
 
       {#if isSessionLesson && mode === MODES.view && !$isOrgStudent}

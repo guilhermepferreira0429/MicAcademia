@@ -5,6 +5,9 @@ import { env } from '@cio/core/config/env';
 import { getCourseTeachers } from '@cio/db/queries/course';
 import { getLessonById } from '@cio/db/queries/lesson';
 
+import { getLessonRoomName, isLiveKitConfigured, toHttpUrl } from './config';
+import { buildRoomAutoEgress } from './recording';
+
 /**
  * LiveKit live-class sessions (PRD 1.3). A "live session" is a lesson with a
  * scheduled `lessonAt` on a LIVE_CLASS course, so a session maps 1:1 to a
@@ -19,19 +22,7 @@ const TOKEN_TTL = '4h';
 /** Keep the room alive briefly after the last participant leaves (reconnects). */
 const EMPTY_TIMEOUT_SECONDS = 300;
 
-export function isLiveKitConfigured(): boolean {
-  return Boolean(env.LIVEKIT_URL && env.LIVEKIT_API_KEY && env.LIVEKIT_API_SECRET);
-}
-
-/** Deterministic room name for a live lesson. */
-export function getLessonRoomName(lessonId: string): string {
-  return `mica-lesson-${lessonId}`;
-}
-
-/** The server-API base URL: RoomServiceClient speaks HTTP, clients use ws://. */
-function toHttpUrl(url: string): string {
-  return url.replace(/^ws:/, 'http:').replace(/^wss:/, 'https:');
-}
+export { getLessonRoomName, isLiveKitConfigured };
 
 export interface LessonSessionToken {
   /** ws:// URL the browser client connects to. */
@@ -73,7 +64,14 @@ export async function createLessonSessionToken(
   // exists" — this is intentionally idempotent.
   try {
     const roomService = new RoomServiceClient(toHttpUrl(env.LIVEKIT_URL!), apiKey, apiSecret);
-    await roomService.createRoom({ name: roomName, emptyTimeout: EMPTY_TIMEOUT_SECONDS });
+    // The egress clause makes the class record itself from the moment it
+    // starts — nobody has to press record. Undefined when recording is not
+    // configured, so a missing recorder never blocks a class.
+    await roomService.createRoom({
+      name: roomName,
+      emptyTimeout: EMPTY_TIMEOUT_SECONDS,
+      egress: buildRoomAutoEgress(courseId, lessonId)
+    });
   } catch (error) {
     console.warn('createLessonSessionToken: room ensure skipped:', error instanceof Error ? error.message : error);
   }

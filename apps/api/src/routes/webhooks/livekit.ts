@@ -1,6 +1,7 @@
 import { Hono } from '@api/utils/hono';
 import { handleError } from '@api/utils/errors';
 import { handleLiveKitEvent, receiveLiveKitWebhook } from '@api/services/livekit/attendance';
+import { handleEgressEvent } from '@api/services/livekit/recording';
 
 export const livekitWebhookRouter = new Hono()
   /**
@@ -18,7 +19,12 @@ export const livekitWebhookRouter = new Hono()
 
       const rawBody = await c.req.text();
       const event = await receiveLiveKitWebhook(rawBody, authHeader);
-      const result = await handleLiveKitEvent(event);
+
+      // Egress events carry no participant and name the room inside egressInfo,
+      // so they take their own path instead of the attendance handler.
+      const result = event.event.startsWith('egress_')
+        ? await handleEgressEvent(event)
+        : await handleLiveKitEvent(event);
 
       return c.json({ success: true, event: event.event, handled: result.handled }, 200);
     } catch (error) {

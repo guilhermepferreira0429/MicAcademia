@@ -1,3 +1,4 @@
 export * from './lesson';
 export * from './language';
 export * from './video-progress';
+export * from './recording';

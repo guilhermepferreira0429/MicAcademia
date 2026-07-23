@@ -5,6 +5,13 @@ import { courseTeamMemberMiddleware } from '@api/middlewares/course-team-member'
 import { handleError } from '@api/utils/errors';
 import { createLessonSessionToken } from '@api/services/livekit/livekit';
 import { computeLessonAttendance } from '@api/services/livekit/attendance';
+import {
+  isRecordingConfigured,
+  listRecordingsForLesson,
+  publishRecordingToLesson,
+  startLessonRecording,
+  stopLessonRecording
+} from '@api/services/livekit/recording';
 
 export const livekitRouter = new Hono()
   /**
@@ -38,5 +45,60 @@ export const livekitRouter = new Hono()
       return c.json({ success: true, data: summary }, 200);
     } catch (error) {
       return handleError(c, error, 'Failed to compute attendance');
+    }
+  })
+  /**
+   * GET /course/:courseId/livekit/:lessonId/recordings
+   * Recordings of a live lesson, each with a fresh playback URL. Course team
+   * only — students watch the published recording as a lesson video.
+   */
+  .get('/:lessonId/recordings', authMiddleware, courseTeamMemberMiddleware, async (c) => {
+    try {
+      const courseId = c.req.param('courseId')!;
+      const recordings = await listRecordingsForLesson(courseId, c.req.param('lessonId'));
+
+      return c.json({ success: true, data: { recordings, isConfigured: isRecordingConfigured() } }, 200);
+    } catch (error) {
+      return handleError(c, error, 'Failed to list recordings');
+    }
+  })
+  /**
+   * POST /course/:courseId/livekit/:lessonId/recordings/start
+   * Manual start, for a class already running that is not being recorded
+   * (recording normally starts on its own with the room).
+   */
+  .post('/:lessonId/recordings/start', authMiddleware, courseTeamMemberMiddleware, async (c) => {
+    try {
+      const courseId = c.req.param('courseId')!;
+      const recording = await startLessonRecording(courseId, c.req.param('lessonId'));
+
+      return c.json({ success: true, data: recording }, 200);
+    } catch (error) {
+      return handleError(c, error, 'Failed to start recording');
+    }
+  })
+  /** POST /course/:courseId/livekit/:lessonId/recordings/stop */
+  .post('/:lessonId/recordings/stop', authMiddleware, courseTeamMemberMiddleware, async (c) => {
+    try {
+      const courseId = c.req.param('courseId')!;
+      const recording = await stopLessonRecording(courseId, c.req.param('lessonId'));
+
+      return c.json({ success: true, data: recording }, 200);
+    } catch (error) {
+      return handleError(c, error, 'Failed to stop recording');
+    }
+  })
+  /**
+   * POST /course/:courseId/livekit/:lessonId/recordings/:recordingId/publish
+   * Publishing happens automatically when the file lands; this re-runs it for a
+   * recording that was unpublished or arrived before the lesson existed.
+   */
+  .post('/:lessonId/recordings/:recordingId/publish', authMiddleware, courseTeamMemberMiddleware, async (c) => {
+    try {
+      const recording = await publishRecordingToLesson(c.req.param('recordingId'));
+
+      return c.json({ success: true, data: recording }, 200);
+    } catch (error) {
+      return handleError(c, error, 'Failed to publish recording');
     }
   });

@@ -99,6 +99,13 @@
       "when": 1784759893849,
       "tag": "0013_course_class",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1784798836309,
+      "tag": "0014_lesson_recording",
+      "breakpoints": true
     }
   ]
 }

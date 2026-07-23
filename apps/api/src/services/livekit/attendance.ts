@@ -119,7 +119,7 @@ export async function handleLiveKitEvent(event: WebhookEvent): Promise<{ handled
 
 export interface LessonAttendanceSummary {
   lessonId: string;
-  /** Actual session length: first join → last leave across all participants. */
+  /** How long the class ran, taken as the longest single attendance. */
   sessionSeconds: number;
   thresholdPercent: number;
   participants: Array<{
@@ -131,9 +131,9 @@ export interface LessonAttendanceSummary {
 }
 
 /**
- * Sums each student's intervals for a lesson and applies the threshold.
- * Session length is the real span of the class (first join → last leave), so a
- * class that starts late or runs long is measured against what actually happened.
+ * Sums each student's intervals for a lesson and applies the threshold, so a
+ * class that starts late or runs long is measured against what actually
+ * happened rather than against the scheduled duration.
  */
 export async function computeLessonAttendance(
   lessonId: string,
