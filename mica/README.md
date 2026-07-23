@@ -9,9 +9,12 @@ mica/
 ├── docker-compose.yaml   toda a plataforma: app, base de dados, aulas ao vivo, TLS
 ├── .env.example          copiar para .env e preencher (é o único sítio com segredos)
 ├── Caddyfile             TLS automático e encaminhamento dos três domínios
-├── livekit/livekit.yaml  servidor das aulas ao vivo (sem segredos)
 └── backup.sh             cópia de segurança da base de dados
 ```
+
+O servidor de aulas ao vivo e o gravador não têm ficheiro de configuração: o
+compose passa-lhes o YAML inteiro numa variável, com os valores a virem do
+`.env`. Assim cada segredo é escrito uma vez só.
 
 ## O que sobe
 
@@ -54,21 +57,11 @@ cp .env.example .env
 chmod 600 .env
 ```
 
-Preencher, com atenção a três pontos:
+`PRIVATE_SERVER_KEY`, `BETTER_AUTH_SECRET` e `LIVEKIT_API_SECRET` geram-se com
+`openssl rand -hex 32`. Os valores não levam aspas: o ficheiro é lido pelo
+Docker, não por uma shell, e tudo o que está depois do `=` conta como valor.
 
-- `PRIVATE_SERVER_KEY`, `BETTER_AUTH_SECRET` e o segredo do LiveKit geram-se com
-  `openssl rand -hex 32`.
-- **O segredo do LiveKit aparece três vezes** — `LIVEKIT_API_SECRET`,
-  `LIVEKIT_KEYS` e dentro do `EGRESS_CONFIG_BODY`. Se divergirem, o gravador não
-  arranca e as aulas ficam sem gravação.
-- O `EGRESS_CONFIG_BODY` é YAML numa linha só (um ficheiro de ambiente não
-  aceita multilinha). Não lhe metas aspas à volta.
-
-**4. Domínio do TURN** — em `livekit/livekit.yaml`, pôr `turn.domain` igual ao
-`MICA_LIVEKIT_DOMAIN`. É um nome de máquina, não é segredo, por isso está no
-repositório.
-
-**5. Arrancar**
+**4. Arrancar**
 
 ```bash
 docker compose up -d --build

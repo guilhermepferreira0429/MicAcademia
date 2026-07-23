@@ -144,17 +144,47 @@ services:
     # a recorder that changes under you mid-term is not what you want.
     image: livekit/livekit-server:latest
     container_name: mica-livekit
-    command: --config /etc/livekit.yaml
     depends_on:
       - livekit-redis
+    environment:
+      # LiveKit takes its whole configuration from this variable, so there is no
+      # config file to keep in step with the compose. Only the secret comes from
+      # .env — everything else is fixed infrastructure.
+      LIVEKIT_CONFIG: |
+        port: 7880
+        bind_addresses:
+          - ''
+        rtc:
+          tcp_port: 7881
+          port_range_start: 50000
+          port_range_end: 50200
+          # Behind NAT the server must advertise the machine's public address,
+          # or media never connects from outside the network.
+          use_external_ip: true
+        # Embedded TURN, for students behind a firewall that blocks UDP. If
+        # 3478/udp cannot be opened, set enabled to false: clients then fall
+        # back to TCP 7881, slower but working.
+        turn:
+          enabled: true
+          udp_port: 3478
+          domain: ${MICA_LIVEKIT_DOMAIN}
+        redis:
+          address: livekit-redis:6379
+        # Attendance and recording events, over the internal network.
+        webhook:
+          api_key: ${LIVEKIT_API_KEY}
+          urls:
+            - http://api:3081/webhooks/livekit
+        keys:
+          ${LIVEKIT_API_KEY}: ${LIVEKIT_API_SECRET}
+        logging:
+          level: info
     # Media is UDP and cannot go through the reverse proxy: these ports must be
     # open on the firewall. 7881 is the TCP fallback, 3478 the embedded TURN.
     ports:
       - '7881:7881'
       - '3478:3478/udp'
       - '50000-50200:50000-50200/udp'
-    volumes:
-      - ./livekit/livekit.yaml:/etc/livekit.yaml:ro
     restart: unless-stopped
 
   # Records the class and uploads the MP4 to the videos bucket. Its whole
@@ -166,8 +196,16 @@ services:
     depends_on:
       - livekit
       - livekit-redis
-    # EGRESS_CONFIG_BODY arrives from .env like every other secret; there is no
-    # `environment:` entry for it, so nothing can override it with a blank.
+    environment:
+      # Same idea as LiveKit above: the config lives here, the secret in .env.
+      EGRESS_CONFIG_BODY: |
+        api_key: ${LIVEKIT_API_KEY}
+        api_secret: ${LIVEKIT_API_SECRET}
+        ws_url: ws://livekit:7880
+        redis:
+          address: livekit-redis:6379
+        logging:
+          level: info
     # Chrome renders the room composite: it needs the larger shared memory and
     # SYS_ADMIN, or recordings crash part-way through.
     shm_size: '1gb'
