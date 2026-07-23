@@ -6,6 +6,7 @@ export * from './content-batch';
 export * from './people';
 export * from './payment';
 export * from './dossier';
+export * from './class';
 export * from './reset-progress';
 export * from './invite';
 export * from './public-course';

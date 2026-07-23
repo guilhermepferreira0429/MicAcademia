@@ -92,6 +92,13 @@
       "when": 1784757919414,
       "tag": "0012_unusual_smasher",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1784759893849,
+      "tag": "0013_course_class",
+      "breakpoints": true
     }
   ]
 }

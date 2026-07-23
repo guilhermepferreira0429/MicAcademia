@@ -4,6 +4,8 @@
   import { preventDefault } from '$lib/utils/functions/svelte';
   import { t } from '$lib/utils/functions/translations';
   import { courseApi } from '$features/course/api/course.svelte';
+  import { classesApi } from '$features/classes/api/classes.svelte';
+  import { formatClassDate } from '$features/classes/utils/class-utils';
   import { profile, user } from '$lib/utils/store/user';
   import getCurrencyFormatter from '$lib/utils/functions/getCurrencyFormatter';
 
@@ -36,10 +38,18 @@
   let reference = $state<{ entity: string; reference: string } | null>(null);
   let phoneError = $state('');
   let errorMessage = $state('');
+  let selectedClassId = $state('');
   let pollTimer: ReturnType<typeof setInterval> | null = null;
 
   const formatter = $derived(getCurrencyFormatter(currency));
-  const amountLabel = $derived(formatter?.format(amount) ?? `${amount}`);
+
+  /** Courses sold as dated classes: the student must pick the run they are buying. */
+  const openClasses = $derived(classesApi.openClasses.filter((row) => row.courseId === courseId));
+  const selectedClass = $derived(openClasses.find((row) => row.id === selectedClassId) ?? null);
+
+  /** A class can carry its own price; otherwise the course price stands. */
+  const effectiveAmount = $derived(selectedClass?.priceCents != null ? selectedClass.priceCents / 100 : amount);
+  const amountLabel = $derived(formatter?.format(effectiveAmount) ?? `${effectiveAmount}`);
 
   const POLL_INTERVAL_MS = 4000;
 
@@ -84,6 +94,7 @@
     reference = null;
     phoneError = '';
     errorMessage = '';
+    selectedClassId = '';
   }
 
   function handleOpenChange(isOpen: boolean) {
@@ -94,12 +105,25 @@
     }
   }
 
+  // The parent can flip `open` directly, so the load hangs off the state and
+  // not off the dialog's change handler.
+  $effect(() => {
+    if (!open || !courseId) return;
+
+    void classesApi.listOpen(courseId);
+  });
+
   async function handleSubmit() {
     phoneError = '';
 
     if (!$user.isLoggedIn) {
       errorMessage = $t('easypay.login_required');
       step = STEPS.ERROR;
+      return;
+    }
+
+    if (openClasses.length > 0 && !selectedClassId) {
+      errorMessage = $t('easypay.class_required');
       return;
     }
 
@@ -111,6 +135,7 @@
     submitting = true;
     const result = await courseApi.createEasypayCheckout(courseId, {
       method,
+      classId: selectedClassId || undefined,
       phone: method === 'mbway' ? phone.trim() : undefined,
       fullname: $profile.fullname ?? undefined,
       email: $profile.email ?? undefined
@@ -155,6 +180,46 @@
 
     {#if step === STEPS.METHOD}
       <form onsubmit={preventDefault(handleSubmit)}>
+        {#if openClasses.length > 0}
+          <fieldset class="mb-4">
+            <legend class="mb-2 text-sm font-medium">{$t('easypay.class_label')}</legend>
+            <div class="space-y-2">
+              {#each openClasses as openClass (openClass.id)}
+                <label
+                  class="flex cursor-pointer items-start gap-3 rounded-lg border p-3 {selectedClassId === openClass.id
+                    ? 'ui:border-primary'
+                    : ''}"
+                >
+                  <input
+                    type="radio"
+                    name="easypay-class"
+                    class="mt-1"
+                    value={openClass.id}
+                    bind:group={selectedClassId}
+                  />
+                  <span class="flex-1">
+                    <span class="block text-sm font-medium">{openClass.name}</span>
+                    <span class="ui:text-muted-foreground block text-xs">
+                      {formatClassDate(openClass.startsOn)} – {formatClassDate(openClass.endsOn)}
+                      {#if openClass.seatsLeft !== null}
+                        · {$t('easypay.seats_left', { count: openClass.seatsLeft })}
+                      {/if}
+                    </span>
+                  </span>
+                  {#if openClass.priceCents != null}
+                    <span class="text-sm font-semibold">
+                      {formatter?.format(openClass.priceCents / 100) ?? openClass.priceCents / 100}
+                    </span>
+                  {/if}
+                </label>
+              {/each}
+            </div>
+            {#if errorMessage && !selectedClassId}
+              <p class="mt-2 text-sm text-red-600">{errorMessage}</p>
+            {/if}
+          </fieldset>
+        {/if}
+
         <div class="mb-4 grid grid-cols-2 gap-3">
           <Button
             type="button"

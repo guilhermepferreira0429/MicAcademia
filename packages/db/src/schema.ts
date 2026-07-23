@@ -3539,6 +3539,58 @@ export const attendanceLog = pgTable(
   ]
 );
 
+// ─── Live-session recordings (LiveKit Egress) ────────────────────────────────
+// A live class is recorded by LiveKit Egress, which uploads the file to object
+// storage and then calls our webhook. This is our record of that job: one row
+// per egress, from the moment the room starts recording until the file lands
+// and is published as a video on the lesson (so a student who missed the class
+// can watch it on demand).
+export const lessonRecording = pgTable(
+  'lesson_recording',
+  {
+    id: uuid()
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    courseId: uuid('course_id').notNull(),
+    lessonId: uuid('lesson_id').notNull(),
+    /** LiveKit's egress id — unique, and how webhooks find this row. */
+    egressId: text('egress_id').notNull(),
+    roomName: text('room_name'),
+    /** 'starting' | 'active' | 'complete' | 'failed' | 'aborted'. */
+    status: text().notNull().default('starting'),
+    /** Object-storage key of the finished file. */
+    storageKey: text('storage_key'),
+    /** Playable URL, once the file is uploaded. */
+    location: text(),
+    durationSeconds: integer('duration_seconds'),
+    sizeBytes: bigint('size_bytes', { mode: 'number' }),
+    startedAt: timestamp('started_at', { withTimezone: true, mode: 'string' }),
+    endedAt: timestamp('ended_at', { withTimezone: true, mode: 'string' }),
+    /** Set when the recording has been attached to the lesson as a video. */
+    publishedAt: timestamp('published_at', { withTimezone: true, mode: 'string' }),
+    error: text(),
+    /** Raw egress payload, for debugging a job that went wrong. */
+    payload: jsonb(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull()
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.courseId],
+      foreignColumns: [course.id],
+      name: 'lesson_recording_course_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.lessonId],
+      foreignColumns: [lesson.id],
+      name: 'lesson_recording_lesson_id_fkey'
+    }),
+    unique('lesson_recording_egress_id_unique').on(table.egressId),
+    index('idx_lesson_recording_lesson').on(table.lessonId)
+  ]
+);
+
 // ─── SIGO submissions (IEFP funding tracker) ─────────────────────────────────
 // IEFP has no public API, so submitting a training action to SIGO and chasing
 // it through to payment is manual. This is the internal record of where each
@@ -3692,6 +3744,111 @@ export const companyEnrollment = pgTable(
       name: 'company_enrollment_created_by_fkey'
     }),
     index('idx_company_enrollment_company').on(table.companyId)
+  ]
+);
+
+// ─── Classes (turmas: scheduled, seat-limited editions of a course) ──────────
+// A course is the programme; a class is one run of it ("Turma de Janeiro"),
+// with its own dates, price, seat limit and enrolment window. Deliberately not
+// built on the inherited `cohort` tables: a cohort is an org-level group that
+// spans many courses, while a class is one dated, sellable edition of a single
+// course.
+
+export const courseClass = pgTable(
+  'course_class',
+  {
+    id: uuid()
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    courseId: uuid('course_id').notNull(),
+    orgId: uuid('org_id').notNull(),
+    name: varchar().notNull(),
+    /** Training period (dates, not timestamps — a class runs over days). */
+    startsOn: date('starts_on'),
+    endsOn: date('ends_on'),
+    /** Enrolment window. Null bounds mean "no lower/upper limit". */
+    enrollmentOpensAt: timestamp('enrollment_opens_at', { withTimezone: true, mode: 'string' }),
+    enrollmentClosesAt: timestamp('enrollment_closes_at', { withTimezone: true, mode: 'string' }),
+    /** Seat limit. Null = unlimited. */
+    seats: integer(),
+    /** Price override in cents. Null = inherit the course cost. */
+    priceCents: integer('price_cents'),
+    currency: text().notNull().default('EUR'),
+    /** 'online' | 'in_person' | 'hybrid'. */
+    mode: text().notNull().default('online'),
+    /** Venue for in-person/hybrid classes. */
+    location: text(),
+    /** Human-readable timetable, e.g. "Seg-Qui, 19h-22h". */
+    schedule: text(),
+    /** Scheduled trainer for this run (the course may have several over time). */
+    instructorId: uuid('instructor_id'),
+    /** 'draft' | 'open' | 'closed' | 'running' | 'finished' | 'cancelled'. */
+    status: text().notNull().default('draft'),
+    notes: text(),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull()
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.courseId],
+      foreignColumns: [course.id],
+      name: 'course_class_course_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.orgId],
+      foreignColumns: [organization.id],
+      name: 'course_class_org_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.instructorId],
+      foreignColumns: [instructorProfile.id],
+      name: 'course_class_instructor_id_fkey'
+    }),
+    index('idx_course_class_course').on(table.courseId),
+    index('idx_course_class_status').on(table.status)
+  ]
+);
+
+// A seat in a class. Created as `reserved` when checkout starts and promoted to
+// `confirmed` once payment settles, so a pending Multibanco reference holds the
+// seat instead of letting it be sold twice.
+export const courseClassMember = pgTable(
+  'course_class_member',
+  {
+    id: uuid()
+      .default(sql`gen_random_uuid()`)
+      .primaryKey()
+      .notNull(),
+    classId: uuid('class_id').notNull(),
+    profileId: uuid('profile_id').notNull(),
+    /** 'reserved' | 'confirmed' | 'cancelled'. Cancelled seats free up capacity. */
+    status: text().notNull().default('reserved'),
+    /** The payment that holds/paid this seat, when the seat was sold online. */
+    paymentId: uuid('payment_id'),
+    /** When a reservation stops holding the seat (mirrors the payment expiry). */
+    reservedUntil: timestamp('reserved_until', { withTimezone: true, mode: 'string' }),
+    createdAt: timestamp('created_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true, mode: 'string' }).defaultNow().notNull()
+  },
+  (table) => [
+    foreignKey({
+      columns: [table.classId],
+      foreignColumns: [courseClass.id],
+      name: 'course_class_member_class_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.profileId],
+      foreignColumns: [profile.id],
+      name: 'course_class_member_profile_id_fkey'
+    }),
+    foreignKey({
+      columns: [table.paymentId],
+      foreignColumns: [coursePayment.id],
+      name: 'course_class_member_payment_id_fkey'
+    }),
+    unique('course_class_member_unique').on(table.classId, table.profileId),
+    index('idx_course_class_member_class').on(table.classId)
   ]
 );
 

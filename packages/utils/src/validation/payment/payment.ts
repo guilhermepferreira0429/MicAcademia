@@ -11,6 +11,8 @@ export type TEasypayMethod = z.infer<typeof ZEasypayMethod>;
 export const ZCreateEasypayCheckout = z
   .object({
     method: ZEasypayMethod,
+    /** The class (turma) being bought. Required only for courses that run in classes. */
+    classId: z.union([z.uuid(), z.literal('')]).optional(),
     /** MB WAY sends a push to this phone — required for mbway, ignored for multibanco. */
     phone: z.string().min(6).max(20).optional(),
     /** Optional payer identity; falls back to the authenticated user. */

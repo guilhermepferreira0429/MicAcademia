@@ -9,6 +9,8 @@ import {
   updateCoursePayment
 } from '@cio/db/queries/course';
 import { getGroupMemberIdByGroupAndProfile } from '@cio/db/queries/group';
+import { setCourseClassMemberStatusByPayment, upsertCourseClassMember } from '@cio/db/queries/course';
+import { listOpenClassesForCourse, resolveClassForCheckout } from '@api/services/course/class';
 
 import { AppError, ErrorCodes } from '@api/utils/errors';
 import type { TCoursePayment, TNewCoursePayment } from '@cio/db/types';
@@ -69,6 +71,9 @@ async function markPaidAndGrant(payment: TCoursePayment, rawPayload?: unknown): 
     ...(rawPayload ? { payload: rawPayload as TNewCoursePayment['payload'] } : {})
   });
 
+  // The seat was only reserved while the payment was pending; the money is in.
+  await setCourseClassMemberStatusByPayment(payment.id, 'confirmed');
+
   if (payment.profileId) {
     await grantCourseAccessForPayment({
       courseId: payment.courseId,
@@ -98,6 +103,9 @@ async function applyEasypayStatus(
         failureReason: reason,
         ...(rawPayload ? { payload: rawPayload as TNewCoursePayment['payload'] } : {})
       });
+
+      // Give the seat back so the class does not stay blocked by a dead payment.
+      await setCourseClassMemberStatusByPayment(payment.id, 'cancelled');
     }
 
     return 'failed';
@@ -137,7 +145,22 @@ export async function createCourseCheckout(
     throw new AppError('This course is not available for enrollment', ErrorCodes.VALIDATION_ERROR, 400);
   }
 
-  const amountEuros = resolveAmountEuros(course.cost, course.metadata);
+  // Courses sold as dated classes: the student must pick one, and the class
+  // decides both the price and whether there is still a seat.
+  const classId = body.classId || null;
+  const selectedClass = classId ? await resolveClassForCheckout(courseId, classId, user.id) : null;
+
+  if (!selectedClass) {
+    const openClasses = await listOpenClassesForCourse(courseId);
+    if (openClasses.length > 0) {
+      throw new AppError('Choose a class before paying', ErrorCodes.VALIDATION_ERROR, 400);
+    }
+  }
+
+  const amountEuros =
+    selectedClass?.amountCents != null
+      ? selectedClass.amountCents / 100
+      : resolveAmountEuros(course.cost, course.metadata);
   if (!(amountEuros > 0)) {
     throw new AppError('This is a free course — no payment is required', ErrorCodes.VALIDATION_ERROR, 400);
   }
@@ -182,6 +205,18 @@ export async function createCourseCheckout(
     phoneIndicative: body.method === 'mbway' ? '+351' : null
   });
 
+  // Hold the seat from the moment checkout starts: a Multibanco reference can
+  // sit unpaid for days, and the class must not be sold past its capacity in
+  // the meantime. The hold is released if the payment fails or expires.
+  if (selectedClass) {
+    await upsertCourseClassMember({
+      classId: selectedClass.classRow.id,
+      profileId: user.id,
+      status: 'reserved',
+      paymentId: pending.id
+    });
+  }
+
   const paymentKey = `MICA-${pending.id}`;
 
   let easypayResponse: EasypaySingleResponse;
@@ -200,6 +235,7 @@ export async function createCourseCheckout(
   } catch (error) {
     const reason = error instanceof Error ? error.message.substring(0, 500) : 'Failed to create payment';
     await updateCoursePayment(pending.id, { status: 'failed', failureReason: reason, paymentKey });
+    await setCourseClassMemberStatusByPayment(pending.id, 'cancelled');
     throw new AppError('Failed to create payment session', ErrorCodes.VALIDATION_ERROR, 400);
   }
 
@@ -212,6 +248,18 @@ export async function createCourseCheckout(
     expiresAt: method.expiration_time ?? null,
     payload: easypayResponse as TNewCoursePayment['payload']
   });
+
+  // Now that EasyPay has told us when the reference dies, mirror it onto the
+  // seat hold so the class roster shows how long the seat stays blocked.
+  if (selectedClass && method.expiration_time) {
+    await upsertCourseClassMember({
+      classId: selectedClass.classRow.id,
+      profileId: user.id,
+      status: 'reserved',
+      paymentId: pending.id,
+      reservedUntil: method.expiration_time
+    });
+  }
 
   const record = updated ?? pending;
 

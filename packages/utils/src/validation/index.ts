@@ -25,3 +25,4 @@ export * from './payment';
 export * from './instructor';
 export * from './sigo';
 export * from './company';
+export * from './course-class';

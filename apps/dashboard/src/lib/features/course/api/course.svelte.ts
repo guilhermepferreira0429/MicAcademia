@@ -777,7 +777,7 @@ export class CourseApi extends BaseApiWithErrors {
    */
   async createEasypayCheckout(
     courseId: string,
-    body: { method: 'multibanco' | 'mbway'; phone?: string; fullname?: string; email?: string }
+    body: { method: 'multibanco' | 'mbway'; classId?: string; phone?: string; fullname?: string; email?: string }
   ) {
     return this.execute<CreateEasypayCheckoutRequest>({
       requestFn: () =>

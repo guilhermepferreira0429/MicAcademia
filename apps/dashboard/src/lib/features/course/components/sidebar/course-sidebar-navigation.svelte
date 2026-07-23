@@ -10,6 +10,7 @@
   import TableOfContentsIcon from '@lucide/svelte/icons/table-of-contents';
   import BotIcon from '@lucide/svelte/icons/bot';
   import FolderCheckIcon from '@lucide/svelte/icons/folder-check';
+  import CalendarRangeIcon from '@lucide/svelte/icons/calendar-range';
   import {
     AnalyticsIcon,
     AttendanceIcon,
@@ -161,6 +162,16 @@
         icon: getNavIcon(NAV_IDS.COMPLIANCE)
       },
       {
+        id: NAV_IDS.CLASSES,
+        title: $t('course.navItems.nav_classes'),
+        url: getNavItemRoute(id, 'classes'),
+        isActive: (path || page.url.pathname) === getNavItemRoute(id, 'classes'),
+        show() {
+          return !isStudent;
+        },
+        icon: getNavIcon(NAV_IDS.CLASSES)
+      },
+      {
         id: NAV_IDS.DOSSIER,
         title: $t('course.navItems.nav_dossier'),
         url: getNavItemRoute(id, 'dossier'),
@@ -260,6 +271,8 @@
       return MarksIcon;
     } else if (id === NAV_IDS.COMPLIANCE) {
       return CertificateIcon;
+    } else if (id === NAV_IDS.CLASSES) {
+      return CalendarRangeIcon;
     } else if (id === NAV_IDS.DOSSIER) {
       return FolderCheckIcon;
     } else if (id === NAV_IDS.PEOPLE) {

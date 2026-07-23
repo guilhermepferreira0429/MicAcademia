@@ -62,6 +62,7 @@ import { paymentRequestRouter } from '@api/routes/course/payment-request';
 import { easypayRouter } from '@api/routes/course/easypay';
 import { livekitRouter } from '@api/routes/course/livekit';
 import { dossierRouter } from '@api/routes/course/dossier';
+import { classRouter } from '@api/routes/course/class';
 import { presignRouter } from '@api/routes/course/presign';
 import { assertMcpAutomationUsageAllowed, recordMcpAutomationUsage } from '@api/services/organization/automation-usage';
 import { sectionRouter } from '@api/routes/course/section';
@@ -618,6 +619,7 @@ export const courseRouter = new Hono()
   .route('/:courseId/easypay', easypayRouter)
   .route('/:courseId/livekit', livekitRouter)
   .route('/:courseId/dossier', dossierRouter)
+  .route('/:courseId/classes', classRouter)
   .route('/:courseId/content', contentRouter)
   .route('/:courseId/compliance', complianceRouter)
   .route('/:courseId/section', sectionRouter)

@@ -121,6 +121,15 @@ export type TNewCompanyMember = typeof schema.companyMember.$inferInsert;
 export type TCompanyEnrollment = typeof schema.companyEnrollment.$inferSelect;
 export type TNewCompanyEnrollment = typeof schema.companyEnrollment.$inferInsert;
 
+export type TLessonRecording = typeof schema.lessonRecording.$inferSelect;
+export type TNewLessonRecording = typeof schema.lessonRecording.$inferInsert;
+
+export type TCourseClass = typeof schema.courseClass.$inferSelect;
+export type TNewCourseClass = typeof schema.courseClass.$inferInsert;
+
+export type TCourseClassMember = typeof schema.courseClassMember.$inferSelect;
+export type TNewCourseClassMember = typeof schema.courseClassMember.$inferInsert;
+
 export type TCourseInvite = typeof schema.courseInvite.$inferSelect;
 export type TNewCourseInvite = typeof schema.courseInvite.$inferInsert;
 
