@@ -6,6 +6,7 @@
     "start": "turbo run start",
     "dev": "turbo prepare --concurrency 13 && turbo run dev",
     "lint": "turbo run lint",
+    "test": "turbo run test",
     "clean": "turbo clean && rimraf --glob \"**/node_modules\"",
     "clean:pnpm": "pnpm clean && pnpm store prune",
     "format": "turbo run format",
