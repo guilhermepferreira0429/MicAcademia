@@ -4,8 +4,9 @@
 #   docker compose pull
 #   docker compose up -d
 #
-# Nothing is built here: the three application images are published by CI and
-# pulled by tag. The server only needs this folder — no source code, no build.
+# Nothing is built here: the three application images are built on a development
+# machine with ./build-push.sh and pulled by tag. The server only needs this
+# folder — no source code, no build.
 #
 # Pre-production and production run this same file; what tells them apart is
 # .env (domains, image tag, EasyPay in sandbox or live), never the topology.

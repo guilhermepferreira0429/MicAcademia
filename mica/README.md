@@ -13,8 +13,12 @@ mica/
 ├── docker-compose.yaml   toda a plataforma: app, base de dados, aulas ao vivo, TLS
 ├── .env.example          copiar para .env e preencher (é o único sítio com segredos)
 ├── Caddyfile             TLS automático e encaminhamento dos três domínios
+├── build-push.sh         compila as imagens aqui e envia-as para o registo
 └── backup.sh             cópia de segurança da base de dados
 ```
+
+O `build-push.sh` corre na tua máquina; no servidor só precisas dos outros
+ficheiros.
 
 O servidor de aulas ao vivo e o gravador não têm ficheiro de configuração: o
 compose passa-lhes o YAML inteiro numa variável, com os valores a virem do
@@ -112,14 +116,21 @@ Uma ressalva: **reverter a aplicação não reverte a base de dados**, e as
 migrações já aplicadas ficam. Uma versão anterior só arranca bem se o esquema
 continuar a servi-la.
 
-## Publicar uma versão
+## Publicar uma versão nova
 
-O CI (`.github/workflows/mica-images.yml`) publica no GHCR:
+Na tua máquina, com o repositório:
 
-| O que fazes | O que sai |
-| --- | --- |
-| merge para `main` | `:latest` — é o que a pré-produção segue |
-| `git tag v1.0.0 && git push --tags` | `:1.0.0`, `:1.0`, `:1` — imutável, para produção |
+```bash
+cd mica
+./build-push.sh 1.0.0      # ou sem argumento, para usar o MICA_VERSION do .env
+```
+
+Compila as três imagens, marca-as também como `latest` e envia tudo para o
+registo. Depois, no servidor, é o `pull` + `up -d` de cima.
+
+O `.env` local precisa do `MICA_IMAGE_PREFIX` (o script lê o mesmo ficheiro que
+o servidor usa, para o nome ser exatamente o que o compose espera puxar) e de um
+`docker login` feito uma vez no registo.
 
 **Cópia de segurança:**
 
