@@ -50,7 +50,7 @@ logo no arranque, por isso isto tem de estar feito antes.
 
 | Porta | Para quê |
 | --- | --- |
-| `50000-50200/udp` | vídeo e áudio das aulas |
+| `7882/udp` | vídeo e áudio das aulas (uma porta, toda a media) |
 | `3478/udp` | TURN, para quem está atrás de firewall corporativa |
 | `7881/tcp` | alternativa quando o UDP está bloqueado |
 

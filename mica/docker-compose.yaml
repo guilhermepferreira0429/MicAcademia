@@ -151,9 +151,12 @@ services:
         bind_addresses:
           - ''
         rtc:
+          # All media is multiplexed onto this one UDP port (udp_mux), so the
+          # firewall opens a single port instead of a range — simpler, and it
+          # gets past clouds that block large UDP ranges. Quality is identical;
+          # the port count never affected it.
+          udp_port: 7882
           tcp_port: 7881
-          port_range_start: 50000
-          port_range_end: 50200
           # Behind NAT the server must advertise the machine's public address,
           # or media never connects from outside the network.
           use_external_ip: true
@@ -176,11 +179,12 @@ services:
         logging:
           level: info
     # Media is UDP and cannot go through the reverse proxy: these ports must be
-    # open on the firewall. 7881 is the TCP fallback, 3478 the embedded TURN.
+    # open on the firewall. 7882/udp carries all the media, 3478/udp is the
+    # embedded TURN, 7881/tcp the last-resort fallback when UDP is blocked.
     ports:
-      - '7881:7881'
+      - '7882:7882/udp'
       - '3478:3478/udp'
-      - '50000-50200:50000-50200/udp'
+      - '7881:7881'
     restart: unless-stopped
 
   # Records the class and uploads the MP4 to the videos bucket. Its whole
