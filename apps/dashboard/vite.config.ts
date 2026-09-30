@@ -35,19 +35,19 @@ export default ({ mode }) => {
     },
     ssr: {
       // svelte-motion uses directory imports without `/index.js`; Node ESM fails unless bundled for SSR.
-      noExternal: [
-        'svelte-sonner',
-        'layerchart',
-        'svelte-toolbelt',
-        'tldts',
-        'tldts-core',
-        'svelte-motion',
-        'svelte-inview'
-      ]
+      // layerchart is deliberately NOT here: its 2.0.0-next build has a circular
+      // dependency (Chart.svelte ↔ TransformContext.svelte) that the Vite SSR
+      // module runner chokes on ("dependency module is not yet fully
+      // initialized"). Since the @cio/ui chart barrel re-exports it, that dragged
+      // the crash onto every page. Pre-bundling it via optimizeDeps instead lets
+      // vite-plugin-svelte's esbuild pass flatten the cycle.
+      noExternal: ['svelte-sonner', 'svelte-toolbelt', 'tldts', 'tldts-core', 'svelte-motion', 'svelte-inview']
     },
     optimizeDeps: {
       entries: ['src/routes/**/+*.{js,ts,svelte}'],
-      include: ['@cio/api/rpc-types'],
+      // layerchart + d3-scale are pre-bundled so the circular dependency is
+      // resolved by esbuild once, not walked by the SSR runner on every request.
+      include: ['@cio/api/rpc-types', 'layerchart', 'd3-scale'],
       // Workspace packages must be processed by Svelte/Vite (not pre-bundled)
       // so HMR fires when editing files under packages/*.
       exclude: ['@cio/ui', '@cio/utils', '@cio/question-types']
